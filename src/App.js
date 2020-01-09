@@ -1,22 +1,23 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+// import { Provider } from 'react-redux';
+// import store from '-/store';
+import Router from './routers';
+// import '-/utils/rem';
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/lib/locale-provider/zh_CN';
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+
+moment.locale('zh-cn');
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <ConfigProvider locale={zhCN}>
+        {/* <Provider store={store}> */}
+          <Router />
+        {/* </Provider> */}
+      </ConfigProvider>
     </div>
   );
 }
