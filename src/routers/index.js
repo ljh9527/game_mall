@@ -8,16 +8,22 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import history from '../utils/history';
 
 import { AsyncComponent } from '../components';
+// 首页
+const Home = AsyncComponent(() => import('../pages/Home'));
 // 登录
 const Login = AsyncComponent(() => import('../pages/Login'));
 
-const routerData = [];
+const routerData = [
+  // 首页
+  { path: '/login', component: Login },
+
+];
 
 const RouterCom = (props) => {
   return (
     <Router history={history}>
       <Switch>
-        <Route exact path="/" component={Login} />
+        <Route exact path="/" component={Home} />
         <Switch>
           {
             routerData.map((item) => {
