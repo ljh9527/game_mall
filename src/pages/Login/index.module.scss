@@ -1,9 +1,18 @@
 .loginForm {
-  max-width: 300px;
-}
-.loginFormForgot {
-  float: right;
-}
-.loginFormButton {
-  width: 100%;
+  max-width: 500px;
+  .inputCode{
+    width: 200px;
+    margin-right: 10px;
+  }
+  .resetButton{
+    width: 312px;
+    margin-left: 104px;
+  }
+  .loginFormForgot {
+    float: right;
+    cursor: pointer;
+  }
+  .loginFormButton {
+    width: 100%;
+  }
 }
