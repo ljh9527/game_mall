@@ -8,7 +8,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import DropDownMenu from '../DropDownMenu';
 
-import classnames from 'classnames';
+// import classnames from 'classnames';
 import styles from './index.module.scss';
 
 const Home = (props) => {
@@ -46,22 +46,24 @@ const Home = (props) => {
   // };
   return (
     <div className={styles.container}>
-      <div className={styles.logo}>
-        <span>游戏商城</span>
-      </div>
-      <div className={styles.userInfo}>
-        <div className={styles.user}>
-          <div className={styles.avatar}></div>
-          <div className={styles.operate}>
-            <DropDownMenu />
-          </div>
+      <div className={styles.headerContainer}>
+        <div className={styles.logo}>
+          <span>游戏商城</span>
         </div>
-
-        <Link to="/home" className={styles.home}>
-          <i className={`iconfont el-icon-xj-icon-home-bai`}></i>
-          首页
+        <div className={styles.userInfo}>
+          <div className={styles.user}>
+            <div className={styles.avatar}></div>
+            <div className={styles.operate}>
+              <DropDownMenu />
+            </div>
+          </div>
+          <Link to="/home" className={styles.home}>
+            <i className={`iconfont el-icon-xj-icon-home-bai`}></i>
+            首页
         </Link>
+        </div>
       </div>
+      <div className={styles.main}>{props.children}</div>
     </div>
   );
 };

@@ -1,18 +1,32 @@
-.loginForm {
-  max-width: 500px;
-  .inputCode{
-    width: 200px;
-    margin-right: 10px;
-  }
-  .resetButton{
-    width: 312px;
-    margin-left: 104px;
-  }
-  .loginFormForgot {
-    float: right;
-    cursor: pointer;
-  }
-  .loginFormButton {
-    width: 100%;
+.wrap {
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  .loginBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 854px;
+    height: 620px;
+    .loginForm {
+      width: 560px;
+      .loginFormButton {
+        width: 100%;
+      }
+    }
+    .buttonBox {
+      float: right;
+      margin-left: 24.2%;
+      .loginFormForgot {
+        margin-right: 10px;
+        cursor: pointer;
+      }
+      .register {
+        margin-left: 10px;
+        cursor: pointer;
+      }
+    }
   }
 }

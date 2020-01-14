@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Icon, Input, Button, Modal, Tooltip } from 'antd';
+import { Form, Icon, Input, Button, Modal } from 'antd';
 import style from './index.module.scss';
 
 const formItemLayout = {
   labelCol: { span: 5 },
   wrapperCol: { span: 15 },
 };
-// const formTailLayout = {
-//   labelCol: { span: 5 },
-//   wrapperCol: { span: 15, offset: 5 },
-// };
 
-const LoginForm = (props) => {
+// 重置密码
+const ResetForm = (props) => {
   const {
     form,
     history,
@@ -58,13 +55,20 @@ const LoginForm = (props) => {
     // const data = await 
     setIsSendCode(true);
   };
+  // 处理点击注册
+  const handleRegister = () => {
+    resetFields();
+    history.push('/register');
+  };
   // 密码确认
   const pwdCheck = (rule, value, callback) => {
     const password = getFieldValue('password');
-    if (typeof (password) != 'undefined' && password === value) {
+    console.log(typeof(password));
+    console.log(typeof(value));
+    if (typeof(password) != 'undefined' && password === value) {
       setPwdCheckStatus("success");
       callback();
-    } else if (typeof (value) === 'undefined') {
+    } else if (typeof(value) === 'undefined') {
       setPwdCheckStatus("error");
       callback();
     } else {
@@ -96,18 +100,20 @@ const LoginForm = (props) => {
     <div className={style.wrap}>
       <div className={style.loginBox}>
         <Form {...formItemLayout} className={style.loginForm}>
+          {/* <Form.Item label="用户名">
+            {getFieldDecorator('username', {
+              rules: [{ required: true, message: '请输入用户名!' }],
+            })(
+              <Input
+                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                placeholder="用户名"
+                size="large"
+              />,
+            )}
+          </Form.Item> */}
           <Form.Item label="邮箱">
             {getFieldDecorator('email', {
-              rules: [
-                {
-                  type: 'email',
-                  message: '请输入要绑定的邮箱账号！',
-                },
-                {
-                  required: true,
-                  message: '请输入要绑定的邮箱账号!',
-                },
-              ],
+              rules: [{ required: true, message: '请输入注册时绑定的邮箱!' }],
             })(
               <Input
                 prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -136,24 +142,6 @@ const LoginForm = (props) => {
             >{!isSendCode ? '获取验证码' : `${count}秒后重发`}
             </Button>
           </Form.Item>
-          <Form.Item label={
-            <span>
-              昵称&nbsp;
-            <Tooltip title="你希望其他人叫你什么?">
-                <Icon type="question-circle-o" />
-              </Tooltip>
-            </span>
-          }>
-            {getFieldDecorator('nickname', {
-              rules: [{ required: true, message: '给自己选个昵称吧!' }],
-            })(
-              <Input
-                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                placeholder="昵称"
-                size="large"
-              />,
-            )}
-          </Form.Item>
           <Form.Item label="密码" {...formItemLayout}>
             {getFieldDecorator('password', {
               validateTrigger: 'onBlur',
@@ -171,7 +159,7 @@ const LoginForm = (props) => {
             )}
           </Form.Item>
           <Form.Item label="密码确认" {...formItemLayout} hasFeedback validateStatus={pwdCheckStatus}>
-            {getFieldDecorator('confirm', {
+            {getFieldDecorator('passwordCheck', {
               validateTrigger: 'onBlur',
               rules: [
                 { required: true, message: '请再次输入密码!' },
@@ -192,10 +180,12 @@ const LoginForm = (props) => {
           <span className={style.loginForm} onClick={handleGoLogin}>
             返回登录
           </span>
+          <span>|</span>
+          <span className={style.register} onClick={handleRegister}>立即注册</span>
         </div>
       </div>
     </div>
   );
 }
 
-export default Form.create({ name: 'normal_login' })(LoginForm);
+export default Form.create({ name: 'reset_login' })(ResetForm);
