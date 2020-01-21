@@ -47,20 +47,22 @@ const Home = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
-        <div className={styles.logo}>
-          <span>游戏商城</span>
-        </div>
-        <div className={styles.userInfo}>
-          <div className={styles.user}>
-            <div className={styles.avatar}></div>
-            <div className={styles.operate}>
-              <DropDownMenu />
-            </div>
+        <div className={styles.headerCenter}>
+          <div className={styles.logo}>
+            <span>游戏商城</span>
           </div>
-          <Link to="/home" className={styles.home}>
-            <i className={`iconfont el-icon-xj-icon-home-bai`}></i>
-            首页
-        </Link>
+          <div className={styles.userInfo}>
+            <div className={styles.user}>
+              <div className={styles.avatar}></div>
+              <div className={styles.operate}>
+                <DropDownMenu />
+              </div>
+            </div>
+            <Link to="/home" className={styles.home}>
+              <i className={`iconfont el-icon-xj-icon-home-bai`}></i>
+              首页
+          </Link>
+          </div>
         </div>
       </div>
       <div className={styles.main}>{props.children}</div>

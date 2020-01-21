@@ -1,0 +1,44 @@
+.wrap {
+  width: 100%;
+  position: relative;
+  .imgContainer {
+    width: 100%;
+    height: 300px;
+    border: solid 1px black;
+    img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      position: absolute;
+    }
+  }
+  .button {
+    border: solid 1px black;
+    cursor: pointer;
+    font-size: 60px;
+    color: rgb(150, 152, 153);
+  }
+  .leftButton {
+    position: absolute;
+    top: 37%;
+    left: 0px;
+  }
+  .rightButton {
+    position: absolute;
+    top: 37%;
+    right: 0px;
+  }
+  .pointContainer {
+    position: absolute;
+    right: 50%;
+    bottom: 20px;
+    .point {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: black;
+      margin-right: 10px;
+    }
+  }
+}

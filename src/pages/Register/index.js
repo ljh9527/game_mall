@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import service from '../../services';
 import { Form, Icon, Input, Button, Modal, Tooltip } from 'antd';
 import style from './index.module.scss';
 
@@ -37,17 +38,23 @@ const LoginForm = (props) => {
     validateFields((err, values) => {
       console.log(err);
       if (!err) {
-        console.log('提交成功');
-        resetFields();
-        // handleNext();
-        countDown();
+        handleRegister(values);
+        // countDown();
       }
     });
+  };
+  // 提交注册表单
+  const handleRegister = async (values) => {
+    const { data } = await service.addAccount(values);
+    if (data.code === 200) {
+      console.log(data.message);
+      countDown();
+    };
   };
   // 返回登录
   const handleGoLogin = () => {
     resetFields();
-    history.push('/login');
+    history.push('/');
   };
   // 请求验证码
   const handleGetCode = async () => {

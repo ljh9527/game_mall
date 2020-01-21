@@ -16,8 +16,9 @@ const ResetPassword = AsyncComponent(() => import('../pages/ResetPassword'));
 const Register = AsyncComponent(() => import('../pages/Register'));
 
 const routerData = [
+  // 首页
+  { path: '/home', component: Home },
   // 登录相关
-  { path: '/login', component: Login },
   { path: '/resetPassword', component: ResetPassword },
   { path: '/register', component: Register },
 
@@ -28,7 +29,7 @@ const RouterCom = (props) => {
     <Router history={history}>
       <Switch>
         <Header>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Login} />
           <Switch>
             {
               routerData.map((item) => {

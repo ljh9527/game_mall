@@ -1,6 +1,6 @@
 import React from 'react';
-// import { Provider } from 'react-redux';
-// import store from '-/store';
+import { Provider } from 'react-redux';
+import store from './store';
 import Router from './routers';
 // import '-/utils/rem';
 import { ConfigProvider } from 'antd';
@@ -14,9 +14,9 @@ function App() {
   return (
     <div className="app">
       <ConfigProvider locale={zhCN}>
-        {/* <Provider store={store}> */}
+        <Provider store={store}>
           <Router />
-        {/* </Provider> */}
+        </Provider>
       </ConfigProvider>
     </div>
   );
