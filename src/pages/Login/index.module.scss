@@ -1,15 +1,23 @@
-.wrap {
+.contentWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 430px;
+  height: 520px;
+  margin: 0 auto;
+  .loginTitle{
+    font-size: 30px;
+    margin-bottom: 30px;
+  }
   .loginBox {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 854px;
-    height: 620px;
-    margin: 0 auto;
     .loginForm {
-      width: 560px;
-      .passwordItem{
+      width: 370px;
+      .passwordItem {
         height: 81.5px;
         margin-bottom: 0px;
       }
@@ -21,15 +29,21 @@
       }
     }
     .buttonBox {
-      float: right;
-      margin-left: 24.2%;
+      // float: right;
+      // margin-left: 24.2%;
+      width: 370px;
+      .automaticLogon {
+        float: left;
+      }
       .loginFormForgot {
-        margin-right: 10px;
         cursor: pointer;
       }
       .register {
-        margin-left: 10px;
         cursor: pointer;
+      }
+      .buttonItem{
+        margin-left: 10px;
+        float: right;
       }
     }
   }

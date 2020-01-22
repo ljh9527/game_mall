@@ -1,0 +1,22 @@
+.wrap {
+  width: 430px;
+  margin: 0 auto;
+  .loginHeaderBox {
+    width: 100%;
+    background: linear-gradient(to right, #56affc, #4197fa);
+    .backWarper {
+      line-height: 50px;
+      color: cornsilk;
+      margin-left: 25px;
+      .back {
+        width: 20px;
+        margin-right: 10px;
+        display: inline-block;
+        cursor: pointer;
+      }
+      .title {
+        font-size: 24px;
+      }
+    }
+  }
+}

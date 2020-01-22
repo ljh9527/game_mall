@@ -5,10 +5,6 @@ const service = axios.create({
 });
 
 export default {
-    // 测试接口
-    test(params) {
-        return service.get('/users', { params });
-    },
     // 注册账号
     addAccount(params) {
         return service.post('/users/register', params);

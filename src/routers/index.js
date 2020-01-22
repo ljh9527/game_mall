@@ -18,18 +18,16 @@ const Register = AsyncComponent(() => import('../pages/Register'));
 const routerData = [
   // 首页
   { path: '/home', component: Home },
-  // 登录相关
-  { path: '/resetPassword', component: ResetPassword },
-  { path: '/register', component: Register },
-
 ];
 
 const RouterCom = (props) => {
   return (
     <Router history={history}>
       <Switch>
+        <Route exact path="/" component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/resetPassword" component={ResetPassword} />
         <Header>
-          <Route exact path="/" component={Login} />
           <Switch>
             {
               routerData.map((item) => {

@@ -1,15 +1,27 @@
-.wrap {
+.contentWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 430px;
+  height: 520px;
+  margin: 0 auto;
+  .loginTitle {
+    font-size: 26px;
+    margin-bottom: 30px;
+  }
   .loginBox {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 854px;
-    height: 620px;
-    margin: 0 auto;
     .loginForm {
-      width: 560px;
+      width: 370px;
       margin-bottom: 23px;
+      .code {
+        height: 81.5px;
+        margin-bottom: 0px;
+      }
       .inputCode {
         width: 61%;
         margin-right: 20px;
@@ -18,20 +30,7 @@
         width: 33%;
       }
       .resetButton {
-        margin-left: 20.7%;
-        width: 62.5%;
-      }
-    }
-    .buttonBox {
-      float: right;
-      margin-left: 34.2%;
-      .loginForm {
-        margin-right: 10px;
-        cursor: pointer;
-      }
-      .register {
-        margin-left: 10px;
-        cursor: pointer;
+        width: 100%;
       }
     }
   }
