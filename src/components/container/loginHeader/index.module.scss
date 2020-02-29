@@ -1,9 +1,29 @@
 .wrap {
-  width: 430px;
+  width: 100%;
   margin: 0 auto;
   .loginHeaderBox {
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
     width: 100%;
-    background: linear-gradient(to right, #56affc, #4197fa);
+    background: linear-gradient(to right, rgb(79,79,82), rgb(56,54,57));
+    .top{
+      -webkit-app-region: drag;
+      height: 30px;
+      float: right;
+      background: rgb(56,54,57);
+      .topRight{
+        height: 30px;
+        -webkit-app-region: no-drag;
+        .minus,.close{
+          line-height: 30px;
+          margin-right: 10px;
+          color: rgb(184, 189, 186);
+          :hover{
+            background: #f8f8f8;
+          }
+        }
+      }
+    }
     .backWarper {
       line-height: 50px;
       color: cornsilk;

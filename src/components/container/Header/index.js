@@ -6,10 +6,12 @@
 
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
+import { Icon } from 'antd';
 import DropDownMenu from '../DropDownMenu';
 
 // import classnames from 'classnames';
 import styles from './index.module.scss';
+const {ipcRenderer} = window.electron;
 
 const Home = (props) => {
   // const {
@@ -44,9 +46,21 @@ const Home = (props) => {
   //     history.push(url);
   //   }
   // };
+  const closeWindow = () => {
+    window.close();
+  };
+  const minWindow = () => {
+    ipcRenderer.send("min");
+  };
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
+        <div className={styles.top}>
+          <div className={styles.topRight}>
+            <Icon type="minus" className={styles.minus} onClick={minWindow} />
+            <Icon type="close" className={styles.close} onClick={closeWindow} />
+          </div>
+        </div>
         <div className={styles.headerCenter}>
           <div className={styles.logo}>
             <span>游戏商城</span>

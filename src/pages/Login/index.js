@@ -4,6 +4,7 @@ import LoginHeader from '../../components/container/loginHeader';
 import classnames from 'classnames';
 import services from '../../services';
 import style from './index.module.scss';
+const {ipcRenderer} = window.electron;
 
 const LoginForm = (props) => {
   const { form, history } = props;
@@ -19,19 +20,20 @@ const LoginForm = (props) => {
         handleLogin(values);
       };
     });
+    ipcRenderer.send('login');
   };
   const handleLogin = async (values) => {
     try {
-      const { data } = await services.login(values);
-      if (data.code === 200) {
-        localStorage.setItem("username", values.username);
-        localStorage.setItem("password", values.password);
-        console.log(localStorage.getItem("username"));
-        setAccountSuccess(false);
+      // const { data } = await services.login(values);
+      // if (data.code === 200) {
+      //   localStorage.setItem("username", values.username);
+      //   localStorage.setItem("password", values.password);
+      //   console.log(localStorage.getItem("username"));
+      //   setAccountSuccess(false);
         history.push('/home');
-      } else {
-        setAccountSuccess(true);
-      }
+      // } else {
+      //   setAccountSuccess(true);
+      // }
     } catch (error) {
       console.log(error);
     }
@@ -88,7 +90,7 @@ const LoginForm = (props) => {
               }
             </Form.Item>
             <Form.Item>
-              <Button size="large" type="primary" htmlType="submit" className={style.loginFormButton}>
+            <Button size="large" type="primary" htmlType="submit" className={style.loginFormButton}>
                 登录
             </Button>
             </Form.Item>

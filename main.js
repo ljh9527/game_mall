@@ -4,7 +4,7 @@ const path = require('path');
 let mainWindow = null;
 //判断命令行脚本的第二参数是否含--debug
 const debug = /--debug/.test(process.argv[2]);
-function makeSingleInstance () {
+function makeSingleInstance() {
     if (process.mas) return;
     app.requestSingleInstanceLock();
     app.on('second-instance', () => {
@@ -14,11 +14,15 @@ function makeSingleInstance () {
         }
     })
 }
-function createWindow () {
+function createWindow() {
     const windowOptions = {
-        width: 1024,
-        height: 680,
-        frame:false,
+        width: 430,
+        height: 520,
+        frame: false,
+        movable: true,//可否移动
+        webPreferences: {
+            nodeIntegration: true, // 是否集成 Nodejs,把之前预加载的js去了，发现也可以运行
+        }
     };
     const urlLocation = isDev ? 'http://localhost:3000/' : 'dummyurl';
     mainWindow = new BrowserWindow(windowOptions);
@@ -32,8 +36,8 @@ function createWindow () {
     ipc.on('max', function () {
         mainWindow.maximize();
     });
-    ipc.on("login",function () {
-        mainWindow.maximize();
+    ipc.on("login", function () {
+        mainWindow.setSize(1260, 750);
     });
     //如果是--debug 打开开发者工具，窗口最大化，
     if (debug) {

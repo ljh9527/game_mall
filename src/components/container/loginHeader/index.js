@@ -1,25 +1,39 @@
 import React from 'react';
 import { Icon } from 'antd';
-import style from './index.module.scss';
+import styles from './index.module.scss';
+
+const { ipcRenderer } = window.electron;
 
 const LoginHeader = (props) => {
   const { history, isLoginPage } = props;
   const handleBackLogin = () => {
     history.push('/');
   }
+  const closeWindow = () => {
+    window.close();
+  };
+  const minWindow = () => {
+    ipcRenderer.send("min");
+  };
   return (
-    <div className={style.wrap}>
-      <div className={style.loginHeaderBox}>
-        <div className={style.backWarper}>
+    <div className={styles.wrap}>
+      <div className={styles.loginHeaderBox}>
+        <div className={styles.top}>
+          <div className={styles.topRight}>
+            <Icon type="minus" className={styles.minus} onClick={minWindow} />
+            <Icon type="close" className={styles.close} onClick={closeWindow} />
+          </div>
+        </div>
+        <div className={styles.backWarper}>
           {
             isLoginPage ? (<></>) : (
-              <div className={style.back} onClick={handleBackLogin}>
+              <div className={styles.back} onClick={handleBackLogin}>
                 <Icon type="left" />
               </div>)
           }
-          <span className={style.title}>
+          <span className={styles.title}>
             游戏商城
-        </span>
+          </span>
         </div>
       </div>
       <div>
