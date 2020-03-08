@@ -1,4 +1,18 @@
 .wrap {
+  min-width: 1000px;
+  .rotation{
+    min-width: 1000px;
+  }
+  .recommend{
+    margin-top: 20px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .prePurchase{
+    margin-top: 20px;
+    width: 100%;
+    overflow: hidden;
+  }
   .first {
     width: 100%;
     border: solid 1px black;

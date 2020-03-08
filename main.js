@@ -17,7 +17,7 @@ function makeSingleInstance() {
 function createWindow() {
     const windowOptions = {
         width: 430,
-        height: 520,
+        height: 550,
         frame: false,
         movable: true,//可否移动
         webPreferences: {
@@ -38,6 +38,7 @@ function createWindow() {
     });
     ipc.on("login", function () {
         mainWindow.setSize(1260, 750);
+        BmainWindow.center();
     });
     //如果是--debug 打开开发者工具，窗口最大化，
     if (debug) {
