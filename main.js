@@ -17,14 +17,14 @@ function makeSingleInstance() {
 function createWindow() {
     const windowOptions = {
         width: 430,
-        height: 550,
+        height: 600,
         frame: false,
         movable: true,//可否移动
         webPreferences: {
             nodeIntegration: true, // 是否集成 Nodejs,把之前预加载的js去了，发现也可以运行
         }
     };
-    const urlLocation = isDev ? 'http://localhost:3000/' : 'dummyurl';
+    const urlLocation = isDev ? 'http://localhost:9000/' : 'dummyurl';
     mainWindow = new BrowserWindow(windowOptions);
     mainWindow.loadURL(urlLocation);
     // mainWindow.loadURL(path.join('file://', __dirname, '/build/index.html'));
@@ -38,7 +38,7 @@ function createWindow() {
     });
     ipc.on("login", function () {
         mainWindow.setSize(1260, 750);
-        BmainWindow.center();
+        mainWindow.center();
     });
     //如果是--debug 打开开发者工具，窗口最大化，
     if (debug) {

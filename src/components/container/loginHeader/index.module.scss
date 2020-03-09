@@ -29,6 +29,7 @@
       color: cornsilk;
       margin-left: 25px;
       .back {
+        -webkit-app-region: no-drag;
         width: 20px;
         margin-right: 10px;
         display: inline-block;

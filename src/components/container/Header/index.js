@@ -11,7 +11,7 @@ import DropDownMenu from '../DropDownMenu';
 
 // import classnames from 'classnames';
 import styles from './index.module.scss';
-const {ipcRenderer} = window.electron;
+const { ipcRenderer } = window.electron;
 
 const Home = (props) => {
   // const {
@@ -55,27 +55,29 @@ const Home = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
-        <div className={styles.top}>
-          <div className={styles.topRight}>
-            <Icon type="minus" className={styles.minus} onClick={minWindow} />
-            <Icon type="close" className={styles.close} onClick={closeWindow} />
-          </div>
-        </div>
-        <div className={styles.headerCenter}>
-          <div className={styles.logo}>
-            <span>游戏商城</span>
-          </div>
-          <div className={styles.userInfo}>
-            <div className={styles.user}>
-              <div className={styles.avatar}></div>
-              <div className={styles.operate}>
-                <DropDownMenu />
-              </div>
+        <div className={styles.header}>
+          <div className={styles.top}>
+            <div className={styles.topRight}>
+              <Icon type="minus" className={styles.minus} onClick={minWindow} />
+              <Icon type="close" className={styles.close} onClick={closeWindow} />
             </div>
-            <Link to="/home" className={styles.home}>
-              <i className={`iconfont el-icon-xj-icon-home-bai`}></i>
-              首页
-          </Link>
+          </div>
+          <div className={styles.headerCenter}>
+            <div className={styles.logo}>
+              <span>游戏商城</span>
+            </div>
+            <div className={styles.userInfo}>
+              <div className={styles.user}>
+                <div className={styles.avatar}></div>
+                <div className={styles.operate}>
+                  <DropDownMenu />
+                </div>
+              </div>
+              <Link to="/home" className={styles.home}>
+                <i className={`iconfont el-icon-xj-icon-home-bai`}></i>
+                首页
+              </Link>
+            </div>
           </div>
         </div>
       </div>
