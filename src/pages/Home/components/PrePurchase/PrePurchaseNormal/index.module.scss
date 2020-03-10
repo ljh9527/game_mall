@@ -1,20 +1,25 @@
 .wrap {
-    float: left;
-    width: 487px;
-    margin-top: 24px;
-    height: 162px;
-    border-radius: 5px;
-    background: #f3f6fb;
-    cursor: pointer;
-    &:hover .content .title{
-      color: #f04029;
-    }
+  background: #ffffff;
+  border-radius: 5px;
+  margin-top: 20px;
+  float: left;
+  width: 270px;
+  height: 283px;
+  overflow: hidden;
+  position: relative;
+  transition: all .2s linear;
+  cursor: pointer;
+  color: #1b1b1b;
+  &:hover .content .title{
+    color: #f04029;
+  }
   .img{
-    float: left;
-    width: 248px;
-    height: 100%;
+    width: 100%;
+    height: 162px;
+    background: #788789;
+    position: relative;
     overflow: hidden;
-    border-radius: 4px;
+    display: block;
     img{
       width: 100%;
       height: 100%;
@@ -30,6 +35,9 @@
       font-weight: bold;
       padding: 0 20px;
       padding-top: 18px;
+      &:hover{
+        color: #f04029;
+      }
     }
     .time{
       height: 20px;
@@ -82,11 +90,3 @@
     }
   }
 }
-
-$total: 5;
-@for $i from 1 to $total {
-  .wrap:nth-child(#{$i}) {
-    margin-right: if($i % 2 == 1, 0px, 24px);
-  }
-}
-
