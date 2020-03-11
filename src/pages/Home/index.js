@@ -30,14 +30,13 @@ const recommendData = [{
   price: '228.00',
   oldPrice: '268.00',
 }];
-const PrePurchaseBigData = [{
+const PrePurchaseData = [{
   url: 'https://shop.3dmgame.com/upload/ico/2019/0711/1562820172245302.jpg',
   name: '全面战争三国/Total War: THREE KINGDOMS',
   time: '发售时间：2019-05-23',
   price: '228.00',
   oldPrice: '268.00',
-}];
-const PrePurchaseNormalData = [{
+},{
   url: 'https://shop.3dmgame.com/upload/ico/2019/0711/1562820172245302.jpg',
   name: '全面战争三国/Total War: THREE KINGDOMS',
   time: '发售时间：2019-05-23',
@@ -72,19 +71,26 @@ const Home = (props) => {
         <Title name='热门推荐' />
         {
           recommendData.map((item, index) => (
-            <Recommend data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item+index}/>
+            <Recommend data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item + index} />
           ))
         }
       </div>
       <div className={style.prePurchase}>
         <Title name='预购游戏' />
         {
-          PrePurchaseBigData.map((item, index) => (
-            <PrePurchaseBig data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} />
-          ))
+          PrePurchaseData.map((item, index) => {
+            if (index === 0) {
+              return (<PrePurchaseBig data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} />);
+            } else {
+              return (<PrePurchaseNormal data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} />)
+            }
+          })
         }
       </div>
-      <div className={style.first}>第四部分</div>
+      <div className={style.first}>
+        <Title name='游戏大作' />
+
+      </div>
     </div>
   );
 };

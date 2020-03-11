@@ -10,7 +10,7 @@ const PrePurchaseBig = (props) => {
   return (
     <div className={style.wrap} onClick={handleToDetail}>
       <div className={style.img}>
-        <img src={data.url} />
+        <img src={data.url} alt={5555}/>
       </div>
       <div className={style.content}>
         <div className={style.title}>
