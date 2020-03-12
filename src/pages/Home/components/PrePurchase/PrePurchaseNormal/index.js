@@ -14,17 +14,16 @@ const PrePurchaseNormal = (props) => {
       </div>
       <div className={style.content}>
         <div className={style.title}>
-          <p>{data.name}</p>
+          <div>{data.name}</div>
         </div>
-        <div className={style.time}></div>
+        <div className={style.time}>{data.time}</div>
         <div className={style.sub}>
-          <div className={style.price1}>
+          <div className={style.price1} onClick={handleBuy}>
             ￥<span>{data.price}</span>
           </div>
           <div className={style.price2}>
             ￥<span>{data.oldPrice}</span>
           </div>
-          <span className={style.button} onClick={handleBuy}>购买</span>
         </div>
       </div>
     </div>
