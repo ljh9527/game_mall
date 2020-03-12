@@ -1,8 +1,9 @@
 import React from 'react';
 import Rotation from './components/Rotation';
-import Title from "./components/title";
+import Title from "./components/Title";
 import Recommend from "./components/Recommend";
 import { PrePurchaseBig, PrePurchaseNormal } from "./components/PrePurchase";
+import Masterpiece from "./components/Masterpiece";
 import style from './index.module.scss';
 
 const recommendData = [{
@@ -36,7 +37,7 @@ const PrePurchaseData = [{
   time: '发售时间：2019-05-23',
   price: '228.00',
   oldPrice: '268.00',
-},{
+}, {
   url: 'https://shop.3dmgame.com/upload/ico/2019/0711/1562820172245302.jpg',
   name: '全面战争三国/Total War: THREE KINGDOMS',
   time: '发售时间：2019-05-23',
@@ -49,6 +50,31 @@ const PrePurchaseData = [{
   price: '228.00',
   oldPrice: '268.00',
 }];
+const masterpieceData = [{
+  url: 'https://shop.3dmgame.com/upload/ico/2019/0711/1562820172245302.jpg',
+  name: '全面战争三国/Total War: THREE KINGDOMS',
+  time: '发售时间：2019-05-23',
+  price: '228.00',
+  oldPrice: '268.00',
+}, {
+  url: 'https://shop.3dmgame.com/upload/ico/2019/0711/1562820172245302.jpg',
+  name: '全面战争三国/Total War: THREE KINGDOMS',
+  time: '发售时间：2019-05-23',
+  price: '228.00',
+  oldPrice: '268.00',
+}, {
+  url: 'https://shop.3dmgame.com/upload/ico/2019/0711/1562820172245302.jpg',
+  name: '全面战争三国/Total War: THREE KINGDOMS',
+  time: '发售时间：2019-05-23',
+  price: '228.00',
+  oldPrice: '268.00',
+}, {
+  url: 'https://shop.3dmgame.com/upload/ico/2019/0711/1562820172245302.jpg',
+  name: '全面战争三国/Total War: THREE KINGDOMS',
+  time: '发售时间：2019-05-23',
+  price: '228.00',
+  oldPrice: '268.00',
+}]
 
 const Home = (props) => {
   console.log(PrePurchaseBig);
@@ -80,16 +106,20 @@ const Home = (props) => {
         {
           PrePurchaseData.map((item, index) => {
             if (index === 0) {
-              return (<PrePurchaseBig data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} />);
+              return (<PrePurchaseBig data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item + index} />);
             } else {
-              return (<PrePurchaseNormal data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} />)
+              return (<PrePurchaseNormal data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item + index} />)
             }
           })
         }
       </div>
-      <div className={style.first}>
+      <div className={style.masterpiece}>
         <Title name='游戏大作' />
-
+        {
+          masterpieceData.map((item, index) => (
+            <Masterpiece data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item + index} />
+          ))
+        }
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Icon } from 'antd';
 import style from './index.module.scss';
 import classnames from 'classnames';
 
