@@ -1,12 +1,12 @@
 .wrap {
     float: left;
-    width: 475px;
+    width: 487px;
     height: 283px;
     border-radius: 5px;
     background: #f3f6fb;
     cursor: pointer;
     position: relative;
-    margin-right: 31px;
+    margin-right: 24px;
     &:hover .content .title{
       color: #f04029;
     }
