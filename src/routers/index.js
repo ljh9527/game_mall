@@ -10,14 +10,25 @@ import history from '../utils/history';
 import { AsyncComponent, Header } from '../components';
 // 首页
 const Home = AsyncComponent(() => import('../pages/Home'));
+// 游戏详情
+const GameDetails = AsyncComponent(() => import('../pages/Details'));
 // 登录账号相关
 const Login = AsyncComponent(() => import('../pages/Login'));
 const ResetPassword = AsyncComponent(() => import('../pages/ResetPassword'));
 const Register = AsyncComponent(() => import('../pages/Register'));
+// 我的游戏 列表
+const MyGameLists = AsyncComponent(() => import('../pages/MyGame/Lists'));
+// 我的游戏 详情
+const MyGameDetails = AsyncComponent(() => import('../pages/MyGame/Details'));
 
 const routerData = [
   // 首页
-  { path: '/home', component: Home },
+  { path: '/index', component: Home },
+  // 游戏详情
+  { path: '/game/details', component: GameDetails },
+  // 我的游戏 
+  { path: '/myGame/index', component: MyGameLists },
+  { path: '/myGame/details', component: MyGameDetails },
 ];
 
 const RouterCom = (props) => {

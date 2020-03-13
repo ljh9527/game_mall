@@ -77,10 +77,11 @@ const masterpieceData = [{
 }]
 
 const Home = (props) => {
-  console.log(PrePurchaseBig);
+  const { history } = props;
   // 前往详情
   const handleToDetail = (e) => {
     console.log('详情');
+    history.push('/game/details');
   }
   // 前往购买
   const handleBuy = (e) => {

@@ -15,18 +15,24 @@
     -webkit-user-select: none;
     .top {
       width: 100%;
-      background: linear-gradient(to right, rgb(79,79,82), rgb(56,54,57));
+      background: linear-gradient(to right, rgb(79, 79, 82), rgb(56, 54, 57));
       height: 30px;
       // position: relative;
+      .topLeft{
+        float: left;
+        font-size: 14px;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 20px;
+      }
       .topRight {
         // position: absolute;
         float: right;
         -webkit-app-region: no-drag;
-        .minus,
-        .close {
+        i {
           margin-right: 10px;
-          height: 30px;
-          width: 30px;
+          height: 25px;
+          width: 25px;
           :hover {
             background: gray;
           }
@@ -36,27 +42,45 @@
       -webkit-user-select: none;
     }
     .headerCenter {
-      width: 1000px;
+      width: 100%;
       height: 60px;
       padding: 0 20px;
       margin: 0 auto;
       display: flex;
       align-items: center;
-      justify-content: center;
-      .logo {
-        display: flex;
-        align-items: center;
-        font-size: 18px;
-        width: 322px;
-        .icon {
-          display: inline-block;
-          width: 168px;
-          margin-right: 61px;
+      justify-content: space-between;
+      .iconContainer {
+        width: 100px;
+        -webkit-app-region: no-drag;
+        i {
+          margin-right: 25px;
+          svg{
+            height: 25px;
+            width: 25px;
+          }
+        }
+      }
+      .switchButton {
+        width: 180px;
+        -webkit-app-region: no-drag;
+        .shopping,.home{
+          width: 90px;
+          float: left;
+        }
+        i {
+          margin-right: 30px;
+          svg{
+            height: 30px;
+            width: 30px;
+          }
+        }
+        .word{
+          width: 30px;
         }
       }
 
       .userInfo {
-        flex: 1;
+        width: 240px;
         display: flex;
         align-items: center;
         justify-content: flex-end;

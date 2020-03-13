@@ -5,6 +5,10 @@
   height: 396px;
   border-radius: 5px;
   background: #f3f6fb;
+  cursor: pointer;
+  &:hover .content .title{
+    color: #f04029;
+  }
 
   .img {
     width: 100%;
@@ -71,6 +75,10 @@
         border-radius: 50px;
         margin-top: 4px;
         border: 1px solid #f79f94;
+        &:hover{
+          background: #f04029;
+          color: #f3f6fb;
+        }
       }
     }
   }

@@ -30,7 +30,7 @@ const LoginForm = (props) => {
       //   localStorage.setItem("password", values.password);
       //   console.log(localStorage.getItem("username"));
       //   setAccountSuccess(false);
-        history.push('/home');
+        history.push('/index');
       // } else {
       //   setAccountSuccess(true);
       // }
