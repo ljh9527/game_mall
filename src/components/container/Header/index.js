@@ -87,11 +87,11 @@ const Home = (props) => {
             <div className={styles.switchButton}>
               <div className={styles.shopping}>
                 <Icon type="shopping" onClick={handleToShopping} />
-                {/* <div className={classnames({ [styles.shoppingWord]: true, [styles.word]: true })}>商店</div> */}
+                <div className={classnames({ [styles.shoppingWord]: true, [styles.word]: true })}>商店</div>
               </div>
               <div className={styles.home}>
                 <Icon type="home" onClick={handleToHome} />
-                {/* <div className={classnames({ [styles.shoppingWord]: true, [styles.word]: true })}>主页</div> */}
+                <div className={classnames({ [styles.shoppingWord]: true, [styles.word]: true })}>主页</div>
               </div>
             </div>
             <div className={styles.userInfo}>
