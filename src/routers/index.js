@@ -22,6 +22,8 @@ const Register = AsyncComponent(() => import('../pages/Register'));
 const MyGameLists = AsyncComponent(() => import('../pages/MyGame/Lists'));
 // 我的游戏 详情
 const MyGameDetails = AsyncComponent(() => import('../pages/MyGame/Details'));
+// 我的游戏 详情
+const DownloadList = AsyncComponent(() => import('../pages/Download'));
 
 const routerData = [
   // 首页
@@ -33,6 +35,8 @@ const routerData = [
   // 我的游戏 
   { path: '/myGame/index', component: MyGameLists, belong:1 },
   { path: '/myGame/details', component: MyGameDetails, belong:1 },
+  // 下载列表
+  { path: '/DownloadList', component: DownloadList },
 ];
 // belong属性用于判断该路由属于哪个大页面下，0表商城 1表我的
 
