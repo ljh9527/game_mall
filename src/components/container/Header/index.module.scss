@@ -65,8 +65,10 @@
         left: 50%;
         transform: translate(-50%, -50%);
         width: 160px;
+        color: rgb(166,165,166);
         -webkit-app-region: no-drag;
         cursor: pointer;
+        font-size: 15px;
         .selectIcon {
           width: 80px;
           float: left;
@@ -74,6 +76,7 @@
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          transition: linear 0.3s;
           i {
             width: 45px;
             height: 45px;
@@ -85,6 +88,7 @@
         }
         .active {
           transform: translateY(-9px);
+          color: rgb(255,202,0) !important;
           i {
             width: 45px;
             height: 45px;
@@ -96,6 +100,7 @@
         }
         .selectIcon:hover {
           transform: translateY(-9px);
+          color: #fff;
           i {
             width: 45px;
             height: 45px;

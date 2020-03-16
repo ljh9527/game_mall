@@ -77,24 +77,25 @@ const Home = (props) => {
   const handleToShopping = () => {
     setSelectIndex(0);
     history.push('/index');
-  }
+  };
   const handleToHome = () => {
     setSelectIndex(1);
     history.push('/myGame/index');
-  }
-  let win;
+  };
   const download = () => {
     console.log('查看下载');
-    win = new BrowserWindow({
+    let win = new BrowserWindow({
       width: 300,
       height: 400,
-      frame: false  //是否带工具栏
+      frame: false,  //是否带工具栏
+      webPreferences: {
+        nodeIntegration: true, // 是否集成 Nodejs,把之前预加载的js去了，发现也可以运行
+      }
     })
     win.on('closed', () => {
       win = null
     })
     win.loadURL('http://localhost:9000/DownloadList');
-
   };
   return (
     <div className={styles.container}>
