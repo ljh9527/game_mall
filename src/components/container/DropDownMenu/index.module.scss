@@ -1,7 +1,13 @@
-.container{
-  width: 28px;
-  height: 28px;
-  display: inline-block;
-  border-radius: 50%;
-  object-fit: contain;
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 12px;
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    vertical-align: top;
+    margin-right: 3px;
+  }
 }

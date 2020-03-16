@@ -15,8 +15,9 @@ import { withRouter } from 'react-router-dom';
 
 import styles from './index.module.scss';
 
+const imgUrl = 'http://www.gravatar.com/avatar/5de1db3c896e5fdd7833c2c5d255783a?s=46&d=identicon';
 const DropDownMenu = (props) => {
-  const { userUserInfo } = props;
+  const { userUserInfo, history } = props;
   console.log(userUserInfo);
 
   const handleLoginOut = async () => {
@@ -43,6 +44,9 @@ const DropDownMenu = (props) => {
     //   }
   };
 
+  const handleToMyGame = () => {
+    history.push('/myGame/index');
+  };
   // const handleChangePwd = () => {
   //   props.history.push('/updatepass');
   // };
@@ -50,7 +54,10 @@ const DropDownMenu = (props) => {
   const renderDropDownMenu = () => {
     return (
       <Menu style={{ textAlign: 'center' }}>
-        <Menu.Item key="0" onClick={handleLoginOut}>
+        <Menu.Item key="0" onClick={handleToMyGame}>
+          我的应用
+        </Menu.Item>
+        <Menu.Item key="5" onClick={handleLoginOut}>
           退出
         </Menu.Item>
         {/* <Menu.Item key="1" onClick={handleChangePwd}>
@@ -63,7 +70,10 @@ const DropDownMenu = (props) => {
   return (
     <Dropdown overlay={renderDropDownMenu()}>
       <span className={styles.dropdownLink}>
-        欢迎您：{userUserInfo.userName} <Icon type="down" />
+        <div className={styles.avatar}>
+          <img src={imgUrl} alt='imgUrl' />
+          <Icon type="down" />
+        </div>
       </span>
     </Dropdown>
   );

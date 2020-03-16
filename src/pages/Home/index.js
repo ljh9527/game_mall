@@ -74,7 +74,7 @@ const masterpieceData = [{
   time: '发售时间：2019-05-23',
   price: '228.00',
   oldPrice: '268.00',
-}]
+}];
 
 const Home = (props) => {
   const { history } = props;
@@ -82,20 +82,25 @@ const Home = (props) => {
   const handleToDetail = (e) => {
     console.log('详情');
     history.push('/game/details');
-  }
+  };
   // 前往购买
   const handleBuy = (e) => {
     console.log('买');
     e.stopPropagation();
     e.cancelBubble = true;
-  }
+  };
+  // 前往列表
+  const handleToMore = (searchTag) => {
+    history.push('/game/list');
+    console.log(searchTag);
+  };
   return (
     <div className={style.wrap}>
       <div className={style.rotation}>
         <Rotation />
       </div>
       <div className={style.recommend}>
-        <Title name='热门推荐' />
+        <Title name='热门推荐' searchTag='recommend' handleToMore={(name) => handleToMore(name)} />
         {
           recommendData.map((item, index) => (
             <Recommend data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item + index} />
@@ -103,7 +108,7 @@ const Home = (props) => {
         }
       </div>
       <div className={style.prePurchase}>
-        <Title name='预购游戏' />
+        <Title name='预购游戏' searchTag='prePurchase' handleToMore={(name) => handleToMore(name)} />
         {
           PrePurchaseData.map((item, index) => {
             if (index === 0) {
@@ -115,7 +120,7 @@ const Home = (props) => {
         }
       </div>
       <div className={style.masterpiece}>
-        <Title name='游戏大作' />
+        <Title name='游戏大作' searchTag='masterpiece' handleToMore={(name) => handleToMore(name)} />
         {
           masterpieceData.map((item, index) => (
             <Masterpiece data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item + index} />

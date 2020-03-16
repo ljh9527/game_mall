@@ -18,7 +18,7 @@
       background: linear-gradient(to right, rgb(79, 79, 82), rgb(56, 54, 57));
       height: 30px;
       // position: relative;
-      .topLeft{
+      .topLeft {
         float: left;
         font-size: 14px;
         height: 30px;
@@ -53,7 +53,7 @@
         -webkit-app-region: no-drag;
         i {
           margin-right: 25px;
-          svg{
+          svg {
             height: 25px;
             width: 25px;
           }
@@ -63,68 +63,78 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%,-50%);
-        width: 180px;
+        transform: translate(-50%, -50%);
+        width: 160px;
         -webkit-app-region: no-drag;
-        .shopping,.home{
-          width: 90px;
+        cursor: pointer;
+        .selectIcon {
+          width: 80px;
           float: left;
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
-        }
-        i {
-          svg{
-            height: 40px;
-            width: 40px;
-          }
-        }
-        .shopping:hover{
-          // position: absolute;
-          // top: 10%;
-          // left: 0%;
           i {
-            svg{
-              height: 50px;
-              width: 50px;
+            width: 45px;
+            height: 45px;
+            svg {
+              height: 35px;
+              width: 35px;
             }
           }
         }
-        .word{
+        .active {
+          transform: translateY(-9px);
+          i {
+            width: 45px;
+            height: 45px;
+            svg {
+              width: 45px;
+              height: 45px;
+            }
+          }
+        }
+        .selectIcon:hover {
+          transform: translateY(-9px);
+          i {
+            width: 45px;
+            height: 45px;
+            svg {
+              width: 45px;
+              height: 45px;
+            }
+          }
+          .word {
+            display: block;
+            width: 80px;
+            height: 0px;
+            text-align: center;
+          }
+        }
+        .word {
           display: none;
-          width: 90px;
+          width: 80px;
+          height: 0px;
           text-align: center;
+        }
+        .selected {
+          display: block;
         }
       }
 
       .userInfo {
-        width: 240px;
         display: flex;
         align-items: center;
-        justify-content: flex-end;
-
-        .user {
-          display: flex;
-          align-items: center;
-          padding-right: 8px;
-          border-right: 1px solid #fff;
-
-          .dropdownLink {
-            color: #fff;
-            cursor: pointer;
-            text-align: center;
-          }
-        }
-
-        .home {
-          padding-left: 8px;
-          color: #fff;
-        }
-        :global {
-          .iconfont {
-            font-size: 18px;
-            padding-right: 4px;
+        justify-content: flex-start;
+        -webkit-app-region: no-drag;
+        .download {
+          margin-left: 10px;
+          cursor: pointer;
+          i {
+            svg {
+              width: 30px;
+              height: 30px;
+            }
           }
         }
       }
@@ -134,7 +144,9 @@
     position: relative;
     margin: 0 auto;
     width: 100%;
+    height: 100%;
     max-width: 1000px;
-    margin-top: 100px;
+    margin-top: 90px;
+    overflow: auto;
   }
 }

@@ -12,6 +12,8 @@ import { AsyncComponent, Header } from '../components';
 const Home = AsyncComponent(() => import('../pages/Home'));
 // 游戏详情
 const GameDetails = AsyncComponent(() => import('../pages/Details'));
+// 游戏列表
+const GameList = AsyncComponent(() => import('../pages/GameList'));
 // 登录账号相关
 const Login = AsyncComponent(() => import('../pages/Login'));
 const ResetPassword = AsyncComponent(() => import('../pages/ResetPassword'));
@@ -23,13 +25,16 @@ const MyGameDetails = AsyncComponent(() => import('../pages/MyGame/Details'));
 
 const routerData = [
   // 首页
-  { path: '/index', component: Home },
+  { path: '/index', component: Home, belong:0 },
   // 游戏详情
-  { path: '/game/details', component: GameDetails },
+  { path: '/game/details', component: GameDetails, belong:0 },
+  // 游戏详情
+  { path: '/game/list', component: GameList, belong:0 },
   // 我的游戏 
-  { path: '/myGame/index', component: MyGameLists },
-  { path: '/myGame/details', component: MyGameDetails },
+  { path: '/myGame/index', component: MyGameLists, belong:1 },
+  { path: '/myGame/details', component: MyGameDetails, belong:1 },
 ];
+// belong属性用于判断该路由属于哪个大页面下，0表商城 1表我的
 
 const RouterCom = (props) => {
   return (
@@ -38,7 +43,7 @@ const RouterCom = (props) => {
         <Route exact path="/" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/resetPassword" component={ResetPassword} />
-        <Header>
+        <Header routerData={routerData}>
           <Switch>
             {
               routerData.map((item) => {

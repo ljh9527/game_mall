@@ -4,7 +4,7 @@ import style from './index.module.scss';
 const Details = (props) => {
   return (
     <div className={style.wrap}>
-      游戏详情
+      <div className={style.background}>背景</div>
     </div>
   );
 };

@@ -4,8 +4,8 @@
  * @author: ljjunhong
  */
 
-import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Icon } from 'antd';
 import DropDownMenu from '../DropDownMenu';
 
@@ -15,7 +15,8 @@ const { ipcRenderer } = window.electron;
 
 const Home = (props) => {
 
-  const { history } = props;
+  const { history, routerData } = props;
+  const [selectIndex, setSelectIndex] = useState(0); // 主页商城状态控制
   // const {
   //   // onSwitch = () => {},
   //   history,
@@ -48,6 +49,15 @@ const Home = (props) => {
   //     history.push(url);
   //   }
   // };
+  useEffect(() => {
+    const { pathname } = window.location;
+    // eslint-disable-next-line array-callback-return
+    routerData.map((item) => {
+      if (pathname === item.path) {
+        setSelectIndex(item.belong);
+      }
+    });
+  }, [props, routerData]);
   const closeWindow = () => {
     window.close();
   };
@@ -63,11 +73,16 @@ const Home = (props) => {
     history.go(0);
   };
   const handleToShopping = () => {
-    console.log("去商店");
+    setSelectIndex(0);
+    history.push('/index');
   }
   const handleToHome = () => {
-    console.log("去主页");
+    setSelectIndex(1);
+    history.push('/myGame/index');
   }
+  const download = () => {
+    console.log('查看下载');
+  };
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
@@ -85,26 +100,20 @@ const Home = (props) => {
               <Icon type="reload" onClick={handleReload} />
             </div>
             <div className={styles.switchButton}>
-              <div className={styles.shopping}>
-                <Icon type="shopping" onClick={handleToShopping} />
-                <div className={classnames({ [styles.shoppingWord]: true, [styles.word]: true })}>商店</div>
+              <div className={classnames({ [styles.active]: selectIndex === 0, [styles.selectIcon]: true })} onClick={handleToShopping}>
+                <Icon type="shopping" className={styles.shoppingIcon} />
+                <div className={classnames({ [styles.selected]: selectIndex === 0, [styles.word]: true })}>商店</div>
               </div>
-              <div className={styles.home}>
-                <Icon type="home" onClick={handleToHome} />
-                <div className={classnames({ [styles.shoppingWord]: true, [styles.word]: true })}>主页</div>
+              <div className={classnames({ [styles.active]: selectIndex === 1, [styles.selectIcon]: true })} onClick={handleToHome}>
+                <Icon type="home" />
+                <div className={classnames({ [styles.selected]: selectIndex === 1, [styles.word]: true })}>主页</div>
               </div>
             </div>
             <div className={styles.userInfo}>
-              <div className={styles.user}>
-                <div className={styles.avatar}></div>
-                <div className={styles.operate}>
-                  <DropDownMenu />
-                </div>
+              <DropDownMenu />
+              <div onClick={download} className={styles.download} >
+                <Icon type="download" />
               </div>
-              <Link to="/home" className={styles.home}>
-                <i className={`iconfont el-icon-xj-icon-home-bai`}></i>
-                首页
-              </Link>
             </div>
           </div>
         </div>
