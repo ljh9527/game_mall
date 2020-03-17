@@ -1,0 +1,300 @@
+// 基础样式设置
+
+@import './mixin.scss';
+
+/* 禁用字号自动调整 */
+html {
+  -webkit-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+  height: 100%;
+  width: 100%;
+  ::-webkit-scrollbar {display:none}
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  background-color: rgb(232, 240, 254) !important;
+  background-image: none !important;
+  color: rgb(0, 0, 0) !important;
+}
+html * {
+  outline:none;
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+}
+
+/* 禁止缩放表单 */
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input {
+  resize: none;
+  border: none;
+}
+
+/* 取消链接高亮  */
+
+body,
+div,
+ul,
+li,
+ol,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+textarea,
+select,
+p,
+dl,
+dt,
+dd,
+a,
+img,
+button,
+form,
+table,
+th,
+tr,
+td,
+tbody,
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* 设置HTML5元素为块 */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+textarea {
+  outline: none;
+}
+
+input,
+select {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+html,
+body {
+  height: 100%;
+  touch-action: manipulation;
+  font-family:MicrosoftYaHei;
+}
+
+#root,
+.app {
+  height: 100%;
+  margin: 0 auto;
+  font-size: 14px;
+}
+
+.g6-tooltip {
+  padding: 10px 6px;
+  color: #444;
+  background-color: rgba(255,255,255,0.9);
+  border: 1px solid #e2e2e2;
+  border-radius: 4px;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: none;
+  -webkit-touch-callout: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-input-placeholder {
+  color: #e1e4eb;
+}
+
+a {
+  text-decoration: none;
+  color: #007aff;
+}
+
+textarea {
+  -webkit-appearance: none;
+}
+
+#root .am-list-item .am-list-line {
+  padding-right: 0;
+  margin-right: 15px;
+}
+/* 去掉列表前的标识, li 会继承 */
+ol, ul {
+  list-style: none;
+}
+/* 内外边距通常让各个浏览器样式的表现位置不同 */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  margin: 0;
+  padding: 0;
+}
+
+/* 清除浮动 */
+.clearfix {
+  clear: both;
+  overflow:hidden;
+  _zoom:1;
+  zoom:1;
+}
+
+.scrollbar{
+  // 因为滚动条的显隐判断。（UI提出的建议）（添加的内容）
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(196, 198, 204, 0);
+  }
+  &::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(196, 198, 204, 0);
+  }
+  &:hover{
+    &::-webkit-scrollbar-thumb {
+      background: rgba(196, 198, 204, 1);
+    }
+    &::-webkit-scrollbar-thumb:window-inactive {
+      background: rgba(196, 198, 204, 1);
+    }
+  }
+}
+
+
+body.modal-open {
+  position: fixed;
+  width: 100%;
+}
+ // 修改table border-bottom 颜色 (产品要求加深)
+ .ant-table{
+    .ant-table-tbody > tr > td, .ant-table-thead > tr > th{
+      border-bottom-color: #DCDFE6;
+      border-right-color: #DCDFE6;
+      border-left-color: #DCDFE6;
+      border-top-color: #DCDFE6;
+    }
+    .ant-table-bordered.ant-table-empty .ant-table-placeholder{
+      border-right: 1px solid #DCDFE6;
+    border-left: 1px solid #DCDFE6;
+    }
+    .ant-table-placeholder{
+      border-top: 1px solid #DCDFE6;
+      border-bottom: 1px solid #DCDFE6;
+    }
+ }
+//  修改table 列 hover颜色。 （2020-2-16 新疆第一次用户体验优化，UI要求修改）
+ .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td, .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td, .ant-table-thead > tr:hover:not(.ant-table-expanded-row) > td, .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td{
+   background: rgba(109,155,255 ,0.1);
+ }
+
+
+ // search查询input框等样式统一设置
+.common_form{
+  // padding-bottom: 20px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: justify;
+  justify-content: space-between;
+  // position: relative;
+  .ant-select,.ant-cascader-input,.ant-input,.ant-select-search--inline .ant-select-search__field{
+    width: 256px;
+  }
+  .ant-form-inline,.ant-form-item{
+    margin: 6px 12px;
+    width: 360px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    // float: left;
+  }
+  .ant-form-item:last-child{
+    flex: 1;
+    justify-content: flex-end;
+  }
+  .btns{
+    // position: absolute;
+    // bottom: 0;
+    // width: 100%;
+    
+    display: flex;
+    justify-content: flex-end;
+    // text-align:center;
+    // padding: 12px 0 24px;
+    &>*{
+      margin: 0 12px;
+    }
+    button {
+        margin-right: 10px;
+    }
+  }
+  // 针对某些placeholder太长，做的点点字体大小兼容（实在是太长，请自己控制输入框长度）
+  .plaSmall{
+    &>input{
+      &::-webkit-input-placeholder {
+        font-size: 12px;
+      }
+      &:-moz-placeholder {
+        font-size: 12px;
+      }
+      &::-moz-placeholder {
+        font-size: 12px;
+      }
+      &:-ms-input-placeholder {
+        font-size: 12px;
+      } 
+    }
+  }  
+}
+
+@media screen and (max-width: 1498px)  {
+  .common_form{
+    padding: 0 40px;
+    padding-bottom: 20px;
+  }
+}
+@media screen and (min-width: 1890px)  {
+  .common_form{
+    justify-content: initial;
+    .btns{
+      padding-right: 20px;
+    }
+  }
+}

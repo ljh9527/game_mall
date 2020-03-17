@@ -127,6 +127,14 @@ const Home = (props) => {
           ))
         }
       </div>
+      <div className={style.masterpiece}>
+        <Title name='最后一列' searchTag='masterpiece' handleToMore={(name) => handleToMore(name)} />
+        {
+          masterpieceData.map((item, index) => (
+            <Masterpiece data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item + index} />
+          ))
+        }
+      </div>
     </div>
   );
 };

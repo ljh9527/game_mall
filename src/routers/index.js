@@ -27,26 +27,36 @@ const DownloadList = AsyncComponent(() => import('../pages/Download'));
 
 const routerData = [
   // 首页
-  { path: '/index', component: Home, belong:0 },
+  { path: '/index', component: Home, belong: 0 },
   // 游戏详情
-  { path: '/game/details', component: GameDetails, belong:0 },
+  { path: '/game/details', component: GameDetails, belong: 0 },
   // 游戏详情
-  { path: '/game/list', component: GameList, belong:0 },
+  { path: '/game/list', component: GameList, belong: 0 },
   // 我的游戏 
-  { path: '/myGame/index', component: MyGameLists, belong:1 },
-  { path: '/myGame/details', component: MyGameDetails, belong:1 },
-  // 下载列表
-  { path: '/DownloadList', component: DownloadList },
+  { path: '/myGame/index', component: MyGameLists, belong: 1 },
+  { path: '/myGame/details', component: MyGameDetails, belong: 1 },
 ];
 // belong属性用于判断该路由属于哪个大页面下，0表商城 1表我的
+const newRouter = [
+  // 首页
+  { path: '/', component: Login },
+  // 注册
+  { path: '/register', component: Register },
+  // 重置密码
+  { path: '/resetPassword', component: ResetPassword },
+  // 下载列表 
+  { path: '/downloadList', component: DownloadList },
+];
 
 const RouterCom = (props) => {
   return (
     <Router history={history}>
       <Switch>
-        <Route exact path="/" component={Login} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/resetPassword" component={ResetPassword} />
+        {
+          newRouter.map((item) => {
+            return (<Route exact path={item.path} key={item.path} component={item.component} />);
+          })
+        }
         <Header routerData={routerData}>
           <Switch>
             {

@@ -83,9 +83,8 @@ const Home = (props) => {
     history.push('/myGame/index');
   };
   const download = () => {
-    console.log('查看下载');
     let win = new BrowserWindow({
-      width: 300,
+      width: 400,
       height: 400,
       frame: false,  //是否带工具栏
       webPreferences: {
