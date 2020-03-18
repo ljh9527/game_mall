@@ -131,7 +131,9 @@ const Home = (props) => {
           </div>
         </div>
       </div>
-      <div className={styles.main}>{props.children}</div>
+      <div className={styles.main}>
+        <div className={styles.container}>{props.children}</div>
+      </div>
     </div >
   );
 };
