@@ -24,12 +24,12 @@ const LoginForm = (props) => {
   };
   const handleLogin = async (values) => {
     try {
-      // const { data } = await services.login(values);
+      const { data } = await services.login(values);
       // if (data.code === 200) {
-      //   localStorage.setItem("username", values.username);
-      //   localStorage.setItem("password", values.password);
-      //   console.log(localStorage.getItem("username"));
-      //   setAccountSuccess(false);
+        localStorage.setItem("email", values.email);
+        localStorage.setItem("password", values.password);
+        console.log(localStorage.getItem("email"));
+        setAccountSuccess(false);
         history.push('/index');
       // } else {
       //   setAccountSuccess(true);

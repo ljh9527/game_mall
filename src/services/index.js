@@ -1,6 +1,6 @@
 import axios from 'axios';
 const service = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:8888',
     timeout: 500000,
 });
 
@@ -9,8 +9,8 @@ export default {
     addAccount(params) {
         return service.post('/users/register', params);
     },
-    // 注册账号
+    // 登录账号
     login(params) {
-        return service.post('/users/login', params);
+        return service.post('/user/login', params);
     },
 };
