@@ -1,0 +1,30 @@
+.wrap {
+    width: 161px;
+    height: 220px;
+    background: seagreen;
+    margin-top: 10px;
+    position: relative;
+    .imgBox{
+        width: 100%;
+        height: 184px;
+    }
+    .bottom{
+        position: absolute;
+        bottom: 40px;
+        left: 0px;
+    }
+    .button{
+        cursor: pointer;
+        height: 36px;
+        line-height: 36px;
+        text-align: center;
+        background: #ffffff;
+    }
+}
+
+$total: 100;
+@for $i from 1 to $total {
+  .wrap:nth-child(#{$i}) {
+    margin-right: if($i % 4 == 0, 0px, 18px);
+  }
+}

@@ -4,7 +4,7 @@ import LoginHeader from '../../components/container/loginHeader';
 import classnames from 'classnames';
 import services from '../../services';
 import style from './index.module.scss';
-const {ipcRenderer} = window.electron;
+const { ipcRenderer } = window.electron;
 
 const LoginForm = (props) => {
   const { form, history } = props;
@@ -20,13 +20,6 @@ const LoginForm = (props) => {
         handleLogin(values);
       };
     });
-    ipcRenderer.send('login');
-    try {
-      const { data } = services.hello();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
   };
   const handleLogin = async (values) => {
     try {
@@ -36,6 +29,7 @@ const LoginForm = (props) => {
         localStorage.setItem("password", values.password);
         console.log(localStorage.getItem("email"));
         setAccountSuccess(false);
+        ipcRenderer.send('login');
         history.push('/index');
       } else {
         setAccountSuccess(true);
@@ -96,7 +90,7 @@ const LoginForm = (props) => {
               }
             </Form.Item>
             <Form.Item>
-            <Button size="large" type="primary" htmlType="submit" className={style.loginFormButton}>
+              <Button size="large" type="primary" htmlType="submit" className={style.loginFormButton}>
                 登录
             </Button>
             </Form.Item>

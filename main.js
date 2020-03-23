@@ -24,7 +24,7 @@ function createWindow() {
             nodeIntegration: true, // 是否集成 Nodejs,把之前预加载的js去了，发现也可以运行
         }
     };
-    const urlLocation = isDev ? 'http://localhost:9000/' : 'dummyurl';
+    const urlLocation = isDev ? 'http://localhost:3456/' : 'dummyurl';
     mainWindow = new BrowserWindow(windowOptions);
     mainWindow.loadURL(urlLocation);
     // mainWindow.loadURL(path.join('file://', __dirname, '/build/index.html'));
