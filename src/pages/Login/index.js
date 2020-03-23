@@ -21,19 +21,25 @@ const LoginForm = (props) => {
       };
     });
     ipcRenderer.send('login');
+    try {
+      const { data } = services.hello();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleLogin = async (values) => {
     try {
       const { data } = await services.login(values);
-      // if (data.code === 200) {
+      if (data.code === 200) {
         localStorage.setItem("email", values.email);
         localStorage.setItem("password", values.password);
         console.log(localStorage.getItem("email"));
         setAccountSuccess(false);
         history.push('/index');
-      // } else {
-      //   setAccountSuccess(true);
-      // }
+      } else {
+        setAccountSuccess(true);
+      }
     } catch (error) {
       console.log(error);
     }

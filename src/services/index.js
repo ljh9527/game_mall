@@ -13,4 +13,8 @@ export default {
     login(params) {
         return service.post('/user/login', params);
     },
+    // 测试
+    hello(params) {
+        return service.get('/user/hello');
+    },
 };
