@@ -11,7 +11,7 @@ import { AsyncComponent, Header } from '../components';
 // 首页
 const Home = AsyncComponent(() => import('../pages/Home'));
 // 游戏详情
-const GameDetails = AsyncComponent(() => import('../pages/Details'));
+const GameDetails = AsyncComponent(() => import('../pages/GameDetails'));
 // 游戏列表
 const GameList = AsyncComponent(() => import('../pages/GameList'));
 // 登录账号相关
@@ -20,9 +20,11 @@ const ResetPassword = AsyncComponent(() => import('../pages/ResetPassword'));
 const Register = AsyncComponent(() => import('../pages/Register'));
 // 我的游戏 列表
 const MyGameLists = AsyncComponent(() => import('../pages/MyGame/Lists'));
-// 我的游戏 详情
+// 我的游戏 游戏详情
 const MyGameDetails = AsyncComponent(() => import('../pages/MyGame/Details'));
-// 我的游戏 详情
+// 主页
+const MyDetails = AsyncComponent(() => import('../pages/MyDetails'));
+// 我的游戏 下载
 const DownloadList = AsyncComponent(() => import('../pages/Download'));
 
 const routerData = [

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Button, Input, Icon } from 'antd';
 import Game from './components/MyGame';
+import Progress from './components/Progress';
 import style from './index.module.scss';
 
 const imgUrl = 'http://www.gravatar.com/avatar/5de1db3c896e5fdd7833c2c5d255783a?s=46&d=identicon';
@@ -58,6 +59,7 @@ const Details = (props) => {
           <div className={style.progress}>
             <div className={style.title}></div>
             <div className={style.progress_content}></div>
+            {/* <Progress/> */}
           </div>
         </div>
       </div>
