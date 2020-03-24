@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Button, Input, Icon } from 'antd';
-import Header from './components/Header';
 import Game from './components/MyGame';
 import style from './index.module.scss';
 
@@ -28,6 +27,9 @@ const Details = (props) => {
   const handleEdit = () => {
     console.log('编辑资料');
   };
+  const handleEvaluation = () => {
+    console.log('查看评测');
+  };
   return (
     <div className={style.wrap}>
       <div className={style.background}>
@@ -40,13 +42,11 @@ const Details = (props) => {
           </div>
           <div className={style.buttonBox}>
             <Button type="ghost" shape='round' size='small' onClick={handleEdit}>编辑资料</Button>
+            <Button type="ghost" shape='round' size='small' onClick={handleEvaluation}>查看评测</Button>
           </div>
         </div>
       </div>
       <div className={style.content}>
-        <div className={style.header}>
-          <Header />
-        </div>
         <div className={style.con}>
           <div className={style.game}>
             {
@@ -56,7 +56,8 @@ const Details = (props) => {
             }
           </div>
           <div className={style.progress}>
-
+            <div className={style.title}></div>
+            <div className={style.progress_content}></div>
           </div>
         </div>
       </div>
