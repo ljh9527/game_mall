@@ -57,9 +57,7 @@ const Details = (props) => {
             }
           </div>
           <div className={style.progress}>
-            <div className={style.title}></div>
-            <div className={style.progress_content}></div>
-            {/* <Progress/> */}
+            <Progress/>
           </div>
         </div>
       </div>

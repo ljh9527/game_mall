@@ -1,6 +1,54 @@
-body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, input, select, textarea, div, table, td, th, tr, dt, dd, dl, a {
-  margin: 0;
-  padding: 0;
-}
 .wrap {
+  background-color: #ffffff;
+  height: 100%;
+  .header {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 24px;
+    font-weight: 600;
+    border-bottom: 1px solid silver;
+  }
+
+  .allTime {
+    width: 100%;
+    height: 240px;
+    background-image: url('../../../../../assets/progess.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -28px;
+    position: relative;
+
+    .content {
+      position: absolute;
+      top: 46%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 18px;
+      font-weight: 600;
+
+      .time {
+        font-size: 36px;
+        display: inline-block;
+        color: rgb(255, 179, 0);
+      }
+    }
+
+    .subContent {
+      position: absolute;
+      bottom: 44px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 20px;
+    }
+  }
+
+  .lastLogin {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 18px;
+  }
 }
