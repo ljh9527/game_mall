@@ -23,7 +23,7 @@ const MyGameLists = AsyncComponent(() => import('../pages/MyGame/Lists'));
 // 我的游戏 游戏详情
 const MyGameDetails = AsyncComponent(() => import('../pages/MyGame/Details'));
 // 主页
-const MyDetails = AsyncComponent(() => import('../pages/MyDetails'));
+const MyDetails = AsyncComponent(() => import('../pages/MyGame/MyDetails'));
 // 我的游戏 下载
 const DownloadList = AsyncComponent(() => import('../pages/Download'));
 
@@ -36,6 +36,7 @@ const routerData = [
   { path: '/game/list', component: GameList, belong: 0 },
   // 我的游戏 
   { path: '/myGame/index', component: MyGameLists, belong: 1 },
+  { path: '/myGame/edit', component: MyDetails, belong: 1 },
   { path: '/myGame/details', component: MyGameDetails, belong: 1 },
 ];
 // belong属性用于判断该路由属于哪个大页面下，0表商城 1表我的

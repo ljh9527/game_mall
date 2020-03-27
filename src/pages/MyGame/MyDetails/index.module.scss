@@ -1,0 +1,78 @@
+.wrap {
+  width: 100%;
+  height: 100%;
+  .background {
+    width: 100%;
+    height: 215px;
+    background-image: url('../../../assets/backgroundheader.jpg');
+    position: relative;
+    .avatar {
+      position: absolute;
+      bottom: 0px;
+      left: 10%;
+      border-radius: 50%;
+      z-index: 999;
+      img {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        vertical-align: top;
+        margin-right: 3px;
+      }
+      .changeAvatar{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 60px;
+        height: 50px;
+        color: #ffffff;
+        opacity: 0.9;
+        text-align: center;
+        cursor: pointer;
+        i {
+          svg {
+            width: 35px;
+            height: 35px;
+          }
+        }
+      }
+    }
+    .cover {
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      height: 65px;
+      width: 100%;
+      color: #ffffff;
+      background: rgba($color: #080809, $alpha: 0.8);
+      .userName {
+        position: absolute;
+        left: 26%;
+        font-size: 18px;
+      }
+      .buttonBox {
+        position: absolute;
+        right: 6%;
+        top: 22%;
+        :global {
+          .ant-btn {
+            margin-left: 12px;
+            width: 76px;
+            color: beige;
+            border-color: #d9d9d9;
+          }
+        }
+        .save{
+          color: rgb(255,202,0);
+          border-color: rgb(255,202,0);
+        }
+      }
+    }
+  }
+  .content {
+    width: 100%;
+    height: 300px;
+    background: rgb(90, 72, 57);
+  }
+}

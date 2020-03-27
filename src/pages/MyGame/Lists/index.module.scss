@@ -1,42 +1,49 @@
 .wrap {
   width: 100%;
   height: 100%;
+
   .background {
     width: 100%;
     height: 215px;
     background-image: url('../../../assets/backgroundheader.jpg');
     position: relative;
+
     .avatar {
       position: absolute;
       bottom: 0px;
       left: 10%;
       border-radius: 50%;
       z-index: 9;
+
       img {
-        width: 100px;
-        height: 100px;
+        width: 140px;
+        height: 140px;
         border-radius: 50%;
         vertical-align: top;
         margin-right: 3px;
       }
     }
+
     .cover {
       position: absolute;
       bottom: 0px;
       left: 0px;
-      height: 50px;
+      height: 65px;
       width: 100%;
       color: #ffffff;
       background: rgba($color: #080809, $alpha: 0.8);
+
       .userName {
         position: absolute;
-        left: 22%;
+        left: 26%;
         font-size: 18px;
       }
+
       .buttonBox {
         position: absolute;
         right: 6%;
         top: 22%;
+
         :global {
           .ant-btn {
             margin-left: 12px;
@@ -48,31 +55,25 @@
       }
     }
   }
+
   .content {
     width: 100%;
     position: relative;
-    height: 380px;
-    .header{
-      position: absolute;
-      right: 6%;
-      top: 50px;
+    padding-top: 20px;
+    overflow: auto;
+
+    .game {
+      width: 70%;
+      min-height: 380px;
+      float: left;
+      display: flex;
+      flex-wrap: wrap;
+      margin-right: 1%;
     }
-    .con{
-      padding-top: 20px;
-      overflow: auto;
-      .game{
-        width: 70%;
-        min-height: 380px;
-        float: left;
-        display: flex;
-        flex-wrap: wrap;
-        margin-right: 1%;
-      }
-      .progress{
-        width: 29%;
-        height: 360px;
-        float: left;
-      }
+
+    .progress {
+      width: 29%;
+      float: left;
     }
   }
 }

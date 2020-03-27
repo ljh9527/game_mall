@@ -1,18 +1,75 @@
 .wrap {
     width: 100%;
-    height: 100px;
-    background: skyblue;
-    .img{
-        width: 20%;
-        background: slategray;
+    height: 200px;
+    position: relative;
+    margin-top: 20px;
+    background: #ffffff;
+    .img {
+        width: 15%;
         margin-right: 4%;
-        img{
+        float: left;
+        height: 200px;
+
+        img {
             width: 100%;
-            height: 100%;
+            height: 170px;
+        }
+
+        .name {
+            text-align: center;
+            height: 30px;
+            line-height: 30px;
         }
     }
-    .content{
+
+    .content {
         width: 75%;
-        background: snow;
+        float: left;
+
+        .statusWaper {
+            width: 100%;
+            height: 60px;
+            border-bottom: 1px solid silver;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            i {
+                padding: 0 20px;
+                svg {
+                    width: 30px;
+                    height: 30px;
+                    background-color: rgb(255, 202, 1);
+                    border-radius: 50%;
+                }
+            }
+
+            .status {
+                display: inline-block;
+                height: 60px;
+                line-height: 60px;
+                font-size: 20px;
+            }
+        }
+
+        .time {
+            height: 50px;
+            line-height: 50px;
+            padding-left: 20px;
+        }
+
+        .con {
+            padding-left: 20px;
+            height: 90px;
+        }
+    }
+    
+    .buttons{
+        position: absolute;
+        bottom: 10px;
+        right: 50px;
+        button{
+            margin-right: 20px;
+        }
     }
 }

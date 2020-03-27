@@ -1,35 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Button, Input, Icon } from 'antd';
 import Game from './components/MyGame';
 import Progress from './components/Progress';
+import Evaluation from './components/Evaluation';
 import style from './index.module.scss';
 
 const imgUrl = 'http://www.gravatar.com/avatar/5de1db3c896e5fdd7833c2c5d255783a?s=46&d=identicon';
 const Details = (props) => {
+  const { history } = props;
+  const [activeIndex, setActiveIndex] = useState(false);
   const {
     gameList = [{
       name: "英雄联盟",
       time: "100",
       lastLoginTime: "2"
-    },{
+    }, {
       name: "英雄联盟",
       time: "100",
       lastLoginTime: "2"
-    },{
+    }, {
       name: "英雄联盟",
       time: "100",
       lastLoginTime: "2"
-    },{
+    }, {
       name: "英雄联盟",
       time: "100",
       lastLoginTime: "2"
     }],
   } = props;
   const handleEdit = () => {
-    console.log('编辑资料');
+    history.push('/myGame/edit');
   };
   const handleEvaluation = () => {
-    console.log('查看评测');
+    setActiveIndex(!activeIndex);
   };
   return (
     <div className={style.wrap}>
@@ -48,18 +51,20 @@ const Details = (props) => {
         </div>
       </div>
       <div className={style.content}>
-        <div className={style.con}>
-          <div className={style.game}>
-            {
-              gameList.map((item, index) => (
-                <Game data={item} key={item + index} />
-              ))
-            }
-          </div>
-          <div className={style.progress}>
-            <Progress/>
-          </div>
-        </div>
+        {
+          !activeIndex ? (<div className={style.con}>
+            <div className={style.game}>
+              {
+                gameList.map((item, index) => (
+                  <Game data={item} key={item + index} />
+                ))
+              }
+            </div>
+            <div className={style.progress}>
+              <Progress/>
+            </div>
+          </div>) : (<Evaluation />)
+        }
       </div>
     </div>
   );
