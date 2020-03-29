@@ -5,6 +5,8 @@
     width: 100%;
     height: 215px;
     background-image: url('../../../assets/backgroundheader.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
     position: relative;
     .avatar {
       position: absolute;
@@ -72,7 +74,6 @@
   }
   .content {
     width: 100%;
-    height: 300px;
-    background: rgb(90, 72, 57);
+    padding: 20px;
   }
 }

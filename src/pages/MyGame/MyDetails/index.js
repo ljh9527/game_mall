@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form, Button, Input, Icon } from 'antd';
+import { Button, Input, Icon } from 'antd';
+import Form from './components/Form';
 import style from './index.module.scss';
 
 const imgUrl = 'http://www.gravatar.com/avatar/5de1db3c896e5fdd7833c2c5d255783a?s=46&d=identicon';
@@ -34,9 +35,7 @@ const Details = (props) => {
         </div>
       </div>
       <div className={style.content}>
-        <div className={style.from}>
-
-        </div>
+        <Form/>
       </div>
     </div>
   );
