@@ -18,7 +18,34 @@ const Details = (props) => {
   // }
   return (
     <div className={style.wrap}>
-      游戏列表
+      <div className={style.resultWaper}>
+        <div className={style.result}></div>
+        <div className={style.total}></div>
+      </div>
+      <div className={style.gameWaper}>
+        <ul className={style.gameList}>
+          <div className={style.gameItem}>
+            <a href="/store/2001141/" className={style.figure}>
+              <img alt="梦三国2" src="//wegame.gtimg.com/g.2001141-r.87b21/info/d7b2e4007ba4fe0159ee968dd1e5ebed.jpg/320" />
+            </a>
+            <div className={style.info}>
+              <div className={style.table_row}>
+                <div className={style.table_cell}>
+                  <div className={style.desc}>
+                    <div className={style.tit}>梦三国</div>
+                    <div className={style.time}>2020-01-19</div>
+                  </div>
+                </div>
+                <div className={style.table_cell}>
+                  <div className={style.other}>
+                    <div className={style.price}>免费</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ul>
+      </div>
     </div>
   );
 };

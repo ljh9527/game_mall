@@ -9,14 +9,34 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
+        position: relative;
+        font-size: 16px;
+        font-weight: 500;
+        color: #555555;
         .item{
             width: 80px;
             height: 50px;
             line-height: 50px;
             text-align: center;
             cursor: pointer;
+            margin-right: 20px;
             &:hover{
-                background-color: silver;
+                background-color: rgb(236, 236, 236);
+            }
+        }
+        .bottom{
+            border-bottom: 2px solid rgb(255,202,40);
+        }
+        .search{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 5%;
+            :global {
+                .ant-btn-primary{
+                    background-color: rgb(255,202,40);
+                    border-color: rgb(255,202,40);
+                }
             }
         }
     }

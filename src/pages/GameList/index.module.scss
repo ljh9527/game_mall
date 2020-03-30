@@ -1,6 +1,129 @@
-body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, input, select, textarea, div, table, td, th, tr, dt, dd, dl, a {
-  margin: 0;
-  padding: 0;
-}
 .wrap {
+  font-size: 12px;
+  line-height: 1.5;
+
+  .resultWaper {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 14px 0 24px;
+
+    .result {
+      font-size: 30px;
+      line-height: 27px;
+      color: #3c3c3c;
+      display: inline-block;
+      font-weight: 400;
+    }
+
+    .total {
+      font-size: 14px;
+      line-height: 16px;
+      text-align: left;
+      color: #3c3c3c;
+      display: inline-block;
+      position: relative;
+      margin: 0 0 0 10px;
+    }
+  }
+
+  .gameWaper {
+    width: 1000px;
+    margin: 0 auto;
+    padding-left: 0;
+    padding-top: 15px;
+    position: relative;
+
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+
+      .gameItem {
+        transition: background-color .2s ease-in, border-color .2s ease-in;
+        margin-bottom: 10px;
+        position: relative;
+        padding-left: 180px;
+        background-color: #fff;
+        z-index: 30;
+        transition: all .2s linear;
+        border-radius: 2px;
+        cursor: pointer;
+        display: block;
+
+        .figure {
+          width: 180px;
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 102px;
+          background-size: 50px 36px;
+          border-top-left-radius: 2px;
+          border-bottom-left-radius: 2px;
+          overflow: hidden;
+
+          img {
+            font-size: 0;
+            vertical-align: middle;
+            width: 100%;
+            height: 100%;
+            -o-object-fit: cover;
+            object-fit: cover;
+          }
+        }
+
+        .info {
+          position: relative;
+          height: 102px;
+          width: 500px;
+          display: table;
+          table-layout: fixed;
+
+          .table_row {
+            display: table-row;
+
+            .table_cell {
+              height: 102px;
+              display: table-cell;
+              vertical-align: middle;
+
+              .desc {
+                padding-left: 20px;
+
+                .tit {
+                  font-weight: 700;
+                  position: relative;
+                  overflow: hidden;
+                  margin-bottom: 5px;
+                  margin-top: 4px;
+                }
+
+                .time {
+                  overflow: hidden;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
+                  max-width: 280px;
+                  color: #3c3c3c;
+                  cursor: pointer;
+                  font-size: 12px;
+                }
+              }
+
+              .other {
+                text-align: right;
+
+                .price {
+                  letter-spacing: -.5px;
+                  padding: 0 4px;
+                  display: inline-block;
+                  vertical-align: middle;
+                  height: 23px;
+                  line-height: 23px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
