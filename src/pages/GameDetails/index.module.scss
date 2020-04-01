@@ -1,6 +1,105 @@
-body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, input, select, textarea, div, table, td, th, tr, dt, dd, dl, a {
-  margin: 0;
-  padding: 0;
-}
 .wrap {
+  height: 243px;
+  position: relative;
+  .header {
+    height: 100%;
+    position: relative;
+    margin-left: -6px;
+    // overflow: hidden;
+    .crumb {
+      margin: 0 auto;
+      width: 1000px;
+    }
+
+    .headinfo {
+      margin: 0 auto;
+      width: 1000px;
+      position: absolute;
+      left: 50%;
+      // bottom: 93px;
+      margin: 0 auto 0 -500px;
+      z-index: 21;
+      min-height: 78px;
+      padding-left: 135px;
+
+      .img {
+        width: 105px;
+        height: 150px;
+        overflow: hidden;
+        border-radius: 2px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: #e0e0e0 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD4AAAAxCAYAAACClxqRAAAABGdBT…GrbO8n2xdXkvZUk/1jUml6vQZoiMatwNC8Myqz/gFeA5b+C5mLZstgG/V1AAAAAElFTkSuQmCC) no-repeat 50%;
+        background-size: 50px 36px;
+        -webkit-box-shadow: 0 0 0 1px hsla(0, 0%, 100%, .15);
+        box-shadow: 0 0 0 1px hsla(0, 0%, 100%, .15);
+
+        img {
+          width: 100%;
+          height: 100%;
+          display: block;
+          border: 0;
+          font-size: 0;
+          -webkit-user-select: none;
+          vertical-align: middle;
+        }
+      }
+
+      .introduce {
+        .name {
+          overflow: hidden;
+          padding-top: 10px;
+
+          h1 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            float: left;
+            font-size: 30px;
+            color: #fff;
+            max-width: 100%;
+          }
+        }
+      }
+    }
+
+    .navwrap {
+      width: 100%;
+      height: 50px;
+      background-color: #ffffff;
+
+      .nav {
+        margin: 0 auto;
+        width: 1000px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        position: relative;
+        font-size: 16px;
+        font-weight: 500;
+        color: #555555;
+
+        .item {
+          width: 80px;
+          height: 50px;
+          line-height: 50px;
+          text-align: center;
+          cursor: pointer;
+          margin-right: 20px;
+
+          &:hover {
+            background-color: rgb(236, 236, 236);
+          }
+        }
+
+        .bottom {
+          border-bottom: 2px solid rgb(255, 202, 40);
+        }
+      }
+    }
+  }
+
+
 }

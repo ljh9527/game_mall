@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Icon } from 'antd';
 import DropDownMenu from '../DropDownMenu';
-import Nav from '../../ui/Nav';
+// import Nav from '../../ui/Nav';
 
 import classnames from 'classnames';
 import styles from './index.module.scss';
@@ -103,9 +103,9 @@ const Home = (props) => {
         </div>
       </div>
       <div className={styles.main}>
-        {
-          !selectIndex ? <Nav /> : ''
-        }
+        {/* {
+          !selectIndex ? <Nav history={history} /> : ''
+        } */}
         <div className={styles.container}>{props.children}</div>
       </div>
     </div >

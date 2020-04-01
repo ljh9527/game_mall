@@ -1,4 +1,6 @@
 import React from 'react';
+import Nav from '../../components/ui/Nav';
+import { getUrlParam } from '../../utils';
 import style from './index.module.scss';
 
 // const recommendData = [{
@@ -10,6 +12,9 @@ import style from './index.module.scss';
 // }];
 
 const Details = (props) => {
+  const { history } = props;
+  const param = getUrlParam('searchTag');
+  console.log(param);
   // 前往购买
   // const handleBuy = (e) => {
   //   console.log('买');
@@ -18,9 +23,10 @@ const Details = (props) => {
   // }
   return (
     <div className={style.wrap}>
+      <Nav history={history} />
       <div className={style.resultWaper}>
-        <div className={style.result}></div>
-        <div className={style.total}></div>
+        <div className={style.result}>搜索结果</div>
+        <div className={style.total}>共50种</div>
       </div>
       <div className={style.gameWaper}>
         <ul className={style.gameList}>

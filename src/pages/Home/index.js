@@ -1,6 +1,7 @@
 import React from 'react';
 import Rotation from './components/Rotation';
 import Title from "./components/Title";
+import Nav from '../../components/ui/Nav';
 import Recommend from "./components/Recommend";
 import { PrePurchaseBig, PrePurchaseNormal } from "./components/PrePurchase";
 import Masterpiece from "./components/Masterpiece";
@@ -91,51 +92,54 @@ const Home = (props) => {
   };
   // 前往列表
   const handleToMore = (searchTag) => {
-    history.push('/game/list');
+    history.push(`/game/list?searchTag=${searchTag}`);
     console.log(searchTag);
   };
   return (
-    <div className={style.wrap}>
-      <div className={style.rotation}>
-        <Rotation />
+    <>
+      <Nav history={history} />
+      <div className={style.wrap}>
+        <div className={style.rotation}>
+          <Rotation />
+        </div>
+        <div className={style.recommend}>
+          <Title name='热门推荐' searchTag='recommend' handleToMore={(name) => handleToMore(name)} />
+          {
+            recommendData.map((item, index) => (
+              <Recommend data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item + index} />
+            ))
+          }
+        </div>
+        <div className={style.prePurchase}>
+          <Title name='火爆新品' searchTag='prePurchase' handleToMore={(name) => handleToMore(name)} />
+          {
+            PrePurchaseData.map((item, index) => {
+              if (index === 0) {
+                return (<PrePurchaseBig data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item + index} />);
+              } else {
+                return (<PrePurchaseNormal data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item + index} />)
+              }
+            })
+          }
+        </div>
+        <div className={style.masterpiece}>
+          <Title name='大型网游' searchTag='masterpiece' handleToMore={(name) => handleToMore(name)} />
+          {
+            masterpieceData.map((item, index) => (
+              <Masterpiece data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item + index} />
+            ))
+          }
+        </div>
+        <div className={style.masterpiece}>
+          <Title name='最后一列' searchTag='masterpiece' handleToMore={(name) => handleToMore(name)} />
+          {
+            masterpieceData.map((item, index) => (
+              <Masterpiece data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item + index} />
+            ))
+          }
+        </div>
       </div>
-      <div className={style.recommend}>
-        <Title name='热门推荐' searchTag='recommend' handleToMore={(name) => handleToMore(name)} />
-        {
-          recommendData.map((item, index) => (
-            <Recommend data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item + index} />
-          ))
-        }
-      </div>
-      <div className={style.prePurchase}>
-        <Title name='预购游戏' searchTag='prePurchase' handleToMore={(name) => handleToMore(name)} />
-        {
-          PrePurchaseData.map((item, index) => {
-            if (index === 0) {
-              return (<PrePurchaseBig data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item + index} />);
-            } else {
-              return (<PrePurchaseNormal data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item + index} />)
-            }
-          })
-        }
-      </div>
-      <div className={style.masterpiece}>
-        <Title name='游戏大作' searchTag='masterpiece' handleToMore={(name) => handleToMore(name)} />
-        {
-          masterpieceData.map((item, index) => (
-            <Masterpiece data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item + index} />
-          ))
-        }
-      </div>
-      <div className={style.masterpiece}>
-        <Title name='最后一列' searchTag='masterpiece' handleToMore={(name) => handleToMore(name)} />
-        {
-          masterpieceData.map((item, index) => (
-            <Masterpiece data={item} handleToDetail={handleToDetail} handleBuy={handleBuy} key={item + index} />
-          ))
-        }
-      </div>
-    </div>
+    </>
   );
 };
 
