@@ -17,13 +17,28 @@ const Details = (props) => {
   //   e.stopPropagation();
   //   e.cancelBubble = true;
   // }
+  // 回到上一页
+  const goBack = () => {
+
+  };
   return (
     <div className={style.wrap}>
       <header className={style.header}>
-        <div className={style.crumb}>面包屑</div>
+        <div className={style.crumb}>
+          <span className={style.inner}>
+            <span>
+              <span className={style.center} onClick={goBack} >{'精选 >'} </span>
+              <span>群雄逐鹿HD</span>
+            </span>
+            <span className={style.border}></span>
+          </span>
+        </div>
+        <div className={style.detail_banner}>
+          <img src="https://wegame.gtimg.com/g.2001097-r.488f0/info/caddcdd4d5241e50e085e0d84666721b.jpg" alt='bg'/>
+        </div>
         <div className={style.headinfo}>
           <div className={style.img}>
-            <img src="https://wegame.gtimg.com/g.2001021-r.571df/info/fcb5e716838944213a8a6450140965c2.jpg" alt="群雄逐鹿"/>
+            <img src="https://wegame.gtimg.com/g.2001021-r.571df/info/fcb5e716838944213a8a6450140965c2.jpg" alt="群雄逐鹿" />
           </div>
           <div className={style.introduce}>
             <div className={style.name}>
@@ -34,15 +49,25 @@ const Details = (props) => {
         <div className={style.navwrap}>
           <div className={style.nav}>
             <div className={classnames({ [style.item]: true, [style.bottom]: true })}>
+              游戏介绍
+            </div>
+            <div className={classnames({ [style.item]: true, [style.bottom]: true })}>
               游戏详情
+            </div>
+            <div className={classnames({ [style.item]: true, [style.bottom]: true })}>
+              用户评测
+            </div>
+            <div className={classnames({ [style.item]: true, [style.bottom]: true })}>
+              应用特性
             </div>
           </div>
         </div>
       </header>
       <div className={style.detail}>
         <div className={style.img}>headinfo</div>
-        <div className={style.dowlod}>headinfo</div>
-
+        <div className={style.info}>
+          <div className={style.dowlod}>headinfo</div>
+        </div>
       </div>
     </div>
   );
