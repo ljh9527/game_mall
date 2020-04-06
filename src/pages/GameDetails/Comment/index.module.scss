@@ -1,0 +1,182 @@
+.wrap {
+  width: 1000px;
+  margin: 0 auto;
+  padding: 24px 30px;
+  min-height: 450px;
+
+  .discuss_hd {
+    background-color: #ffffff;
+    border-radius: 5px;
+
+    .creviewRatio {
+      position: relative;
+      border-bottom: 1px solid #e0e0e0;
+      height: 67px;
+
+      .discuss_tit {
+        width: 118px;
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 22px;
+        padding-left: 20px;
+        font-size: 15px;
+        color: #3c3c3c;
+      }
+
+      .discuss_val {
+        margin-left: 118px;
+        padding: 13px 0 0;
+
+        .discuss_score {
+          font-size: 26px;
+          font-weight: 700;
+          color: #ff8f00;
+
+          .discuss_count {
+            font-size: 14px;
+            color: #757575;
+          }
+        }
+      }
+    }
+
+    .discuss_button {
+      .navwrap {
+        width: 100%;
+        height: 50px;
+        background-color: #ffffff;
+        z-index: 10;
+      }
+
+      .nav {
+        margin: 0 auto;
+        width: 1000px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        position: relative;
+        font-size: 16px;
+        font-weight: 500;
+        color: #555555;
+        padding-left: 16px;
+
+        .item {
+          width: 80px;
+          height: 50px;
+          line-height: 50px;
+          text-align: center;
+          cursor: pointer;
+          margin-right: 20px;
+
+          &:hover {
+            background-color: rgb(236, 236, 236);
+          }
+        }
+
+        .bottom {
+          border-bottom: 2px solid rgb(255, 202, 40);
+        }
+      }
+    }
+  }
+
+  .allReviews {
+    background-color: #ffffff;
+    border-radius: 5px;
+    margin-top: 10px;
+
+    .reviewsContent {
+      width: 100%;
+      height: 200px;
+      position: relative;
+      margin-top: 20px;
+      background: #ffffff;
+      border-radius: 5px;
+
+      .img {
+        width: 15%;
+        margin-right: 4%;
+        float: left;
+        height: 200px;
+        position: relative;
+        border: 1px solid #e4e4e4;
+        background: linear-gradient(90deg,#f4f4f4 0,#f4f4f4 160px,#fff 0,#fff);;
+
+        .avater {
+          position: absolute;
+          top: 10%;
+          left: 50%;
+          transform: translateX(-50%);
+          border-radius: 50%;
+
+          img {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+          }
+        }
+
+        .name {
+          text-align: center;
+          height: 30px;
+          line-height: 30px;
+        }
+      }
+
+      .content {
+        width: 75%;
+        float: left;
+
+        .statusWaper {
+          width: 100%;
+          height: 60px;
+          border-bottom: 1px solid silver;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+
+          i {
+            padding: 0 20px;
+
+            svg {
+              width: 30px;
+              height: 30px;
+              background-color: rgb(255, 202, 1);
+              border-radius: 50%;
+            }
+          }
+
+          .status {
+            display: inline-block;
+            height: 60px;
+            line-height: 60px;
+            font-size: 20px;
+          }
+        }
+
+        .time {
+          height: 50px;
+          line-height: 50px;
+          padding-left: 20px;
+        }
+
+        .con {
+          padding-left: 20px;
+          height: 90px;
+        }
+      }
+
+      .buttons {
+        position: absolute;
+        bottom: 10px;
+        right: 50px;
+
+        button {
+          margin-right: 20px;
+        }
+      }
+    }
+  }
+}

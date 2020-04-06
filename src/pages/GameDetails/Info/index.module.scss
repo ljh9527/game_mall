@@ -1,0 +1,15 @@
+.wrap {
+  width: 1000px;
+  margin: 0 auto;
+  margin-top: 24px;
+  padding: 20px 30px;
+  background-color: #ffffff;
+  min-height: 450px;
+  border-radius: 5px;
+  .game_detail{
+    width: 100%;
+    .title{
+      margin-bottom: 6px;
+    }
+  }
+}

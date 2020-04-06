@@ -1,26 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classnames from 'classnames';
+import Introduce from './Introduce';
+import Info from './Info';
+import Comment from './Comment';
 import style from './index.module.scss';
 
-// const recommendData = [{
-//   url: 'https://shop.3dmgame.com/upload/ico/2019/0711/1562820172245302.jpg',
-//   name: '全面战争三国/Total War: THREE KINGDOMS',
-//   time: '发售时间：2019-05-23',
-//   price: '228.00',
-//   oldPrice: '268.00',
-// }];
-
 const Details = (props) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [gameInfo, setGameInfo] = useState(0);
   // 前往购买
   // const handleBuy = (e) => {
   //   console.log('买');
   //   e.stopPropagation();
   //   e.cancelBubble = true;
   // }
+
+  const handleClick = (index) => {
+    setActiveIndex(index);
+  };
   // 回到上一页
   const goBack = () => {
 
   };
+  const data = [{
+    name: '游戏介绍',
+    component: <Introduce gameInfo={gameInfo} />
+  }, {
+    name: '游戏详情',
+    component: <Info gameInfo={gameInfo}/>
+  }, {
+    name: '用户评测',
+    component: <Comment gameInfo={gameInfo}/>
+  },
+  '应用特性'];
   return (
     <div className={style.wrap}>
       <header className={style.header}>
@@ -34,7 +46,7 @@ const Details = (props) => {
           </span>
         </div>
         <div className={style.detail_banner}>
-          <img src="https://wegame.gtimg.com/g.2001097-r.488f0/info/caddcdd4d5241e50e085e0d84666721b.jpg" alt='bg'/>
+          <img src="https://wegame.gtimg.com/g.2001097-r.488f0/info/caddcdd4d5241e50e085e0d84666721b.jpg" alt='bg' />
         </div>
         <div className={style.headinfo}>
           <div className={style.img}>
@@ -48,26 +60,24 @@ const Details = (props) => {
         </div>
         <div className={style.navwrap}>
           <div className={style.nav}>
-            <div className={classnames({ [style.item]: true, [style.bottom]: true })}>
-              游戏介绍
-            </div>
-            <div className={classnames({ [style.item]: true, [style.bottom]: true })}>
-              游戏详情
-            </div>
-            <div className={classnames({ [style.item]: true, [style.bottom]: true })}>
-              用户评测
-            </div>
-            <div className={classnames({ [style.item]: true, [style.bottom]: true })}>
-              应用特性
-            </div>
+            {
+              data.map((item, index) => (
+                <div
+                  className={classnames({ [style.item]: true, [style.bottom]: index === activeIndex })}
+                  key={index}
+                  onClick={() => handleClick(index)}
+                >
+                  {item.name}
+                </div>
+              ))
+            }
           </div>
         </div>
       </header>
       <div className={style.detail}>
-        <div className={style.img}>headinfo</div>
-        <div className={style.info}>
-          <div className={style.dowlod}>headinfo</div>
-        </div>
+          {
+            (data[activeIndex].component)
+          }
       </div>
     </div>
   );
