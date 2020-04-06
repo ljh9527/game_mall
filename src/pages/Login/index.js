@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import md5 from 'md5';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import LoginHeader from '../../components/container/loginHeader';
 import classnames from 'classnames';
@@ -15,7 +16,7 @@ const LoginForm = (props) => {
   const handleSubmit = e => {
     e.preventDefault();
     validateFields((err, values) => {
-      console.log(values);
+      values.password = md5(values.password);
       if (!err) {
         handleLogin(values);
       };
