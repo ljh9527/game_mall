@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import md5 from 'md5';
 import service from '../../services';
 import { Form, Icon, Input, Button, Modal, Tooltip } from 'antd';
 import LoginHeader from '../../components/container/loginHeader';
@@ -15,6 +16,7 @@ const LoginForm = (props) => {
   const [step, setStep] = useState(0);
   const [pwdCheckStatus, setPwdCheckStatus] = useState(""); // 验证状态
   const [userEmail, setUserEmail] = useState('');
+  const [showModel, setShowModel] = useState(false);
 
   // 获取成功处理
   useEffect(() => {
@@ -30,13 +32,24 @@ const LoginForm = (props) => {
   // 处理验证框提交
   const handleResetSub = (step) => {
     if (step === 0) {
-      const inputValues = getFieldsValue(['email']);
-      setUserEmail(inputValues);
+      const inputValues = getFieldsValue(['email','code']);
+      setUserEmail(inputValues.email)
       setStep('1');
+      // try {
+      //   const { data } = await service.addAccount({inputValues.code});
+      //   if (data.code === 200) {
+      //     console.log(data.message);
+      //   } else{
+      //     console.log(data.message);
+      //   };
+      // } catch (error) {
+      //   console.log(error);
+      // }
       return;
     }
     validateFields((err, values) => {
       console.log(err);
+      console.log(values);
       if (!err) {
         handleRegister(values);
       }
@@ -44,10 +57,13 @@ const LoginForm = (props) => {
   };
   // 提交注册表单
   const handleRegister = async (values) => {
-    values.email = userEmail.email;
+    values.email = userEmail;
+    values.password = md5(values.password);
     try {
       const { data } = await service.addAccount(values);
       if (data.code === 200) {
+        console.log(data.message);
+      } else{
         console.log(data.message);
       };
     } catch (error) {
@@ -149,7 +165,7 @@ const LoginForm = (props) => {
                     })(
                       <Input
                         prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                        placeholder="昵称"
+                        placeholder="给自己选个昵称吧!"
                         size="large"
                       />,
                     )}
