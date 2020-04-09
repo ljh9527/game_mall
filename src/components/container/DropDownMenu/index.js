@@ -62,7 +62,7 @@ const DropDownMenu = (props) => {
           我的应用
         </Menu.Item>
         <Menu.Item key="5" onClick={handleLoginOut}>
-          退出
+          退出当前账号
         </Menu.Item>
         {/* <Menu.Item key="1" onClick={handleChangePwd}>
           修改密码
