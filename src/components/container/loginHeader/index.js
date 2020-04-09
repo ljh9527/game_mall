@@ -20,8 +20,12 @@ const LoginHeader = (props) => {
       <div className={styles.loginHeaderBox}>
         <div className={styles.top}>
           <div className={styles.topRight}>
-            <Icon type="minus" className={styles.minus} onClick={minWindow} />
-            <Icon type="close" className={styles.close} onClick={closeWindow} />
+            <div className={styles.minus} onClick={minWindow}>
+              <Icon type="minus"/>
+            </div>
+            <div className={styles.close} onClick={closeWindow}>
+              <Icon type="close"/>
+            </div>
           </div>
         </div>
         <div className={styles.backWarper}>

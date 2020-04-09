@@ -115,7 +115,7 @@ const ResetForm = (props) => {
   };
   // 密码更改成功弹出框
   const countDown = () => {
-    let secondsToGo = 5;
+    let secondsToGo = 3;
     const modal = Modal.success({
       title: '密码修改成功',
       content: `密码修改成功，${secondsToGo}秒后将返回登录页面！`,

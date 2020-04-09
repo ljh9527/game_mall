@@ -40,6 +40,10 @@ function createWindow() {
         mainWindow.setSize(1260, 770);
         mainWindow.center();
     });
+    ipc.on("loginOut", function () {
+        mainWindow.setSize(430, 600);
+        mainWindow.center();
+    });
     //如果是--debug 打开开发者工具，窗口最大化，
     if (debug) {
         mainWindow.webContents.openDevTools();

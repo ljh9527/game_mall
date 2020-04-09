@@ -8,18 +8,29 @@
     background: linear-gradient(to right, rgb(79,79,82), rgb(56,54,57));
     .top{
       -webkit-app-region: drag;
+      width: 60px;
       height: 30px;
       float: right;
       background: rgb(56,54,57);
       .topRight{
+        line-height: 30px;
         height: 30px;
         -webkit-app-region: no-drag;
         .minus,.close{
-          line-height: 30px;
-          margin-right: 10px;
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          padding: 2.5px;
           color: rgb(184, 189, 186);
-          :hover{
-            background: #f8f8f8;
+          cursor: pointer;
+          &:hover{
+            background: #808080;
+          }
+          i{
+            svg{
+              width: 20px;
+              height: 20px;
+            }
           }
         }
       }
@@ -30,10 +41,21 @@
       margin-left: 25px;
       .back {
         -webkit-app-region: no-drag;
-        width: 20px;
+        width: 30px;
+        height: 30px;
+        padding: 2.5px;
         margin-right: 10px;
         display: inline-block;
         cursor: pointer;
+        i{
+          svg{
+            width: 20px;
+            height: 20px;
+          }
+          &:hover{
+            background: #808080;
+          }
+        }
       }
       .title {
         font-size: 24px;

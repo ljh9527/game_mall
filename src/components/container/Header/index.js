@@ -8,20 +8,21 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Icon } from 'antd';
 import DropDownMenu from '../DropDownMenu';
-// import Nav from '../../ui/Nav';
 
 import classnames from 'classnames';
 import styles from './index.module.scss';
 
 const { ipcRenderer, remote } = window.electron;
 const { BrowserWindow } = remote;
-console.log(ipcRenderer);
 const Home = (props) => {
 
   const { history, routerData } = props;
   const [selectIndex, setSelectIndex] = useState(0); // 主页商城状态控制
-  // const [isMall, setIsMall] = useState(true); // 主页商城切换nav控制
 
+  useEffect(() => {
+    console.log(sessionStorage.getItem('EMAIL'));
+
+  }, [])
   useEffect(() => {
     const { pathname } = window.location;
     // eslint-disable-next-line array-callback-return

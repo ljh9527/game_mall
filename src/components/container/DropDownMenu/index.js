@@ -15,33 +15,37 @@ import { withRouter } from 'react-router-dom';
 
 import styles from './index.module.scss';
 
+const { ipcRenderer } = window.electron;
 const imgUrl = 'http://www.gravatar.com/avatar/5de1db3c896e5fdd7833c2c5d255783a?s=46&d=identicon';
 const DropDownMenu = (props) => {
   const { userUserInfo, history } = props;
   console.log(userUserInfo);
 
   const handleLoginOut = async () => {
-    //   const authToken = localStorage.getItem([AUTH_TOKEN]);
-    //   const ssoToken = localStorage.getItem([SSO_TOKEN]);
-    //   if (authToken || !ssoToken) {
-    //     localStorage.removeItem([AUTH_TOKEN]);
-    //     localStorage.removeItem([USERNAME]);
-    //     props.history.push('/');
-    //     window.location.reload();
-    //   } else {
-    //     try {
-    //       const { code, data } = await loginServices.ssoLogOut({
-    //         token: ssoToken,
-    //       });
-    //       if (code * 1 === 200) {
-    //         localStorage.removeItem([SSO_TOKEN]);
-    //         localStorage.removeItem([USERNAME]);
-    //         window.location = data.loginUrl;
-    //       }
-    //     } catch (e) {
-    //       requestErrorHandler(e);
-    //     }
-    //   }
+      // const authToken = localStorage.getItem([AUTH_TOKEN]);
+      // const ssoToken = localStorage.getItem([SSO_TOKEN]);
+      // if (authToken || !ssoToken) {
+      //   localStorage.removeItem([AUTH_TOKEN]);
+      //   localStorage.removeItem([USERNAME]);
+      //   props.history.push('/');
+      //   window.location.reload();
+      // } else {
+      //   try {
+      //     const { code, data } = await loginServices.ssoLogOut({
+      //       token: ssoToken,
+      //     });
+      //     if (code * 1 === 200) {
+      //       localStorage.removeItem([SSO_TOKEN]);
+      //       localStorage.removeItem([USERNAME]);
+      //       window.location = data.loginUrl;
+      //     }
+      //   } catch (e) {
+      //     requestErrorHandler(e);
+      //   }
+      // }
+      ipcRenderer.send('loginOut');
+      localStorage.removeItem('EMAIL');
+      history.push('/');
   };
 
   const handleToMyGame = () => {

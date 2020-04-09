@@ -26,9 +26,10 @@ const LoginForm = (props) => {
     try {
       const { data } = await services.login(values);
       if (data.code === 200) {
-        localStorage.setItem("email", values.email);
-        localStorage.setItem("password", values.password);
-        console.log(localStorage.getItem("email"));
+        console.log(data);
+        localStorage.setItem("EMAIL", values.email);
+        // localStorage.setItem("password", values.password);
+        console.log(localStorage.getItem("EMAIL"));
         setAccountSuccess(false);
         ipcRenderer.send('login');
         history.push('/index');
