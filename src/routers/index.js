@@ -39,12 +39,10 @@ const routerData = [
   { path: '/myGame/edit', component: MyDetails, belong: 1 },
   { path: '/myGame/details', component: MyGameDetails, belong: 1 },
 ];
-const maxData = [
-  
-];
+
 // belong属性用于判断该路由属于哪个大页面下，0表商城 1表我的
 const newRouter = [
-  // 首页
+  // 登录
   { path: '/', component: Login },
   // 注册
   { path: '/register', component: Register },

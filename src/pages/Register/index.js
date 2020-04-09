@@ -16,7 +16,7 @@ const LoginForm = (props) => {
   const [step, setStep] = useState(0);
   const [pwdCheckStatus, setPwdCheckStatus] = useState(""); // 验证状态
   const [userEmail, setUserEmail] = useState('');
-  const [showModel, setShowModel] = useState(false);
+  // const [showModel, setShowModel] = useState(false);
 
   // 获取成功处理
   useEffect(() => {
@@ -31,26 +31,26 @@ const LoginForm = (props) => {
   }, [count, isSendCode]);
   // 处理验证框提交
   const handleResetSub = (step) => {
-    if (step === 0) {
-      const inputValues = getFieldsValue(['email','code']);
-      setUserEmail(inputValues.email)
-      setStep('1');
-      // try {
-      //   const { data } = await service.addAccount({inputValues.code});
-      //   if (data.code === 200) {
-      //     console.log(data.message);
-      //   } else{
-      //     console.log(data.message);
-      //   };
-      // } catch (error) {
-      //   console.log(error);
-      // }
-      return;
-    }
     validateFields((err, values) => {
       console.log(err);
       console.log(values);
       if (!err) {
+        if (step === 0) {
+          const inputValues = getFieldsValue(['email','code']);
+          setUserEmail(inputValues.email)
+          setStep(1);
+          // try {
+          //   const { data } = await service.addAccount({inputValues.code});
+          //   if (data.code === 200) {
+          //     console.log(data.message);
+          //   } else{
+          //     console.log(data.message);
+          //   };
+          // } catch (error) {
+          //   console.log(error);
+          // }
+          return;
+        }
         handleRegister(values);
       }
     });
@@ -63,8 +63,21 @@ const LoginForm = (props) => {
       const { data } = await service.addAccount(values);
       if (data.code === 200) {
         console.log(data.message);
+        Modal.success({
+          content: '注册成功，可以登录了！',
+          okText: '前往登录',
+          onOk: () => {
+            history.push('/');
+          }, 
+          onCancel: () => {
+            setStep(0);
+            resetFields();
+          }
+        });
       } else{
-        console.log(data.message);
+        Modal.error({
+          content: '注册失败！',
+        });
       };
     } catch (error) {
       console.log(error);

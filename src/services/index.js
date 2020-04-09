@@ -13,7 +13,11 @@ export default {
     login(params) {
         return service.post('/user/login', params);
     },
-    // 注册验码
+    // 登录账号
+    resetPassword(params) {
+        return service.post('/user/resetPassword', params);
+    },
+    // 获取注册验码
     verificationCode(params) {
         return service.post('/user/verificationCode', params);
     },
