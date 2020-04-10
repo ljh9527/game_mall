@@ -18,11 +18,13 @@ const Home = (props) => {
 
   const { history, routerData } = props;
   const [selectIndex, setSelectIndex] = useState(0); // 主页商城状态控制
+  const userAvatar = sessionStorage.getItem("AVATAR");
 
-  useEffect(() => {
-    console.log(sessionStorage.getItem('EMAIL'));
+  // useEffect(() => {
+  //   console.log(localStorage.getItem('EMAIL'));
+  //   console.log(sessionStorage.getItem("AVATAR"));
 
-  }, [])
+  // }, [])
   useEffect(() => {
     const { pathname } = window.location;
     // eslint-disable-next-line array-callback-return
@@ -95,7 +97,7 @@ const Home = (props) => {
               </div>
             </div>
             <div className={styles.userInfo}>
-              <DropDownMenu />
+              <DropDownMenu userAvatar={userAvatar}/>
               <div onClick={download} className={styles.download} >
                 <Icon type="download" />
               </div>

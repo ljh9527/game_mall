@@ -28,8 +28,9 @@ const LoginForm = (props) => {
       if (data.code === 200) {
         console.log(data);
         localStorage.setItem("EMAIL", values.email);
-        // localStorage.setItem("password", values.password);
+        sessionStorage.setItem("AVATAR", data.data.avatar);
         console.log(localStorage.getItem("EMAIL"));
+        console.log(sessionStorage.getItem("AVATAR"));
         setAccountSuccess(false);
         ipcRenderer.send('login');
         history.push('/index');

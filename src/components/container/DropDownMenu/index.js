@@ -18,8 +18,8 @@ import styles from './index.module.scss';
 const { ipcRenderer } = window.electron;
 const imgUrl = 'http://www.gravatar.com/avatar/5de1db3c896e5fdd7833c2c5d255783a?s=46&d=identicon';
 const DropDownMenu = (props) => {
-  const { userUserInfo, history } = props;
-  console.log(userUserInfo);
+  const { userAvatar, history } = props;
+  console.log(userAvatar);
 
   const handleLoginOut = async () => {
       // const authToken = localStorage.getItem([AUTH_TOKEN]);
@@ -75,7 +75,7 @@ const DropDownMenu = (props) => {
     <Dropdown overlay={renderDropDownMenu()}>
       <span className={styles.dropdownLink}>
         <div className={styles.avatar}>
-          <img src={imgUrl} alt='imgUrl' />
+          <img src={userAvatar} alt='imgUrl' />
           <Icon type="down" />
         </div>
       </span>
