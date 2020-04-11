@@ -75,6 +75,17 @@ const ResetForm = (props) => {
     }
     setIsSendCode(true);
   };
+  const isHasUser = async (rule, value, callback) => {
+    try {
+      const { data } = await service.isHasUser({ email: value });
+      if(data.code === 200){
+        callback('该邮箱未注册！')
+      }
+      callback()
+    } catch (error) {
+      console.log(error);
+    }
+  }
    // 提交重置密码表单
    const handleResetPassword = async (values) => {
     console.log(userEmail);
@@ -156,6 +167,7 @@ const ResetForm = (props) => {
                           required: true,
                           message: '请输入要绑定的邮箱账号!',
                         },
+                        { validator: isHasUser },
                       ],
                     })(
                       <Input

@@ -9,6 +9,7 @@ const { BrowserWindow } = remote;
 const Info = (props) => {
   const {
     form,
+    userInfo,
   } = props;
   const { getFieldDecorator, getFieldsValue } = form;
   const { Item } = Form;
@@ -33,12 +34,14 @@ const Info = (props) => {
       <Form layout="inline">
         <Item label="昵称" colon={false} >
           {getFieldDecorator('nickname', {
+            initialValue: userInfo.nickname
           })(
             <Input allowClear={true} placeholder="给自己取个昵称吧" />,
           )}
         </Item>
         <Item label="个人简介" colon={false} >
           {getFieldDecorator('introduction', {
+            initialValue: userInfo.introduction
           })(
             <Input.TextArea allowClear={true} placeholder="用一句话来形容你自己~" />,
           )}

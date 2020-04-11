@@ -36,7 +36,7 @@ const LoginForm = (props) => {
       console.log(values);
       if (!err) {
         if (step === 0) {
-          const inputValues = getFieldsValue(['email','code']);
+          const inputValues = getFieldsValue(['email', 'code']);
           setUserEmail(inputValues.email)
           setStep(1);
           // try {
@@ -55,6 +55,17 @@ const LoginForm = (props) => {
       }
     });
   };
+  const isHasUser = async (rule, value, callback) => {
+    try {
+      const { data } = await service.isHasUser({ email: value });
+      if(data.code !== 200){
+        callback('该邮箱已注册！')
+      }
+      callback()
+    } catch (error) {
+      console.log(error);
+    }
+  }
   // 提交注册表单
   const handleRegister = async (values) => {
     values.email = userEmail;
@@ -68,13 +79,13 @@ const LoginForm = (props) => {
           okText: '前往登录',
           onOk: () => {
             history.push('/');
-          }, 
+          },
           onCancel: () => {
             setStep(0);
             resetFields();
           }
         });
-      } else{
+      } else {
         Modal.error({
           content: '注册失败！',
         });
@@ -136,6 +147,7 @@ const LoginForm = (props) => {
                           required: true,
                           message: '请输入要绑定的邮箱账号!',
                         },
+                        { validator: isHasUser },
                       ],
                     })(
                       <Input
@@ -169,7 +181,7 @@ const LoginForm = (props) => {
                   <Form.Item label={
                     <span>昵称&nbsp;
                       <Tooltip title="你希望其他人叫你什么?">
-                      <Icon type="question-circle-o" />
+                        <Icon type="question-circle-o" />
                       </Tooltip>
                     </span>
                   }>

@@ -13,7 +13,7 @@ export default {
     login(params) {
         return service.post('/user/login', params);
     },
-    // 登录账号
+    // 重置账号密码
     resetPassword(params) {
         return service.post('/user/resetPassword', params);
     },
@@ -21,8 +21,11 @@ export default {
     verificationCode(params) {
         return service.post('/user/verificationCode', params);
     },
+    getUserInfo(params) {
+        return service.get('/user/info', {params});
+    },
     // 测试
-    hello(params) {
-        return service.get('/user/hello');
+    isHasUser(params) {
+        return service.post('/user/isHasUser', params);
     },
 };
