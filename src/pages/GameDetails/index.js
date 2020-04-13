@@ -1,20 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import services from '../../services';
 import classnames from 'classnames';
 import Introduce from './Introduce';
 import Info from './Info';
 import Comment from './Comment';
 import style from './index.module.scss';
+import { getUrlParam } from '../../utils';
 
 const Details = (props) => {
+  const [id] = useState(getUrlParam('id'));
   const [activeIndex, setActiveIndex] = useState(0);
   const [gameInfo, setGameInfo] = useState(0);
+  const data = [{
+    name: '游戏介绍',
+    component: <Introduce gameInfo={gameInfo} />
+  }, {
+    name: '游戏详情',
+    component: <Info gameInfo={gameInfo} />
+  }, {
+    name: '用户评测',
+    component: <Comment gameInfo={gameInfo} />
+  },
+    '应用特性'];
   // 前往购买
   // const handleBuy = (e) => {
   //   console.log('买');
   //   e.stopPropagation();
   //   e.cancelBubble = true;
   // }
-
+  console.log(id);
+  useEffect(()=>{
+    getGameInfo(id);
+  }, [id])
   const handleClick = (index) => {
     setActiveIndex(index);
   };
@@ -22,17 +39,21 @@ const Details = (props) => {
   const goBack = () => {
 
   };
-  const data = [{
-    name: '游戏介绍',
-    component: <Introduce gameInfo={gameInfo} />
-  }, {
-    name: '游戏详情',
-    component: <Info gameInfo={gameInfo}/>
-  }, {
-    name: '用户评测',
-    component: <Comment gameInfo={gameInfo}/>
-  },
-  '应用特性'];
+  
+      // 请求轮播图数据
+  const getGameInfo = async (id) => {
+    // 发送请求
+    try {
+      // 发送请求
+      const { data } = await services.getGameInfo({id});
+      if(data.code === 200){
+        console.log(data.code);
+        setGameInfo(data.code);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className={style.wrap}>
       <header className={style.header}>
@@ -75,9 +96,9 @@ const Details = (props) => {
         </div>
       </header>
       <div className={style.detail}>
-          {
-            (data[activeIndex].component)
-          }
+        {
+          (data[activeIndex].component)
+        }
       </div>
     </div>
   );

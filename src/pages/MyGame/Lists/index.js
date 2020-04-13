@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Form, Button, Input, Icon } from 'antd';
 import Game from './components/MyGame';
 import Progress from './components/Progress';
@@ -7,8 +8,9 @@ import style from './index.module.scss';
 
 const imgUrl = 'http://www.gravatar.com/avatar/5de1db3c896e5fdd7833c2c5d255783a?s=46&d=identicon';
 const Details = (props) => {
-  const { history } = props;
+  const { userInfo, getUserInfo, form, history } = props;
   const [activeIndex, setActiveIndex] = useState(false);
+  const [avatar, setAvater] = useState(imgUrl);
   const {
     gameList = [{
       name: "英雄联盟",
@@ -28,6 +30,14 @@ const Details = (props) => {
       lastLoginTime: "2"
     }],
   } = props;
+  useEffect(() => {
+    const email = localStorage.getItem("EMAIL");
+    getUserInfo({ email });
+    setAvater(userInfo.avatar);
+  }, []);
+  useEffect(() => {
+    setAvater(userInfo.avatar);
+  }, [userInfo]);
   const handleEdit = () => {
     history.push('/myGame/edit');
   };
@@ -38,11 +48,11 @@ const Details = (props) => {
     <div className={style.wrap}>
       <div className={style.background}>
         <div className={style.avatar}>
-          <img src={imgUrl} alt='头像' />
+          <img src={avatar} alt='头像' />
         </div>
         <div className={style.cover}>
           <div className={style.userName}>
-            我是谁
+            {userInfo.nickname}
           </div>
           <div className={style.buttonBox}>
             <Button type="ghost" shape='round' size='small' onClick={handleEdit}>编辑资料</Button>
@@ -61,7 +71,7 @@ const Details = (props) => {
               }
             </div>
             <div className={style.progress}>
-              <Progress/>
+              <Progress userInfo={userInfo}/>
             </div>
           </div>) : (<Evaluation />)
         }
@@ -70,4 +80,15 @@ const Details = (props) => {
   );
 };
 
-export default Details;
+const mapStateToProps = ({ user }) => {
+  return {
+    userInfo: user.userInfo
+  };
+};
+
+const mapDispathToProps = ({ user }) => {
+  return {
+    getUserInfo: user.getUserInfo,
+  };
+};
+export default connect(mapStateToProps, mapDispathToProps)(Form.create({ name: 'Info' })(Details));

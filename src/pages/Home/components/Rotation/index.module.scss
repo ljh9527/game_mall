@@ -1,67 +1,74 @@
-.wrap {
+.content{
   width: 100%;
   height: 300px;
   position: relative;
-
-  .imgContainer {
+  .wrap {
     width: 100%;
     height: 300px;
-
-    img {
-      width: 100%;
-      height: 100%;
-      display: none;
-      position: absolute;
-    }
-  }
-
-  .upperContainer {
-    width: 20%;
-    height: 100%;
     position: absolute;
-    right: 0px;
-    top: 0px;
-
-    .upper {
+  
+    .imgContainer {
       width: 100%;
-      height: 100%;
-      opacity: 0.5;
-      background: rgb(10, 10, 10);
-
-      .upperItem {
-        height: 48px;
+      height: 300px;
+  
+      img {
         width: 100%;
-        list-style-type: none;
-        vertical-align: middle;
-        padding: 10px 0 0 10px;
-        font-size: 12px;
-        color: #fff;
-        margin: 0 4px 0 0;
-        cursor: pointer;
-
-        &.cur {
-          height: 60px;
-        }
-
-        .title {
-          color: #e0e0e0;
-          font-size: 18px;
-          height: 20px;
-          line-height: 20px;
-          display: inline-block;
+        height: 100%;
+        display: none;
+        position: absolute;
+      }
+    }
+  
+    .upperContainer {
+      width: 20%;
+      height: 100%;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+  
+      .upper {
+        width: 100%;
+        height: 100%;        
+        opacity: 0.5;
+        background: rgb(10, 10, 10);
+  
+        .upperItem {
+          height: 48px;
+          width: 100%;
+          list-style-type: none;
           vertical-align: middle;
-          overflow: hidden;
-          white-space: nowrap;
-          max-width: 165px;
-          text-overflow: ellipsis;
-        }
-
-        .sub {
-          overflow: hidden;
-          max-width: 180px;
-          height: 21px;
-          margin: 7px 0 0;
-          opacity: 0;
+          padding: 10px 0 0 10px;
+          font-size: 12px;
+          color: #fff;
+          margin: 0 4px 0 0;
+          cursor: pointer;
+  
+          &.cur {
+            height: 60px;
+            background-color: rgba(64,195,255,.3);
+            opacity: 0.9;
+          }
+  
+          .title {
+            color: #e0e0e0;
+            font-size: 18px;
+            height: 20px;
+            line-height: 20px;
+            display: inline-block;
+            vertical-align: middle;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 165px;
+            text-overflow: ellipsis;
+          }
+  
+          .sub {
+            overflow: hidden;
+            max-width: 180px;
+            height: 21px;
+            margin: 7px 0 0;
+            opacity: 0;
+          }
         }
       }
     }

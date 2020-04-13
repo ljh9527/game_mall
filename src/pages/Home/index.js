@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect, } from 'react';
+import services from '../../services';
 import Rotation from './components/Rotation';
 import Title from "./components/Title";
 import Nav from '../../components/ui/Nav';
@@ -79,10 +80,28 @@ const masterpieceData = [{
 
 const Home = (props) => {
   const { history } = props;
+  const [rotationData, setRotationData] = useState();
+  useEffect(() => { 
+    getGameData(1);
+  }, [])
+  // 请求轮播图数据
+  const getGameData = async (type) => {
+    // 发送请求
+    try {
+      // 发送请求
+      const { data } = await services.getIndexGameData({type});
+      if(data.code === 200){
+        setRotationData(data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // 前往详情
-  const handleToDetail = (e) => {
+  const handleToDetail = (id) => {
+    console.log(id);
     console.log('详情');
-    history.push('/game/details');
+    history.push(`/game/details?id=${id}`);
   };
   // 前往购买
   const handleBuy = (e) => {
@@ -100,7 +119,7 @@ const Home = (props) => {
       <Nav history={history} />
       <div className={style.wrap}>
         <div className={style.rotation}>
-          <Rotation />
+          <Rotation rotationData={rotationData} handleToDetail={handleToDetail}/>
         </div>
         <div className={style.recommend}>
           <Title name='热门推荐' searchTag='recommend' handleToMore={(name) => handleToMore(name)} />

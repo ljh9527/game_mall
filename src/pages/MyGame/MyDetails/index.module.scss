@@ -2,6 +2,7 @@
   width: 1000px;
   margin: 0 auto;
   height: 100%;
+
   .background {
     width: 100%;
     height: 215px;
@@ -9,12 +10,25 @@
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
+
     .avatar {
       position: absolute;
       bottom: 0px;
       left: 10%;
       border-radius: 50%;
-      z-index: 999;
+      z-index: 10;
+
+      :global {
+        .ant-upload-list{
+          display: none;
+        }
+        .ant-upload{
+          margin-right: 0;
+          margin-bottom: 0;
+          border: none;
+          background: none;
+        }
+      }
       img {
         width: 140px;
         height: 140px;
@@ -22,17 +36,19 @@
         vertical-align: top;
         margin-right: 3px;
       }
-      .changeAvatar{
+
+      .changeAvatar {
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
         width: 60px;
         height: 50px;
         color: #ffffff;
         opacity: 0.9;
         text-align: center;
         cursor: pointer;
+
         i {
           svg {
             width: 35px;
@@ -41,6 +57,7 @@
         }
       }
     }
+
     .cover {
       position: absolute;
       bottom: 0px;
@@ -49,15 +66,18 @@
       width: 100%;
       color: #ffffff;
       background: rgba($color: #080809, $alpha: 0.8);
+
       .userName {
         position: absolute;
         left: 26%;
         font-size: 18px;
       }
+
       .buttonBox {
         position: absolute;
         right: 6%;
         top: 22%;
+
         :global {
           .ant-btn {
             margin-left: 12px;
@@ -66,15 +86,70 @@
             border-color: #d9d9d9;
           }
         }
-        .save{
-          color: rgb(255,202,0);
-          border-color: rgb(255,202,0);
+
+        .save {
+          color: rgb(255, 202, 0);
+          border-color: rgb(255, 202, 0);
         }
       }
     }
   }
+
   .content {
     width: 100%;
     padding: 20px;
+
+    .formWraper {
+      width: 100%;
+      background-color: #ffffff;
+
+      .title {
+        padding: 20px 60px;
+        color: #222222;
+        font-size: 24px;
+
+        &::before {
+          content: '';
+          display: inline-block;
+          background: #f04029;
+          vertical-align: middle;
+          margin-right: 13px;
+          margin-top: -4px;
+          width: 4px;
+          height: 22px;
+          border-radius: 10px;
+        }
+      }
+
+      :global {
+        .ant-form-item {
+          padding-bottom: 20px;
+          display: block;
+          padding-left: 100px;
+
+          .ant-form-item-label {
+            min-width: 66px;
+            margin-right: 50px;
+          }
+
+          .ant-form-item-control-wrapper {
+            width: 352px;
+          }
+        }
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 3px 0;
+        padding-right: 20px;
+
+        :global {
+          .ant-btn+.ant-btn {
+            margin: 0 12px;
+          }
+        }
+      }
+    }
+
   }
 }

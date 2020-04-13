@@ -24,8 +24,21 @@ export default {
     getUserInfo(params) {
         return service.get('/user/info', {params});
     },
-    // 测试
+    // 验证账号是否存在
     isHasUser(params) {
         return service.post('/user/isHasUser', params);
+    },
+    // 更新头像
+    updateUserInfo(params) {
+        return service.post('/user/update', params);
+    },
+
+    // 获取首页展示数据
+    getIndexGameData(params) {
+        return service.get('/game/index', {params});
+    },
+    // 获取游戏的信息
+    getIndexGameData(params) {
+        return service.get('/game/info', {params});
     },
 };

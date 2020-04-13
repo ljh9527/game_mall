@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import classnames from 'classnames';
 import { Button } from 'antd';
-import { ImgList } from '../../../components'
 import style from './index.module.scss';
 // let Swiper = window.Swiper;
 import Swiper from "swiper";
