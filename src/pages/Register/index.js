@@ -5,7 +5,7 @@ import { Form, Icon, Input, Button, Modal, Tooltip } from 'antd';
 import LoginHeader from '../../components/container/loginHeader';
 import style from './index.module.scss';
 
-const LoginForm = (props) => {
+const RegisterForm = (props) => {
   const {
     form,
     history,
@@ -32,33 +32,38 @@ const LoginForm = (props) => {
   // 处理验证框提交
   const handleResetSub = (step) => {
     validateFields((err, values) => {
-      console.log(err);
-      console.log(values);
       if (!err) {
         if (step === 0) {
-          const inputValues = getFieldsValue(['email', 'code']);
-          setUserEmail(inputValues.email)
-          setStep(1);
-          // try {
-          //   const { data } = await service.addAccount({inputValues.code});
-          //   if (data.code === 200) {
-          //     console.log(data.message);
-          //   } else{
-          //     console.log(data.message);
-          //   };
-          // } catch (error) {
-          //   console.log(error);
-          // }
+          // checkCode();
           return;
         }
         handleRegister(values);
       }
     });
   };
+  const checkCode = async (rule, value, callback) => {
+    if(!isSendCode){
+      callback('请获取验证码！');
+      return;
+    }
+    const inputValues = getFieldsValue(['email', 'code']);
+    try {
+      const { data } = await service.checkCode(inputValues);
+      if (data.code === 200) {
+        setUserEmail(inputValues.email)
+        setStep(1);
+        callback();
+      } else {
+        callback('验证码错误！');
+      };
+    } catch (error) {
+      console.log(error);
+    }
+  }
   const isHasUser = async (rule, value, callback) => {
     try {
       const { data } = await service.isHasUser({ email: value });
-      if(data.code !== 200){
+      if (data.code !== 200) {
         callback('该邮箱已注册！')
       }
       callback()
@@ -159,7 +164,11 @@ const LoginForm = (props) => {
                   </Form.Item>
                   <Form.Item className={style.code}>
                     {getFieldDecorator('code', {
-                      rules: [{ required: true, message: '请输入验证码!' }],
+                      validateTrigger: 'onSubmit',
+                      rules: [
+                        { required: true, message: '请输入验证码!' },
+                        { validator: checkCode },
+                      ],
                     })(
                       <Input
                         prefix={<Icon type="code" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -237,4 +246,4 @@ const LoginForm = (props) => {
   );
 }
 
-export default Form.create({ name: 'normal_login' })(LoginForm);
+export default Form.create({ name: 'normal_login' })(RegisterForm);

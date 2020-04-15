@@ -21,6 +21,11 @@ export default {
     verificationCode(params) {
         return service.post('/user/verificationCode', params);
     },
+    // 校验注册验码
+    checkCode(params) {
+        return service.post('/user/checkCode', params);
+    },
+    // 获取用户信息
     getUserInfo(params) {
         return service.get('/user/info', {params});
     },
@@ -38,7 +43,14 @@ export default {
         return service.get('/game/index', {params});
     },
     // 获取游戏的信息
-    getIndexGameData(params) {
+    getGameInfo(params) {
         return service.get('/game/info', {params});
     },
+    // 获取游戏的评论
+    getGameComment(params) {
+        return service.get('/comment/game', {params});
+    },
+
+    // 上传文件
+    uploadFile: `${service.baseURL}/file/upload`,
 };

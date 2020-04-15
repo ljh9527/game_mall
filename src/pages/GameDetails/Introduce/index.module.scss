@@ -121,11 +121,38 @@
             line-height: 34px;
             width: 150px;
             max-width: 150px;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
           }
         }
       }
     }
 
+    .price{
+      width: 100%;
+      padding: 20px;
+      position: absolute;
+      bottom: 50px;
+      left: 0;
+    }
+    .buy{
+      width: 260px;
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      :global .ant-btn {
+        width: 260px;
+        height: 48px;
+        line-height: 48px;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 500;
+        background-color: #edbc25;
+      }
+    }
     .dowlod {
       width: 260px;
       position: absolute;
@@ -137,10 +164,10 @@
         width: 260px;
         height: 48px;
         line-height: 48px;
-        background-color: #3b9cff;
         color: #fff;
         font-size: 20px;
         font-weight: 500;
+        background-color: #3b9cff;
       }
     }
   }

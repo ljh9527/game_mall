@@ -9,7 +9,7 @@ const data = [{
   name: '精选',
   searchTag: ''
 }, {
-  name: '热门推荐',
+  name: '本周热门',
   searchTag: 'recommend'
 }, {
   name: '火爆新品',

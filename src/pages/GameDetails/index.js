@@ -10,10 +10,13 @@ import { getUrlParam } from '../../utils';
 const Details = (props) => {
   const [id] = useState(getUrlParam('id'));
   const [activeIndex, setActiveIndex] = useState(0);
-  const [gameInfo, setGameInfo] = useState(0);
+  const [gameInfo, setGameInfo] = useState();
+  const download = (id)=>{
+    console.log(id);
+  }
   const data = [{
     name: '游戏介绍',
-    component: <Introduce gameInfo={gameInfo} />
+    component: <Introduce gameInfo={gameInfo} download={download} />
   }, {
     name: '游戏详情',
     component: <Info gameInfo={gameInfo} />
@@ -28,7 +31,7 @@ const Details = (props) => {
   //   e.stopPropagation();
   //   e.cancelBubble = true;
   // }
-  console.log(id);
+
   useEffect(()=>{
     getGameInfo(id);
   }, [id])
@@ -40,20 +43,20 @@ const Details = (props) => {
 
   };
   
-      // 请求轮播图数据
+  // 请求游戏数据
   const getGameInfo = async (id) => {
     // 发送请求
     try {
       // 发送请求
       const { data } = await services.getGameInfo({id});
       if(data.code === 200){
-        console.log(data.code);
-        setGameInfo(data.code);
+        setGameInfo(data.data[0]);
       }
     } catch (error) {
       console.log(error);
     }
   };
+  
   return (
     <div className={style.wrap}>
       <header className={style.header}>
@@ -61,7 +64,7 @@ const Details = (props) => {
           <span className={style.inner}>
             <span>
               <span className={style.center} onClick={goBack} >{'精选 >'} </span>
-              <span>群雄逐鹿HD</span>
+              <span>{gameInfo&&gameInfo[0].gameName}</span>
             </span>
             <span className={style.border}></span>
           </span>
@@ -71,11 +74,11 @@ const Details = (props) => {
         </div>
         <div className={style.headinfo}>
           <div className={style.img}>
-            <img src="https://wegame.gtimg.com/g.2001021-r.571df/info/fcb5e716838944213a8a6450140965c2.jpg" alt="群雄逐鹿" />
+            <img src={gameInfo&&gameInfo[1].imageCover} alt={gameInfo&&gameInfo[0].gameName} />
           </div>
           <div className={style.introduce}>
             <div className={style.name}>
-              <h1 title="群雄逐鹿HD">群雄逐鹿HD</h1>
+              <h1 title={gameInfo&&gameInfo[0].gameName}>{gameInfo&&gameInfo[0].gameName}</h1>
             </div>
           </div>
         </div>

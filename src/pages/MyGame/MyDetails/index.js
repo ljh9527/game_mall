@@ -43,6 +43,13 @@ const Details = (props) => {
     })
     win.loadURL('http://localhost:3456/resetPassword');
   };
+  const beforeUpload = (file) => {
+    if (file.size / 1024 / 1024 > 10) {
+      message.error('最多不能超过10M');
+      return false;
+    }
+    return true;
+  };
   const handleChangeAvatar = async (file) => {
     console.log('更改图片');
     console.log('file', file);
@@ -78,10 +85,10 @@ const Details = (props) => {
       <div className={style.background}>
         <div className={style.avatar}>
           <Upload
-            // action={mockGetOSSData}
+            name="avater"
             listType="picture-card"
-            // fileList={fileList}
-            // onPreview={(file)=>handlePreview(file)}
+            showUploadList={false}
+            onPreview={(file)=>beforeUpload(file)}
             onChange={(file) => handleChangeAvatar(file)}
           >
             <>

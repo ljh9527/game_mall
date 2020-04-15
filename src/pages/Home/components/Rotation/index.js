@@ -60,7 +60,7 @@ const Home = (props) => {
   }
   const enter = () => {
     leave();
-    if (latestCount.current === rotationData.length - 1) {
+    if (latestCount.current === 5) {
       latestCount.current = 0;
     } else {
       latestCount.current++;

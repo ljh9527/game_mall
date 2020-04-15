@@ -35,19 +35,7 @@ const ResetForm = (props) => {
       console.log(values);
       if (!err) {
         if (step === 0) {
-          const inputValues = getFieldsValue(['email','code']);
-          setUserEmail(inputValues.email);
-          setStep(1);
-          // try {
-          //   const { data } = await service.addAccount({inputValues.code});
-          //   if (data.code === 200) {
-          //     console.log(data.message);
-          //   } else{
-          //     console.log(data.message);
-          //   };
-          // } catch (error) {
-          //   console.log(error);
-          // }
+          // checkCode();
           return;
         }
         handleResetPassword(values);
@@ -55,6 +43,25 @@ const ResetForm = (props) => {
       }
     });
   };
+  const checkCode = async (rule, value, callback) => {
+    if(!isSendCode){
+      callback('请获取验证码！');
+      return;
+    }
+    const inputValues = getFieldsValue(['email', 'code']);
+    try {
+      const { data } = await service.checkCode(inputValues);
+      if (data.code === 200) {
+        setUserEmail(inputValues.email)
+        setStep(1);
+        callback();
+      } else {
+        callback('验证码错误！');
+      };
+    } catch (error) {
+      console.log(error);
+    }
+  }
   // 返回登录
   const handleGoLogin = () => {
     resetFields();
@@ -179,7 +186,11 @@ const ResetForm = (props) => {
                   </Form.Item>
                   <Form.Item className={style.code}>
                     {getFieldDecorator('code', {
-                      rules: [{ required: true, message: '请输入验证码!' }],
+                      validateTrigger: 'onSubmit',
+                      rules: [
+                        { required: true, message: '请输入验证码!' },
+                        { validator: checkCode },
+                      ],
                     })(
                       <Input
                         prefix={<Icon type="code" style={{ color: 'rgba(0,0,0,.25)' }} />}

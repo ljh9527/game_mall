@@ -1,13 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+// import services from '../../../services';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { Icon } from 'antd';
 import style from './index.module.scss';
 
-const Details = (props) => {
+const Comment = (props) => {
+  const {
+    gameInfo = {},
+    comment = [],
+    commentRecommend = [],
+    commentUnRecommend = [],
+    recommendRate = '',
+    getGameComment = () => {}
+  } = props;
+  // const id = gameInfo[0].id;
+
+  const [data, setData] = useState(comment);
   const [activeIndex, setActiveIndex] = useState(0);
   const switchData = ['全部评测', '推荐', '不推荐'];
+  // useEffect(() => {
+  //   getGameComment(id);
+  // }, [id]);
+  useEffect(() => {
+    setData(comment);
+  }, [comment]);
   const handleClick = (index) => {
     setActiveIndex(index);
+    if (index === 1) {
+      setData(commentRecommend);
+    } else if(index === 2) {
+      setData(commentUnRecommend);
+    } else {
+      setData(comment);
+    }
   };
 
   return (
@@ -19,9 +45,9 @@ const Details = (props) => {
           </div>
           <div className={style.discuss_val}>
             <div className={style.discuss_score}>
-              <strong>56<span>%</span></strong>
+              <strong>{comment.length>0 ? recommendRate : '100'}<span>%</span></strong>
               <span className={style.discuss_count}>
-                （<span>1234</span>条评测）
+                （<span>共{comment.length}</span>条评测）
               </span>
             </div>
           </div>
@@ -45,25 +71,55 @@ const Details = (props) => {
         </div>
       </div>
       <div className={style.allReviews}>
-        <div className={style.reviewsContent}>
-          <div className={style.img}>
-            <div className={style.avater}>
-              <img src={'https://shop.3dmgame.com/upload/ico/2019/0711/1562820172245302.jpg'} alert='图片' />
-              <div className={style.name}>英雄联盟</div>
+        {
+          data.length > 0 ? data.map((item, index) => (
+            <div className={style.reviewsContent} key={item + index}>
+              <div className={style.img}>
+                <div className={style.avater}>
+                  <img src={item.url} alert='头像' />
+                  <div className={style.name}>{item.nickname}</div>
+                </div>
+              </div>
+              <div className={style.content}>
+                <div className={style.statusWaper}>
+                  {
+                    item.recommendstatu === 0 ? (
+                      <>
+                        <Icon type="smile" />
+                        <div className={style.status}>推荐</div>
+                      </>) : (
+                        <>
+                          <Icon type="frown" />
+                          <div className={style.status}>不推荐</div>
+                        </>
+                      )
+                  }
+                </div>
+                <div className={style.time}>{item.commentdate}</div>
+                <div className={style.con}>{item.content}</div>
+              </div>
             </div>
-          </div>
-          <div className={style.content}>
-            <div className={style.statusWaper}>
-              <Icon type="smile" />
-              <div className={style.status}>推荐</div>
-            </div>
-            <div className={style.time}>2020-02-30 20:20:10</div>
-            <div className={style.con}>少时诵诗书</div>
-          </div>
-        </div>
+          )) : (<div className={style.empty}> 暂无评测</div>)
+        }
       </div>
     </div>
   );
 };
 
-export default Details;
+
+const mapStateToProps = ({ comment }) => {
+  return {
+    comment: comment.comment,
+    commentRecommend: comment.commentRecommend,
+    commentUnRecommend: comment.commentUnRecommend,
+    recommendRate: comment.recommendRate
+  };
+};
+
+const mapDispathToProps = ({ comment }) => {
+  return {
+    getGameComment: comment.getGameComment,
+  };
+};
+
+export default connect(mapStateToProps,mapDispathToProps)(Comment);
