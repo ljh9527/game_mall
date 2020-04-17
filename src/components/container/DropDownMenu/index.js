@@ -5,55 +5,44 @@
  * */
 import React from 'react';
 import { Menu, Dropdown, Icon } from 'antd';
+import services from '../../../services';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
-// import { login as loginServices } from '-/services';
-// import { requestErrorHandler } from '../../../utils';
-
-// import { AUTH_TOKEN, USERNAME, SSO_TOKEN } from '-/constants';
+import { requestErrorHandler } from '../../../utils';
 
 import styles from './index.module.scss';
 
 const { ipcRenderer } = window.electron;
-const imgUrl = 'http://www.gravatar.com/avatar/5de1db3c896e5fdd7833c2c5d255783a?s=46&d=identicon';
 const DropDownMenu = (props) => {
   const { userAvatar, history } = props;
-  console.log(userAvatar);
 
   const handleLoginOut = async () => {
-      // const authToken = localStorage.getItem([AUTH_TOKEN]);
-      // const ssoToken = localStorage.getItem([SSO_TOKEN]);
-      // if (authToken || !ssoToken) {
-      //   localStorage.removeItem([AUTH_TOKEN]);
-      //   localStorage.removeItem([USERNAME]);
-      //   props.history.push('/');
-      //   window.location.reload();
-      // } else {
-      //   try {
-      //     const { code, data } = await loginServices.ssoLogOut({
-      //       token: ssoToken,
-      //     });
-      //     if (code * 1 === 200) {
-      //       localStorage.removeItem([SSO_TOKEN]);
-      //       localStorage.removeItem([USERNAME]);
-      //       window.location = data.loginUrl;
-      //     }
-      //   } catch (e) {
-      //     requestErrorHandler(e);
-      //   }
-      // }
-      ipcRenderer.send('loginOut');
-      localStorage.removeItem('EMAIL');
-      history.push('/');
+    let time = new Date().getTime();
+    let email = localStorage.getItem("EMAIL");
+    const params = {
+      time: time,
+      email: email
+    }
+    // 发送请求
+    try {
+      // 发送请求
+      const { data } = await services.updateUserInfo(params);
+      if (data.code === 200) {
+        console.log(data);
+      }
+    } catch (error) {
+      requestErrorHandler(error);
+    }
+    ipcRenderer.send('loginOut');
+    localStorage.removeItem('EMAIL');
+    history.push('/');
   };
+
 
   const handleToMyGame = () => {
     history.push('/myGame/index');
   };
-  // const handleChangePwd = () => {
-  //   props.history.push('/updatepass');
-  // };
+
 
   const renderDropDownMenu = () => {
     return (

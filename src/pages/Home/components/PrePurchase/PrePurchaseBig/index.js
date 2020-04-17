@@ -8,7 +8,6 @@ const PrePurchaseBig = (props) => {
     handleToDetail,
     handleBuy,
   } = props;
-  console.log(data);
   return (
     <div className={style.wrap} onClick={handleToDetail}>
       <div className={style.img}>

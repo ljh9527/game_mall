@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import md5 from 'md5';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 import LoginHeader from '../../components/container/loginHeader';
 import classnames from 'classnames';
 import services from '../../services';
@@ -26,11 +26,9 @@ const LoginForm = (props) => {
     try {
       const { data } = await services.login(values);
       if (data.code === 200) {
-        console.log(data);
         localStorage.setItem("EMAIL", values.email);
         sessionStorage.setItem("AVATAR", data.data.avatar);
-        console.log(localStorage.getItem("EMAIL"));
-        console.log(sessionStorage.getItem("AVATAR"));
+        console.log(data.data);
         setAccountSuccess(false);
         ipcRenderer.send('login');
         history.push('/index');
@@ -38,7 +36,7 @@ const LoginForm = (props) => {
         setAccountSuccess(true);
       }
     } catch (error) {
-      console.log(error);
+      message.error("网络遇到点故障")
     }
   };
   // 清楚登录失败提示

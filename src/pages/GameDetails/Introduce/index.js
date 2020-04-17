@@ -127,7 +127,7 @@ const Introduce = (props) => {
                   </div>
                   <div className={style.item}>
                     <span className={style.name}>推荐率</span>
-                    <span className={style.value}>{recommendRate}%（<span>共{comment.length}</span>条评测）</span>
+                    <span className={style.value}>{parseFloat(recommendRate).toFixed("1")}%（<span>共{comment.length}</span>条评测）</span>
                   </div>
                   <div className={style.item}>
                     <span className={style.name}>开发商</span>

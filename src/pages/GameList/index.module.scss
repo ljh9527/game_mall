@@ -126,4 +126,31 @@
       }
     }
   }
+
+  .page{
+    width: 1000px;
+    margin: 0 auto;
+    padding-left: 0;
+    padding-top: 15px;
+    :global {
+      .ant-pagination {
+        text-align: center;
+        li{
+          background: transparent;
+          a{
+            background: transparent;
+          }
+        }
+        .ant-pagination-item-active{
+          background-color: rgba(255,202,40,.5);
+          border-color: #ffb300;
+          color: #3c3c3c;
+        }
+        .ant-select-selection{
+          background: transparent;
+          border: 1px solid #bfbfbf;
+        }
+      }
+    }
+  }
 }

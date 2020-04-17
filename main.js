@@ -37,7 +37,7 @@ function createWindow() {
         mainWindow.maximize();
     });
     ipc.on("login", function () {
-        mainWindow.setSize(1260, 770);
+        mainWindow.setSize(1260, 850);
         mainWindow.center();
     });
     ipc.on("loginOut", function () {

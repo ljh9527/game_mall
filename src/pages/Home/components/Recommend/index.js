@@ -6,9 +6,7 @@ const Recommend = (props) => {
   const {
     data,
     handleToDetail,
-    handleBuy,
   } = props;
-  console.log(data);
   return (
     <div className={style.wrap} onClick={() => handleToDetail(data[0].id)}>
       <div className={style.img}>

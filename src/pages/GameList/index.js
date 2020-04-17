@@ -1,57 +1,116 @@
-import React from 'react';
-import Nav from '../../components/ui/Nav';
+import React, { useState, useEffect } from 'react';
+import services from '../../services';
+import { Pagination, Empty } from 'antd';
+import { Nav, GameListItem } from '../../components';
 import { getUrlParam } from '../../utils';
 import style from './index.module.scss';
-
-// const recommendData = [{
-//   url: 'https://shop.3dmgame.com/upload/ico/2019/0711/1562820172245302.jpg',
-//   name: '全面战争三国/Total War: THREE KINGDOMS',
-//   time: '发售时间：2019-05-23',
-//   price: '228.00',
-//   oldPrice: '268.00',
-// }];
 
 const Details = (props) => {
   const { history } = props;
   const param = getUrlParam('searchTag');
+  const name = decodeURIComponent(getUrlParam('name'));
+  const [data, setData] = useState();
+  const [pageData, setPageData] = useState();
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   console.log(param);
-  // 前往购买
-  // const handleBuy = (e) => {
-  //   console.log('买');
-  //   e.stopPropagation();
-  //   e.cancelBubble = true;
-  // }
+  console.log(name);
+  useEffect(() => {
+    if(param){
+      getGameList(param);
+      return;
+    }
+    if(name){
+      getGame(name);
+    }
+  }, [param]);
+  // 请求列表数据
+  const getGameList = async (param) => {
+    // 发送请求
+    try {
+      // 发送请求
+      const { data } = await services.getGameList({ param });
+      if (data.code === 200) {
+        setPageData(sliceData(data.data, page, pageSize));
+        setData(data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // 请求对应名字的游戏
+  const getGame = async (name) => {
+    // 发送请求
+    try {
+      // 发送请求
+      const { data } = await services.getSearchGame({ name });
+      if (data.code === 200) {
+        setPageData(sliceData(data.data, page, pageSize));
+        setData(data.data);
+        console.log(data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const sliceData = (data, page, pageSize) => {
+    let datatemp = data.slice((page - 1) * pageSize, page * pageSize);
+    return datatemp;
+  };
+  // 前往详情
+  const handleToDetail = (id) => {
+    history.push(`/game/details?id=${id}`);
+  };
+
+  const onShowSizeChange = (page, pageSize) => {
+    setPage(page);
+    setPageSize(pageSize);
+    setPageData(sliceData(data, page, pageSize))
+  }
+  const onChange = (page, pageSize) => {
+    setPage(page);
+    setPageSize(pageSize);
+    setPageData(sliceData(data, page, pageSize))
+  }
   return (
     <div className={style.wrap}>
       <Nav history={history} />
       <div className={style.resultWaper}>
         <div className={style.result}>搜索结果</div>
-        <div className={style.total}>共50种</div>
+        <div className={style.total}>共{data ? data.length : '0'}种</div>
       </div>
-      <div className={style.gameWaper}>
-        <ul className={style.gameList}>
-          <div className={style.gameItem}>
-            <a href="/store/2001141/" className={style.figure}>
-              <img alt="梦三国2" src="//wegame.gtimg.com/g.2001141-r.87b21/info/d7b2e4007ba4fe0159ee968dd1e5ebed.jpg/320" />
-            </a>
-            <div className={style.info}>
-              <div className={style.table_row}>
-                <div className={style.table_cell}>
-                  <div className={style.desc}>
-                    <div className={style.tit}>梦三国</div>
-                    <div className={style.time}>2020-01-19</div>
-                  </div>
-                </div>
-                <div className={style.table_cell}>
-                  <div className={style.other}>
-                    <div className={style.price}>免费</div>
-                  </div>
-                </div>
-              </div>
+      {
+        data ? (
+          <>
+            <div className={style.gameWaper}>
+              <ul className={style.gameList}>
+                {
+                  pageData && pageData.map((item, index) => (
+                    <GameListItem item={item} key={item + index} handleToDetail={handleToDetail} />
+                  ))
+                }
+              </ul>
             </div>
-          </div>
-        </ul>
-      </div>
+            {
+              pageData && pageData.length > 1 ? (
+                <div className={style.page}>
+                  <Pagination
+                    showSizeChanger
+                    onShowSizeChange={onShowSizeChange}
+                    onChange={onChange}
+                    pageSize={pageSize}
+                    defaultCurrent={1}
+                    current={page}
+                    total={data ? data.length : 0}
+                  />
+                </div>
+              ):(<></>)
+            }
+          </>
+        ) : (
+          <Empty></Empty>
+        )
+      }
     </div>
   );
 };

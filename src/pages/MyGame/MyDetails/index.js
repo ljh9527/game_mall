@@ -6,20 +6,13 @@ import style from './index.module.scss';
 const { remote } = window.electron;
 const { BrowserWindow } = remote;
 
-const imgUrl = 'http://www.gravatar.com/avatar/5de1db3c896e5fdd7833c2c5d255783a?s=46&d=identicon';
+// const imgUrl = 'http://www.gravatar.com/avatar/5de1db3c896e5fdd7833c2c5d255783a?s=46&d=identicon';
 const Details = (props) => {
   const { userInfo, getUserInfo, form } = props;
   const { getFieldDecorator, getFieldsValue, resetFields } = form;
-  const [avatar, setAvater] = useState(imgUrl);
+  const [avatar, setAvater] = useState();
   const { Item } = Form;
-  const mockGetOSSData  = {
-    dir: 'user-dir/',
-    expire: '1577811661',
-    host: '//www.mocky.io/v2/5cc8019d300000980a055e76',
-    accessId: 'c2hhb2RhaG9uZw==',
-    policy: 'eGl4aWhhaGFrdWt1ZGFkYQ==',
-    signature: 'ZGFob25nc2hhbw==',
-  };
+
   useEffect(() => {
     const email = localStorage.getItem("EMAIL");
     getUserInfo({ email });
@@ -50,10 +43,20 @@ const Details = (props) => {
     }
     return true;
   };
-  const handleChangeAvatar = async (file) => {
-    console.log('更改图片');
-    console.log('file', file);
-    setAvater(file.file.thumbUrl);
+  const handleChangeAvatar = (info) => {
+    console.log('file', info);
+    // setAvater(file.file.thumbUrl);
+    if (info.file.status === 'done') {
+      const file = info.file;
+      const response = file.response;
+      if (response.code === 200) {
+        // const data = { attachmentId: response.result.returnPath, attachmentName: file.name };
+        console.log(response.data);
+        setAvater(`http://localhost:9000${response.data.filename}`);
+      }
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name}  上传失败`);
+    }
   };
   // const handlePreview = (file)=>{
   //   console.log('file',file);
@@ -66,7 +69,8 @@ const Details = (props) => {
     const params = {
       nickname: value.nickname,
       introduction: value.introduction,
-      email: localStorage.getItem("EMAIL")
+      email: localStorage.getItem("EMAIL"),
+      avater: avatar
     }
     try {
       const { data } = await service.updateUserInfo(params);
@@ -85,7 +89,8 @@ const Details = (props) => {
       <div className={style.background}>
         <div className={style.avatar}>
           <Upload
-            name="avater"
+            action={service.uploadFile}
+            name="file"
             listType="picture-card"
             showUploadList={false}
             onPreview={(file)=>beforeUpload(file)}

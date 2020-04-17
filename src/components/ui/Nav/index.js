@@ -9,8 +9,11 @@ const data = [{
   name: '精选',
   searchTag: ''
 }, {
-  name: '本周热门',
+  name: '热门推荐',
   searchTag: 'recommend'
+}, {
+  name: '本周热销',
+  searchTag: 'sellWell'
 }, {
   name: '火爆新品',
   searchTag: 'prePurchase'
@@ -37,10 +40,13 @@ const Details = (props) => {
   const handleCheck = (index) => {
     let temp = data.find((item,indexItem)=>(indexItem === index));
     // onCheck(temp.searchTag);
-    console.log(temp.searchTag);
     temp.searchTag ? history.push(`/game/list?searchTag=${temp.searchTag}`) : history.push(`/index`);
     
     setBottomIndex(index);
+  };
+  const handleSearch = (value)=>{
+    console.log(value);
+    history.push(`/game/list?name=${value}`);
   };
   return (
     <div className={style.wrap}>
@@ -56,7 +62,7 @@ const Details = (props) => {
             </div>))
         }
         <div className={style.search}>
-          <Search placeholder="搜索想玩的游戏" onSearch={value => console.log(value)} enterButton />
+          <Search placeholder="搜索想玩的游戏" onSearch={value => handleSearch(value)} enterButton />
         </div>
       </div>
     </div>

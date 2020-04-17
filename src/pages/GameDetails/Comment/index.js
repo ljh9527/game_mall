@@ -45,7 +45,7 @@ const Comment = (props) => {
           </div>
           <div className={style.discuss_val}>
             <div className={style.discuss_score}>
-              <strong>{comment.length>0 ? recommendRate : '100'}<span>%</span></strong>
+              <strong>{comment.length>0 ? parseFloat(recommendRate).toFixed("1") : '100'}<span>%</span></strong>
               <span className={style.discuss_count}>
                 （<span>共{comment.length}</span>条评测）
               </span>

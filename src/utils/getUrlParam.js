@@ -14,7 +14,8 @@ const getUrlParam = (name, url) => {
   const r = strParam.match(reg); // 匹配目标参数
 
   if (r != null) {
-    return unescape(r[2]); // 返回参数值
+    // return unescape(r[2]); // 返回参数值
+    return r[2];
   } else {
     return '';
   }
