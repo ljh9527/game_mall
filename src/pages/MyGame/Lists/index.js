@@ -9,36 +9,28 @@ import style from './index.module.scss';
 
 // const imgUrl = 'http://www.gravatar.com/avatar/5de1db3c896e5fdd7833c2c5d255783a?s=46&d=identicon';
 const Details = (props) => {
-  const { userInfo, getUserInfo, form, history } = props;
+  const { userInfo, getUserInfo, history, myGameList , getMyGameList } = props;
   const [activeIndex, setActiveIndex] = useState(false);
   const [avatar, setAvater] = useState();
-  const [gameList, setGameList] = useState();
+  // const [gameList, setGameList] = useState();
 
   useEffect(() => {
     const email = localStorage.getItem("EMAIL");
-    getMyGameList(email);
+    getMyGameList({email});
     getUserInfo({ email });
     setAvater(userInfo.avatar);
   }, []);
   useEffect(() => {
     setAvater(userInfo.avatar);
   }, [userInfo]);
-  const getMyGameList = async (email) => {
-    try {
-      const { data } = await service.getMyGame({email});
-      if (data.code === 200) {
-        setGameList(data.data);
-      } else {
-        console.log('error');
-      };
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  
   const handleEdit = () => {
     history.push('/myGame/edit');
   };
   const handleEvaluation = () => {
+    setActiveIndex(!activeIndex);
+  };
+  const handleBack = () => {
     setActiveIndex(!activeIndex);
   };
   return (
@@ -53,7 +45,10 @@ const Details = (props) => {
           </div>
           <div className={style.buttonBox}>
             <Button type="ghost" shape='round' size='small' onClick={handleEdit}>编辑资料</Button>
-            <Button type="ghost" shape='round' size='small' onClick={handleEvaluation}>查看评测</Button>
+            {/* {
+              !activeIndex ? (<Button type="ghost" shape='round' size='small' onClick={handleEvaluation}>查看评测</Button>) 
+              : (<Button type="ghost" shape='round' size='small' onClick={handleBack} en>返回主页</Button>)
+            } */}
           </div>
         </div>
       </div>
@@ -62,7 +57,7 @@ const Details = (props) => {
           !activeIndex ? (<div className={style.con}>
             <div className={style.game}>
               {
-                gameList && gameList.map((item, index) => (
+                myGameList && myGameList.map((item, index) => (
                   <Game data={item} key={item + index} history={history} />
                 ))
               }
@@ -77,15 +72,17 @@ const Details = (props) => {
   );
 };
 
-const mapStateToProps = ({ user }) => {
+const mapStateToProps = ({ user,usergame }) => {
   return {
-    userInfo: user.userInfo
+    userInfo: user.userInfo,
+    myGameList: usergame.myGameList
   };
 };
 
-const mapDispathToProps = ({ user }) => {
+const mapDispathToProps = ({ user,usergame }) => {
   return {
     getUserInfo: user.getUserInfo,
+    getMyGameList: usergame.getMyGameList
   };
 };
 export default connect(mapStateToProps, mapDispathToProps)(Form.create({ name: 'Info' })(Details));

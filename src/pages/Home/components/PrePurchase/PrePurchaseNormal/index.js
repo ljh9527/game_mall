@@ -8,7 +8,7 @@ const PrePurchaseNormal = (props) => {
     handleToDetail,
   } = props;
   return (
-    <div className={style.wrap} onClick={handleToDetail}>
+    <div className={style.wrap} onClick={() => handleToDetail(data[0].id)}>
       <div className={style.img}>
         <img src={data[1].bannerImg} />
       </div>

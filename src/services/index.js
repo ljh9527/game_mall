@@ -54,6 +54,18 @@ export default {
     getGameComment(params) {
         return service.get('/comment/game', { params });
     },
+    // 获取用户游戏评论
+    getUserComment(params) {
+        return service.post('/comment/user', params );
+    },
+    // 删除用户游戏评论
+    deleteUserComment(params) {
+        return service.post('/comment/delete', params );
+    },
+    // 添加用户游戏评论
+    addComment(params) {
+        return service.post('/comment/add', params );
+    },
 
     // 获取游戏列表 
     getGameList(params) {
@@ -67,6 +79,10 @@ export default {
     // 搜索我的的游戏
     getMyGame(params) {
         return service.get('/usergame/mygame', {params} );
+    },
+    // 搜索我的游戏详情
+    getMyGameDetail(params) {
+        return service.get('/usergame/mygame/detail', {params} );
     },
 
     // 上传文件

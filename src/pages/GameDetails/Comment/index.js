@@ -19,6 +19,7 @@ const Comment = (props) => {
   const [data, setData] = useState(comment);
   const [activeIndex, setActiveIndex] = useState(0);
   const switchData = ['全部评测', '推荐', '不推荐'];
+  console.log(data);
   // useEffect(() => {
   //   getGameComment(id);
   // }, [id]);
@@ -76,7 +77,7 @@ const Comment = (props) => {
             <div className={style.reviewsContent} key={item + index}>
               <div className={style.img}>
                 <div className={style.avater}>
-                  <img src={item.url} alert='头像' />
+                  <img src={item.avatar} alert='头像' />
                   <div className={style.name}>{item.nickname}</div>
                 </div>
               </div>

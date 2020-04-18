@@ -5,7 +5,7 @@ const Game = (props) => {
   const { data,history } = props;
   console.log(data);
   const handleToDetail = (id) => {
-    history.push(`/game/details?id=${id}`);
+    history.push(`/myGame/details?id=${id}`);
   };
   const handleToStart = (id) => {
     let date = new Date().getTime();
@@ -14,11 +14,11 @@ const Game = (props) => {
   };
   return (
     <div className={style.wrap}>
-      <div className={style.imgBox}>
+      <div className={style.imgBox} onClick={()=>handleToDetail(data.id)}>
         <img src={data.image_cover} alt={data.game_name}/>
       </div>
-      <div className={style.bottom}>
-        <div className={style.name} onClick={()=>handleToDetail(data.id)}>{data.game_name}</div>
+      <div className={style.bottom} onClick={()=>handleToDetail(data.id)}>
+        <div className={style.name}>{data.game_name}</div>
         <div className={style.lastTime}>上次登录{data.lastplay}</div>
         <div className={style.totalTime}>已玩{data.playtime}小时</div>
       </div>

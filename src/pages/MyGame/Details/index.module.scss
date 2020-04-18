@@ -1,2 +1,394 @@
 .wrap {
+  width: 1000px;
+  margin: 0 auto;
+  height: 100%;
+
+  .background {
+    width: 100%;
+    height: 215px;
+    background-image: url('../../../assets/backgroundheader.jpg');
+    position: relative;
+
+    .avatar {
+      position: absolute;
+      bottom: 0px;
+      left: 10%;
+      border-radius: 50%;
+      z-index: 9;
+
+      img {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        vertical-align: top;
+        margin-right: 3px;
+      }
+    }
+
+    .cover {
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      height: 65px;
+      width: 100%;
+      color: #ffffff;
+      background: rgba($color: #080809, $alpha: 0.8);
+
+      .userName {
+        position: absolute;
+        left: 26%;
+        font-size: 18px;
+      }
+
+      .buttonBox {
+        position: absolute;
+        right: 6%;
+        top: 22%;
+
+        :global {
+          .ant-btn {
+            margin-left: 12px;
+            width: 76px;
+            color: beige;
+            border-color: #d9d9d9;
+          }
+        }
+      }
+    }
+  }
+
+  .content {
+    width: 100%;
+    position: relative;
+    padding-top: 20px;
+    overflow: auto;
+    display: flex;
+    margin-bottom: 20px;
+
+    .gameinfo {
+      width: 66%;
+      padding: 0px 40px;
+      display: flex;
+      flex-wrap: wrap;
+      margin-right: 6%;
+
+      .waper {
+        width: 100%;
+        background: white;
+        display: flex;
+        border-radius: 10px;
+
+        .gameimage {
+          width: 33%;
+          height: 240px;
+          margin-right: 8%;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        .gametitle {
+          width: 56%;
+          // height: 240px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+
+          .detail {
+            width: 100%;
+
+            .item {
+              width: 100%;
+              position: relative;
+              margin-bottom: 2px;
+              white-space: nowrap;
+
+              .name {
+                display: inline-block;
+                width: 80px;
+                text-align: center;
+                color: #757575;
+                background-color: #f0f0f0;
+                overflow: hidden;
+                height: 32px;
+                line-height: 34px;
+                vertical-align: middle;
+                border-radius: 4px;
+                margin-right: 20px;
+              }
+
+              .value {
+                padding-left: 3px;
+                display: inline-block;
+                height: 32px;
+                line-height: 34px;
+                color: #3c3c3c;
+                background-color: #f0f0f0;
+                vertical-align: middle;
+                border-radius: 4px;
+                height: 34px;
+                line-height: 34px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 221px;
+              }
+            }
+
+            .introductionitem {
+              display: flex;
+
+              .name {
+                display: inline-block;
+                width: 80px;
+                text-align: center;
+                color: #757575;
+                background-color: #f0f0f0;
+                overflow: hidden;
+                height: 32px;
+                line-height: 34px;
+                vertical-align: middle;
+                border-radius: 4px;
+                margin-right: 20px;
+              }
+
+              .introduction {
+                color: #3c3c3c;
+                background-color: #f0f0f0;
+                flex: 1;
+                border-radius: 4px;
+                padding-left: 5px;
+              }
+            }
+          }
+        }
+      }
+
+      .gamecoment {
+        width: 100%;
+        margin-top: 40px;
+        // height: 240px;
+
+        .content {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          background-color: white;
+          border-radius: 4px;
+          padding: 5px 10px;
+
+          .contentbox {
+            border: 1px solid silver;
+            border-radius: 5px;
+            
+            .statusWaper {
+              width: 100%;
+              height: 60px;
+              border-bottom: 1px solid silver;
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+
+              i {
+                padding: 0 20px;
+
+                svg {
+                  width: 30px;
+                  height: 30px;
+                  background-color: rgb(255, 202, 1);
+                  border-radius: 50%;
+                }
+              }
+
+              .status {
+                display: inline-block;
+                height: 60px;
+                line-height: 60px;
+                font-size: 20px;
+              }
+            }
+
+            .time {
+              height: 50px;
+              line-height: 50px;
+              margin: 0 20px;
+              border-bottom: 1px solid silver;
+            }
+
+            .con {
+              padding: 0 20px;
+              min-height: 70px;
+              margin-bottom: 20px;
+            }
+          }
+
+          .btns {
+            margin: 5px;
+            text-align: end;
+
+            :global {
+              .ant-btn {
+                margin-right: 10px;
+              }
+            }
+          }
+        }
+
+        .commentInput {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          background-color: white;
+          border-radius: 4px;
+          padding: 5px 10px;
+
+          .commenthead {
+            height: 30px;
+            line-height: 30px;
+          }
+
+          .radiobox {
+            width: 100%;
+            height: 60px;
+            border: 1px solid silver;
+            border-radius: 5px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 5px;
+
+            i {
+              padding: 0 20px;
+              vertical-align: -0.5em;
+
+              svg {
+                width: 30px;
+                height: 30px;
+                background-color: rgb(255, 202, 1);
+                border-radius: 50%;
+              }
+            }
+            .status {
+              display: inline-block;
+              height: 60px;
+              line-height: 60px;
+              font-size: 20px;
+            }
+
+          }
+
+          .textbox {}
+
+          .btns {
+            margin: 5px;
+            text-align: end;
+
+            :global {
+              .ant-btn {
+                margin-right: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .userinfo {
+      width: 28%;
+
+      .detail {
+        width: 100%;
+        height: 180px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+
+        .item {
+          width: 100%;
+          position: relative;
+          margin-bottom: 2px;
+          white-space: nowrap;
+
+          .name {
+            display: inline-block;
+            width: 80px;
+            text-align: center;
+            color: #757575;
+            background-color: #f0f0f0;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            height: 32px;
+            line-height: 34px;
+            vertical-align: middle;
+            border-radius: 4px;
+          }
+
+          .value {
+            display: inline-block;
+            height: 32px;
+            line-height: 34px;
+            color: #3c3c3c;
+            vertical-align: middle;
+            background-color: #f8f8f8;
+            padding: 0 0 0 12px;
+            position: relative;
+            margin-left: 12px;
+            border-radius: 4px;
+            height: 34px;
+            line-height: 34px;
+            width: 150px;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+      }
+
+      .button {
+        width: 100%;
+        height: 60px;
+
+        :global {
+          .ant-btn {
+            width: 100%;
+            height: 100%;
+            background-color: rgb(255, 202, 0);
+            border: rgb(255, 202, 0);
+            font-size: 28px;
+          }
+        }
+      }
+    }
+
+
+  }
+}
+
+.title_hd {
+  width: 100%;
+  height: 55px;
+  line-height: 55px;
+  border-bottom: 1px solid #eeeeee;
+
+  .title_h1 {
+    color: #222222;
+    font-size: 24px;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      background: rgb(255, 202, 0);
+      vertical-align: middle;
+      margin-right: 13px;
+      margin-top: -4px;
+      width: 4px;
+      height: 22px;
+      border-radius: 10px;
+    }
+  }
 }

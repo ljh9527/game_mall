@@ -65,11 +65,12 @@
 
     .game {
       width: 70%;
-      min-height: 380px;
+      min-height: 340px;
       float: left;
       display: flex;
       flex-wrap: wrap;
       margin-right: 1%;
+      // background: white;
     }
 
     .progress {
