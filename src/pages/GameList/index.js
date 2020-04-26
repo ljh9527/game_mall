@@ -13,8 +13,7 @@ const Details = (props) => {
   const [pageData, setPageData] = useState();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  console.log(param);
-  console.log(name);
+
   useEffect(() => {
     if(param){
       getGameList(param);
@@ -80,7 +79,7 @@ const Details = (props) => {
         <div className={style.total}>共{data ? data.length : '0'}种</div>
       </div>
       {
-        data ? (
+        pageData ? (
           <>
             <div className={style.gameWaper}>
               <ul className={style.gameList}>

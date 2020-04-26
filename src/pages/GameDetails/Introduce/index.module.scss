@@ -142,7 +142,29 @@
       bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
-
+      display: flex;
+      .buyButton{
+        width: 200px;
+        background-color: #edbc25;
+      }
+      .cartButton{
+        width: 59px;
+        background-color: #EFB759;
+      }
+      :global .ant-btn {
+        height: 48px;
+        line-height: 48px;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 500;
+      }
+    }
+    .hasbuy{
+      width: 260px;
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
       :global .ant-btn {
         width: 260px;
         height: 48px;

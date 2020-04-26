@@ -5,9 +5,13 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import services from '../../../services';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Icon } from 'antd';
+import moment from 'moment';
 import DropDownMenu from '../DropDownMenu';
+import { requestErrorHandler } from '../../../utils';
 
 import classnames from 'classnames';
 import styles from './index.module.scss';
@@ -16,9 +20,10 @@ const { ipcRenderer, remote } = window.electron;
 const { BrowserWindow } = remote;
 const Home = (props) => {
 
-  const { history, routerData } = props;
+  const { history, routerData, count, getCartList } = props;
   const [selectIndex, setSelectIndex] = useState(0); // 主页商城状态控制
   const userAvatar = sessionStorage.getItem("AVATAR");
+  const email = localStorage.getItem("EMAIL");
 
   // useEffect(() => {
   //   console.log(localStorage.getItem('EMAIL'));
@@ -34,8 +39,32 @@ const Home = (props) => {
       }
     });
   }, [props, routerData]);
+  useEffect(() => {
+    getCartList({ email });
+  }, []);
   const closeWindow = () => {
-    window.close();
+    updateUserInfo();
+  };
+  const updateUserInfo = async () => {
+    let time = new Date().getTime();
+    let opentime = sessionStorage.getItem("OPENTIME");
+    let durtime = time - opentime;
+    let playtime = moment.duration(durtime).hours() + moment.duration(durtime).minutes() / 60;
+    const params = {
+      time: time,
+      email: email,
+      playtime: playtime.toFixed(2)
+    }
+    // 发送请求
+    try {
+      // 发送请求
+      const { data } = await services.updateUserInfo(params);
+      if (data.code === 200) {
+        window.close();
+      }
+    } catch (error) {
+      requestErrorHandler(error);
+    }
   };
   const minWindow = () => {
     ipcRenderer.send("min");
@@ -55,6 +84,9 @@ const Home = (props) => {
   const handleToHome = () => {
     setSelectIndex(1);
     history.push('/myGame/index');
+  };
+  const handleToCart = () => { 
+    history.push('/game/order');
   };
   const download = () => {
     let win = new BrowserWindow({
@@ -97,8 +129,12 @@ const Home = (props) => {
               </div>
             </div>
             <div className={styles.userInfo}>
-              <DropDownMenu userAvatar={userAvatar}/>
-              <div onClick={download} className={styles.download} >
+              <DropDownMenu userAvatar={userAvatar} updateUserInfo={updateUserInfo} />
+              <div onClick={handleToCart} className={classnames({ [styles.iconBox]: true, [styles.shoppingCart]: true })} >
+                <Icon type="shopping-cart" />
+                <span className={styles.count}>{count}</span>
+              </div>
+              <div onClick={download} className={styles.iconBox} >
                 <Icon type="download" />
               </div>
             </div>
@@ -115,4 +151,16 @@ const Home = (props) => {
   );
 };
 
-export default withRouter(Home);
+
+const mapStateToProps = ({ cart }) => {
+  return {
+    count: cart.count
+  };
+};
+
+const mapDispathToProps = ({ cart }) => {
+  return {
+    getCartList: cart.getCartList
+  };
+};
+export default connect(mapStateToProps, mapDispathToProps)(withRouter(Home));

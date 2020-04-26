@@ -1,3 +1,5 @@
+// @import "../../../styles/public.scss";
+// @import "~-/styles/public.scss";
 .container {
   position: relative;
   height: 100%;
@@ -134,16 +136,28 @@
       .userInfo {
         display: flex;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: center;
         -webkit-app-region: no-drag;
-        .download {
+        .iconBox {
           cursor: pointer;
-          margin-left: 10px;
+          margin-left: 16px;
           i {
             svg {
               width: 30px;
               height: 30px;
             }
+          }
+        }
+        .shoppingCart{
+          position: relative;
+          .count{
+            position: absolute;
+            display: inline-block;
+            font-size: 12px;
+        
+            top: -5px;
+            right: -10px;
+            color: rgb(255,202,0);
           }
         }
       }
@@ -160,4 +174,24 @@
       width: 100%;
     }
   }
+}
+
+div::-webkit-scrollbar{
+  width:6px;
+  height:6px;
+  /**/
+}
+div::-webkit-scrollbar-track{
+  background: rgb(239, 239, 239);
+  border-radius:2px;
+}
+div::-webkit-scrollbar-thumb{
+  background: #bfbfbf;
+  border-radius:10px;
+}
+div::-webkit-scrollbar-thumb:hover{
+  background: #333;
+}
+div::-webkit-scrollbar-corner{
+  background: #179a16;
 }

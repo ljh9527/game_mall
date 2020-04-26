@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import services from '../../../services';
-import { Form, Button, Icon, Radio, Input } from 'antd';
+import { Form, Button, Icon, Radio, Input, message } from 'antd';
 import { getUrlParam } from '../../../utils';
 
 import style from './index.module.scss';
@@ -17,6 +17,8 @@ const Details = (props) => {
   const [avatar, setAvater] = useState();
   const [radio, setRadio] = useState();
   const [textarea, setTextarea] = useState();
+  const [addStatus, setAddStatus] = useState(false);
+  const [addtextarea, setAddtextarea] = useState();
   // const [gameList, setGameList] = useState();
   useEffect(() => {
     getUserInfo({ email });
@@ -68,25 +70,52 @@ const Details = (props) => {
 
   }
   const handleSaveComment = async () => {
-    const params = {
-      email: email,
-      gameid: id,
-      content: textarea,
-      recommendstatu: radio,
-      commentdate: new Date().getTime(),
-    }
-    try {
-      // 发送请求
-      const { data } = await services.addComment(params);
-      if (data.code === 200) {
-        getUserComment(email, id);
-        handleCancleComment();
+    if (textarea !== undefined || radio !== undefined) {
+      const params = {
+        email: email,
+        gameid: id,
+        content: textarea,
+        recommendstatu: radio
       }
-    } catch (error) {
-      console.log(error);
+      try {
+        // 发送请求
+        const { data } = await services.addComment(params);
+        if (data.code === 200) {
+          getUserComment(email, id);
+          handleCancleComment();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      message.error("请先添加评测")
+    }
+  };
+  const handleAppendComment = async () => {
+    if (addtextarea !== undefined) {
+      const params = {
+        email: email,
+        gameid: id,
+        appendcontent: addtextarea,
+      }
+      try {
+        // 发送请求
+        const { data } = await services.appendComment(params);
+        if (data.code === 200) {
+          getUserComment(email, id);
+          handleCancleComment();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      message.error("请先添加评测")
     }
   };
 
+  const handleAppendChange = ({ target: { value } }) => {
+    setAddtextarea(value);
+  }
   const handleEdit = () => {
     history.push('/myGame/edit');
   };
@@ -96,9 +125,6 @@ const Details = (props) => {
   const handleStart = (id) => {
     console.log(id);
   };
-  const handleAdd = (id) => {
-    console.log(id);
-  }
   const handleRadioChange = (e) => {
     console.log(e.target.value);
     setRadio(e.target.value);
@@ -110,6 +136,13 @@ const Details = (props) => {
   const handleCancleComment = () => {
     setRadio();
     setTextarea();
+    setAddStatus(!addStatus);
+  }
+  const handleAdd = () => {
+    setAddStatus(true);
+  }
+  const handleCancleAddComment = () => {
+    setAddStatus(false);
   }
   return (
     <div className={style.wrap}>
@@ -119,7 +152,12 @@ const Details = (props) => {
         </div>
         <div className={style.cover}>
           <div className={style.userName}>
-            {userInfo.nickname}
+            <div className={style.name}>
+              {userInfo.nickname}
+            </div>
+            <div className={style.introduction}>
+              {userInfo.introduction}
+            </div>
           </div>
           <div className={style.buttonBox}>
             <Button type="ghost" shape='round' size='small' onClick={handleEdit}>编辑资料</Button>
@@ -180,11 +218,39 @@ const Details = (props) => {
                   </div>
                   <div className={style.time}>{userComment.commentdate}</div>
                   <div className={style.con}>{userComment.content}</div>
+                  {
+                    userComment.appendcontent && userComment.appenddate ? (
+                      <>
+                        <div className={style.time}>{userComment.appenddate}</div>
+                        <div className={style.con}>{userComment.appendcontent}</div>
+                      </>
+                    ) : (<></>)
+                  }
                 </div>
                 <div className={style.btns}>
-                  <Button type="ghost" shape='round' size='small' onClick={() => handleAdd(userComment.id)}>追加评测</Button>
+                  {
+                    userComment.appendcontent && userComment.appenddate ? (<></>)
+                      : (<Button type="ghost" shape='round' size='small' onClick={() => handleAdd(userComment.id)}>追加评测</Button>)
+                  }
                   <Button type="ghost" shape='round' size='small' onClick={() => handleDelete(userComment.id)}>删除此条</Button>
                 </div>
+                {
+                  !addStatus ? (<></>) : (<div className={style.addcontentbox}>
+                    <div className={style.textbox}>
+                      <div className={style.commenthead}>添加追评</div>
+                      <TextArea
+                        value={addtextarea}
+                        onChange={handleAppendChange}
+                        placeholder="分享一下你的看法吧~"
+                        autoSize={{ minRows: 3 }}
+                      />
+                    </div>
+                    <div className={style.btns}>
+                      <Button type="ghost" shape='round' size='small' onClick={() => handleAppendComment()}>保存追评</Button>
+                      <Button type="ghost" shape='round' size='small' onClick={() => handleCancleAddComment()}>取消评测</Button>
+                    </div>
+                  </div>)
+                }
               </div>) : (<div className={style.commentInput}>
                 <div className={style.commenthead}>发表我的评测</div>
                 <div className={style.radiobox}>

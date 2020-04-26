@@ -1,0 +1,127 @@
+.wrap {
+  width: 1000px;
+  margin: 0 auto;
+  height: 100%;
+
+  .background {
+    width: 100%;
+    height: 215px;
+    background-image: url("../../assets/backgroundheader.jpg");
+    position: relative;
+
+    .avatar {
+      position: absolute;
+      bottom: 0px;
+      left: 10%;
+      border-radius: 50%;
+      z-index: 9;
+
+      img {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        vertical-align: top;
+        margin-right: 3px;
+      }
+    }
+
+    .cover {
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      height: 65px;
+      width: 100%;
+      color: #ffffff;
+      background: rgba($color: #080809, $alpha: 0.8);
+
+      .userName {
+        position: absolute;
+        left: 26%;
+        font-size: 18px;
+        .introduction {
+          font-size: 14px;
+        }
+      }
+
+      .buttonBox {
+        position: absolute;
+        right: 6%;
+        top: 22%;
+
+        :global {
+          .ant-btn {
+            margin-left: 12px;
+            width: 76px;
+            color: beige;
+            border-color: #d9d9d9;
+          }
+        }
+      }
+    }
+  }
+  .orderBox{
+    width: 1000px;
+    margin: 0 auto;
+    padding-left: 0;
+    padding-top: 15px;
+    position: relative;
+    .orderItem{
+      width: 100%;
+      background-color: #ffffff;
+      margin-bottom: 20px;
+      padding: 0 5px;
+      border-radius: 5px;
+      .title{
+        width: 100%;
+        height: 40px;
+        display: flex;
+        border-bottom: 1px solid silver;
+        line-height: 40px;
+        font-size: 16px;
+        .trade_no{
+          width: 500px;
+        }
+        .number{
+          font-size: 18px;
+          color: rgb(255, 202, 0);
+        }
+      }
+      .gameBox{
+        width: 100%;
+        display: flex;
+        .lable{
+          width: 90px;
+          padding-top: 20px;
+          font-size: 16px;
+        }
+        .gamelist{
+          flex: 1;
+          padding-top: 10px;
+        }
+      }
+    }
+  }
+}
+.title_hd {
+  width: 100%;
+  height: 55px;
+  line-height: 55px;
+  border-bottom: 1px solid #eeeeee;
+
+  .title_h1 {
+    color: #222222;
+    font-size: 24px;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      background: rgb(255, 202, 0);
+      vertical-align: middle;
+      margin-right: 13px;
+      margin-top: -4px;
+      width: 4px;
+      height: 22px;
+      border-radius: 10px;
+    }
+  }
+}

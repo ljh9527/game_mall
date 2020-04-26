@@ -5,39 +5,28 @@
  * */
 import React from 'react';
 import { Menu, Dropdown, Icon } from 'antd';
-import services from '../../../services';
+// import services from '../../../services';
+// import moment from 'moment';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { requestErrorHandler } from '../../../utils';
+// import { requestErrorHandler } from '../../../utils';
 
 import styles from './index.module.scss';
 
 const { ipcRenderer } = window.electron;
 const DropDownMenu = (props) => {
-  const { userAvatar, history } = props;
+  const { userAvatar, history, updateUserInfo } = props;
 
   const handleLoginOut = async () => {
-    let time = new Date().getTime();
-    let email = localStorage.getItem("EMAIL");
-    const params = {
-      time: time,
-      email: email
-    }
-    // 发送请求
-    try {
-      // 发送请求
-      const { data } = await services.updateUserInfo(params);
-      if (data.code === 200) {
-        console.log(data);
-      }
-    } catch (error) {
-      requestErrorHandler(error);
-    }
+    updateUserInfo();
     ipcRenderer.send('loginOut');
-    localStorage.removeItem('EMAIL');
+    // localStorage.removeItem('EMAIL');
     history.push('/');
   };
 
+  const handleToMyOrder = () => {
+    history.push('/myOrder');
+  };
 
   const handleToMyGame = () => {
     history.push('/myGame/index');
@@ -49,6 +38,9 @@ const DropDownMenu = (props) => {
       <Menu style={{ textAlign: 'center' }}>
         <Menu.Item key="0" onClick={handleToMyGame}>
           我的应用
+        </Menu.Item>
+        <Menu.Item key="1" onClick={handleToMyOrder}>
+          我的订单
         </Menu.Item>
         <Menu.Item key="5" onClick={handleLoginOut}>
           退出当前账号

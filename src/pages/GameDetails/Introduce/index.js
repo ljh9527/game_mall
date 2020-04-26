@@ -1,33 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
+import services from '../../../services';
 import moment from 'moment';
-import { Button } from 'antd';
+import { Button, message, Icon } from 'antd';
 import style from './index.module.scss';
 import Swiper from "swiper";
 import "swiper/css/swiper.css";
 
 const Introduce = (props) => {
   const {
+    history,
     gameInfo,
     recommendRate = '',
     comment = [],
     getGameComment = () => { },
-    download = () => { }
+    download = () => { },
+    getCartList=()=>{}
   } = props;
-  
+
   const id = gameInfo && gameInfo[0].id;
+  const email = localStorage.getItem("EMAIL");
+  const [isHasGame, setIsHasGame] = useState(false);
+  
   useEffect(() => {
     getGameComment(id);
+    havaUserGame(id);
   }, [id]);
   // 前往购买
   const handleBuy = (id) => {
-    console.log('买');
-    // e.stopPropagation();
-    // e.cancelBubble = true;
     console.log(id);
-    // console.log(e);
+    history.push(`/game/order?id=${id}`);
   }
+
   const handleDownload = (id) => {
     download(id);
   }
@@ -52,6 +57,36 @@ const Introduce = (props) => {
       observeParents: true, //修改swiper的父元素时，自动初始化swiper 
     })
   }, [gameInfo]);
+  // 请求游戏数据
+  const havaUserGame = async (id) => {
+    // 发送请求
+    try {
+      // 发送请求
+      const { data } = await services.getMyGameDetail({ email, gameid: id });
+      if (data.data !== null) {
+        setIsHasGame(true);
+      } else {
+        setIsHasGame(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleAddCart = async (id) => {
+    // 发送请求
+    try {
+      // 发送请求
+      const { data } = await services.addGameCart({ email, gameid: id.toString() });
+      if (data.code === 200) {
+        getCartList({email});
+        message.success(data.message);
+      } else {
+        message.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className={style.wrap}>
@@ -127,7 +162,7 @@ const Introduce = (props) => {
                   </div>
                   <div className={style.item}>
                     <span className={style.name}>推荐率</span>
-                    <span className={style.value}>{parseFloat(recommendRate).toFixed("1")}%（<span>共{comment.length}</span>条评测）</span>
+                    <span className={style.value}>{recommendRate ? parseFloat(recommendRate).toFixed("1") : parseFloat(100).toFixed("1")}%（<span>共{comment.length}</span>条评测）</span>
                   </div>
                   <div className={style.item}>
                     <span className={style.name}>开发商</span>
@@ -146,11 +181,30 @@ const Introduce = (props) => {
                 </div>) : (<></>)
               }
               {
-                gameInfo[0].gamePrice !== 0 ? (<div className={style.buy}>
-                  <Button onClick={() => handleBuy(id)}>立即购买</Button>
-                </div>) : (<div className={style.dowlod}>
-                  <Button onClick={() => handleDownload(id)}>立即下载</Button>
-                </div>)
+                isHasGame ? (
+                  <>
+                    {
+                      gameInfo[0].gamePrice !== 0 ? (<div className={style.hasbuy}>
+                        <Button>已购买</Button>
+                      </div>) : (<div className={style.dowlod}>
+                        <Button>已下载</Button>
+                      </div>)
+                    }
+                  </>
+                ) : (
+                    <>
+                      {
+                        gameInfo[0].gamePrice !== 0 ? (<div className={style.buy}>
+                          <Button className={style.buyButton} onClick={() => handleBuy(id)}>立即购买</Button>
+                          <Button className={style.cartButton} onClick={() => handleAddCart(id)}>
+                            <Icon type="shopping-cart" />
+                          </Button>
+                        </div>) : (<div className={style.dowlod}>
+                          <Button onClick={() => handleDownload(id)}>立即下载</Button>
+                        </div>)
+                      }
+                    </>
+                  )
               }
             </div>
           </>
@@ -167,9 +221,10 @@ const mapStateToProps = ({ comment }) => {
   };
 };
 
-const mapDispathToProps = ({ comment }) => {
+const mapDispathToProps = ({ comment,cart }) => {
   return {
     getGameComment: comment.getGameComment,
+    getCartList: cart.getCartList
   };
 };
 

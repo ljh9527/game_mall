@@ -50,6 +50,8 @@ export default {
     getGameInfo(params) {
         return service.get('/game/info', { params });
     },
+    
+
     // 获取游戏的评论
     getGameComment(params) {
         return service.get('/comment/game', { params });
@@ -65,6 +67,10 @@ export default {
     // 添加用户游戏评论
     addComment(params) {
         return service.post('/comment/add', params );
+    },
+    // 追加用户游戏评论
+    appendComment(params) {
+        return service.post('/comment/append', params );
     },
 
     // 获取游戏列表 
@@ -83,6 +89,41 @@ export default {
     // 搜索我的游戏详情
     getMyGameDetail(params) {
         return service.get('/usergame/mygame/detail', {params} );
+    },
+    // 添加到我的游戏
+    addMyGame(params) {
+        return service.post('/usergame/game/add', params );
+    },
+    // 更新游戏时间
+    updateOpenTime(params) {
+        return service.post('/usergame/updateTime', params );
+    },
+
+    // 添加到购物车 
+    addGameCart(params) {
+        return service.post('/cart/add', params );
+    },
+    // 获取购物车信息
+    getCartList(params) {
+        return service.get('/cart/list', {params} );
+    },
+    // 删除购物车
+    deleteCart(params) {
+        return service.post('/cart/delete', params );
+    },
+
+    // 获取购物车信息
+    pay(params) {
+        return service.post('/pay', params );
+    },
+
+    // 添加订单
+    addOrder(params) {
+        return service.post('/order/add', params );
+    },
+    // 获取订单列表
+    getOrderList(params) {
+        return service.get('/order/list', {params} );
     },
 
     // 上传文件

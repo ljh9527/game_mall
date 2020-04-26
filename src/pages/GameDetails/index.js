@@ -8,6 +8,7 @@ import style from './index.module.scss';
 import { getUrlParam } from '../../utils';
 
 const Details = (props) => {
+  const {history} = props;
   const [id] = useState(getUrlParam('id'));
   const [activeIndex, setActiveIndex] = useState(0);
   const [gameInfo, setGameInfo] = useState();
@@ -16,7 +17,7 @@ const Details = (props) => {
   }
   const data = [{
     name: '游戏介绍',
-    component: <Introduce gameInfo={gameInfo} download={download} />
+    component: <Introduce gameInfo={gameInfo} download={download} history={history} />
   }, {
     name: '游戏详情',
     component: <Info gameInfo={gameInfo} />

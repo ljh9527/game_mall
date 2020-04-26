@@ -11,7 +11,7 @@ const Details = (props) => {
       </div>
       <div className={style.allTime}>
         <div className={style.content}>
-          <div className={style.time}>{userInfo.playtime}</div>
+          <div className={style.time}>{userInfo.playtime&&Math.floor(userInfo.playtime * 100) / 100}</div>
           <span>小时</span>
         </div>
         <div className={style.subContent}>启动应用总时长</div>

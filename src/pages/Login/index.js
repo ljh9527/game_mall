@@ -1,22 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import md5 from 'md5';
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 import LoginHeader from '../../components/container/loginHeader';
 import classnames from 'classnames';
 import services from '../../services';
 import style from './index.module.scss';
+import { requestErrorHandler } from '../../utils';
 const { ipcRenderer } = window.electron;
 
 const LoginForm = (props) => {
   const { form, history } = props;
+  const defaultEmail = localStorage.getItem("EMAIL");
+  const defaultPassword = localStorage.getItem("PASSWORD");
+  const defaultToken = localStorage.getItem("TOKEN");
   const { getFieldDecorator, validateFields, resetFields } = form;
   const [accountSuccess, setAccountSuccess] = useState(false);
+  const [issavepassword, setIsSavepassword] = useState(true);
   const [isLoginPage] = useState(true);
-
+  console.log(defaultToken);
+  useEffect(()=>{
+    setIsSavepassword(defaultToken !== false ? true : false)
+  },[defaultToken])
   const handleSubmit = e => {
     e.preventDefault();
     validateFields((err, values) => {
-      values.password = md5(values.password);
+      if(values.password.length < 20){
+        values.password = md5(values.password);
+      }
       if (!err) {
         handleLogin(values);
       };
@@ -27,8 +37,16 @@ const LoginForm = (props) => {
       const { data } = await services.login(values);
       if (data.code === 200) {
         localStorage.setItem("EMAIL", values.email);
+        if(issavepassword){
+          localStorage.setItem("PASSWORD", values.password);
+          localStorage.setItem("TOKEN", issavepassword);
+        }else{
+          localStorage.setItem("PASSWORD", "");
+          localStorage.setItem("TOKEN", false);
+        }
         sessionStorage.setItem("AVATAR", data.data.avatar);
-        console.log(data.data);
+        sessionStorage.setItem("OPENTIME", new Date().getTime());
+        // console.log(data.data);
         setAccountSuccess(false);
         ipcRenderer.send('login');
         history.push('/index');
@@ -36,7 +54,7 @@ const LoginForm = (props) => {
         setAccountSuccess(true);
       }
     } catch (error) {
-      message.error("网络遇到点故障")
+      requestErrorHandler(error)
     }
   };
   // 清楚登录失败提示
@@ -53,6 +71,9 @@ const LoginForm = (props) => {
     resetFields();
     history.push('/register');
   };
+  const savepassword = (e) => {
+    setIsSavepassword(e.target.checked);
+  }
 
   return (
     <LoginHeader isLoginPage={isLoginPage} history={history}>
@@ -63,6 +84,7 @@ const LoginForm = (props) => {
             <Form.Item>
               {getFieldDecorator('email', {
                 rules: [{ required: true, message: '请输入邮箱!' }],
+                initialValue: defaultEmail
               })(
                 <Input
                   prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -77,6 +99,7 @@ const LoginForm = (props) => {
                 rules: [
                   { required: true, message: '请输入密码!' },
                 ],
+                initialValue: defaultPassword
               })(
                 <Input
                   prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -97,10 +120,10 @@ const LoginForm = (props) => {
             </Form.Item>
           </Form>
           <div className={style.buttonBox}>
-            <Checkbox className={style.automaticLogon} >自动登录</Checkbox>
+            <Checkbox checked={issavepassword} className={style.savepassword} onChange={savepassword}>记住密码</Checkbox>
             <span className={classnames(style.loginFormForgot, style.buttonItem)} onClick={handleResetPassword}>
               忘记密码？
-          </span>
+            </span>
             <span className={style.buttonItem}>|</span>
             <span className={classnames(style.register, style.buttonItem)} onClick={handleRegister}>立即注册</span>
           </div>
