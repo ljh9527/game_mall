@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import services from '../../services';
 import { Button, Empty } from 'antd';
-import { GameListItem } from '../../components';
+import { GameListItem,Title } from '../../components';
 // import { getUrlParam } from '../../utils';
 import style from './index.module.scss';
 
@@ -95,9 +95,7 @@ const MyOrder = (props) => {
         </div>
       </div>
       <div className={style.orderBox}>
-        <div className={style.title_hd}>
-          <span className={style.title_h1}>我的订单</span>
-        </div>
+        <Title data="我的订单"/>
         {
           orderData.length > 0 ? orderData.map((item, index) => (
             <div className={style.orderItem} key={index}>

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import services from '../../../services';
 import { Form, Button, Icon, Radio, Input, message } from 'antd';
+import { Title } from '../../../components';
 import { getUrlParam } from '../../../utils';
 
 import style from './index.module.scss';
@@ -167,9 +168,7 @@ const Details = (props) => {
       </div>
       <div className={style.content}>
         <div className={style.gameinfo}>
-          <div className={style.title_hd}>
-            <span className={style.title_h1}>{gameInfo && gameInfo[0].gameName}</span>
-          </div>
+          <Title data={gameInfo && gameInfo[0].gameName} />
           <div className={style.waper}>
             <div className={style.gameimage}>
               <img src={gameInfo && gameInfo[1].imageCover} alt="cover" />
@@ -196,9 +195,7 @@ const Details = (props) => {
             </div>
           </div>
           <div className={style.gamecoment}>
-            <div className={style.title_hd}>
-              <span className={style.title_h1}>{userComment ? '我的评测' : '添加评测'}</span>
-            </div>
+            <Title data={userComment ? '我的评测' : '添加评测'} />
             {
               userComment ? (<div className={style.content}>
                 <div className={style.contentbox}>
@@ -282,10 +279,8 @@ const Details = (props) => {
 
           </div>
         </div>
-        <div className={style.userinfo}>
-          <div className={style.title_hd}>
-            <span className={style.title_h1}>与我相关</span>
-          </div>
+        {/* <div className={style.userinfo}>
+          <Title data='与我相关' />
           <div className={style.detail}>
             <div className={style.item}>
               <span className={style.name}>玩耍时长</span>
@@ -299,7 +294,7 @@ const Details = (props) => {
           <div className={style.button}>
             <Button type='primary' size='large' onClick={() => handleStart(myGameDetail.gameid)}>启动</Button>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

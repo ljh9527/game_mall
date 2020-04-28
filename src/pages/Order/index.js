@@ -21,7 +21,6 @@ const Order = (props) => {
 
   sessionStorage.setItem("gameid", gameid);
   useEffect(() => {
-    // const email = localStorage.getItem("EMAIL");
     getUserInfo({ email });
     getCartList({ email });
     if (id !== '') {
@@ -77,7 +76,6 @@ const Order = (props) => {
       selected.map((item, index) => {
         idArray.push(item.id);
       });
-      // cartGameList
       setGameid(idArray);
     }
     try {

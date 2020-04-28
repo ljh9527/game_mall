@@ -15,39 +15,40 @@ import styles from './index.module.scss';
 
 const { ipcRenderer } = window.electron;
 const DropDownMenu = (props) => {
-  const { userAvatar, history, updateUserInfo } = props;
+  const { userAvatar, history, updateUserInfo, isadmin } = props;
 
   const handleLoginOut = async () => {
-    updateUserInfo();
+    updateUserInfo(true);
     ipcRenderer.send('loginOut');
     // localStorage.removeItem('EMAIL');
     history.push('/');
   };
 
   const handleToMyOrder = () => {
-    history.push('/myOrder');
+    history.push('myorder');
   };
 
   const handleToMyGame = () => {
     history.push('/myGame/index');
   };
 
-
   const renderDropDownMenu = () => {
     return (
       <Menu style={{ textAlign: 'center' }}>
-        <Menu.Item key="0" onClick={handleToMyGame}>
-          我的应用
-        </Menu.Item>
-        <Menu.Item key="1" onClick={handleToMyOrder}>
-          我的订单
-        </Menu.Item>
+        {
+          !isadmin ? (
+            <Menu.Item key="0" onClick={handleToMyGame}>
+              我的应用
+            </Menu.Item>) : (<></>)
+        }
+        {
+          !isadmin ? (<Menu.Item key="1" onClick={handleToMyOrder}>
+            我的订单
+          </Menu.Item>) : (<></>)
+        }
         <Menu.Item key="5" onClick={handleLoginOut}>
           退出当前账号
         </Menu.Item>
-        {/* <Menu.Item key="1" onClick={handleChangePwd}>
-          修改密码
-        </Menu.Item> */}
       </Menu>
     );
   };

@@ -19,7 +19,7 @@ const Comment = (props) => {
   const [data, setData] = useState(comment);
   const [activeIndex, setActiveIndex] = useState(0);
   const switchData = ['全部评测', '推荐', '不推荐'];
-  console.log(data);
+
   // useEffect(() => {
   //   getGameComment(id);
   // }, [id]);

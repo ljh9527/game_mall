@@ -20,16 +20,11 @@ const { ipcRenderer, remote } = window.electron;
 const { BrowserWindow } = remote;
 const Home = (props) => {
 
-  const { history, routerData, count, getCartList } = props;
+  const { userInfo, getUserInfo, history, routerData, count, getCartList } = props;
   const [selectIndex, setSelectIndex] = useState(0); // 主页商城状态控制
   const userAvatar = sessionStorage.getItem("AVATAR");
   const email = localStorage.getItem("EMAIL");
-
-  // useEffect(() => {
-  //   console.log(localStorage.getItem('EMAIL'));
-  //   console.log(sessionStorage.getItem("AVATAR"));
-
-  // }, [])
+  console.log(userInfo.isadmin);
   useEffect(() => {
     const { pathname } = window.location;
     // eslint-disable-next-line array-callback-return
@@ -41,11 +36,12 @@ const Home = (props) => {
   }, [props, routerData]);
   useEffect(() => {
     getCartList({ email });
+    getUserInfo({ email });
   }, []);
   const closeWindow = () => {
     updateUserInfo();
   };
-  const updateUserInfo = async () => {
+  const updateUserInfo = async (down) => {
     let time = new Date().getTime();
     let opentime = sessionStorage.getItem("OPENTIME");
     let durtime = time - opentime;
@@ -60,7 +56,9 @@ const Home = (props) => {
       // 发送请求
       const { data } = await services.updateUserInfo(params);
       if (data.code === 200) {
-        window.close();
+        if (!down) {
+          window.close();
+        }
       }
     } catch (error) {
       requestErrorHandler(error);
@@ -85,7 +83,7 @@ const Home = (props) => {
     setSelectIndex(1);
     history.push('/myGame/index');
   };
-  const handleToCart = () => { 
+  const handleToCart = () => {
     history.push('/game/order');
   };
   const download = () => {
@@ -118,26 +116,32 @@ const Home = (props) => {
               <Icon type="left" onClick={handleBack} />
               <Icon type="reload" onClick={handleReload} />
             </div>
-            <div className={styles.switchButton}>
-              <div className={classnames({ [styles.active]: selectIndex === 0, [styles.selectIcon]: true })} onClick={handleToShopping}>
-                <Icon type="shopping" className={styles.shoppingIcon} />
-                <div className={classnames({ [styles.selected]: selectIndex === 0, [styles.word]: true })}>商店</div>
-              </div>
-              <div className={classnames({ [styles.active]: selectIndex === 1, [styles.selectIcon]: true })} onClick={handleToHome}>
-                <Icon type="home" />
-                <div className={classnames({ [styles.selected]: selectIndex === 1, [styles.word]: true })}>主页</div>
-              </div>
-            </div>
-            <div className={styles.userInfo}>
-              <DropDownMenu userAvatar={userAvatar} updateUserInfo={updateUserInfo} />
-              <div onClick={handleToCart} className={classnames({ [styles.iconBox]: true, [styles.shoppingCart]: true })} >
-                <Icon type="shopping-cart" />
-                <span className={styles.count}>{count}</span>
-              </div>
-              <div onClick={download} className={styles.iconBox} >
-                <Icon type="download" />
-              </div>
-            </div>
+            {
+              !userInfo.isadmin ? (<>
+                <div className={styles.switchButton}>
+                  <div className={classnames({ [styles.active]: selectIndex === 0, [styles.selectIcon]: true })} onClick={handleToShopping}>
+                    <Icon type="shopping" className={styles.shoppingIcon} />
+                    <div className={classnames({ [styles.selected]: selectIndex === 0, [styles.word]: true })}>商店</div>
+                  </div>
+                  <div className={classnames({ [styles.active]: selectIndex === 1, [styles.selectIcon]: true })} onClick={handleToHome}>
+                    <Icon type="home" />
+                    <div className={classnames({ [styles.selected]: selectIndex === 1, [styles.word]: true })}>主页</div>
+                  </div>
+                </div>
+                <div className={styles.userInfo}>
+                  <DropDownMenu userAvatar={userAvatar} updateUserInfo={updateUserInfo} />
+                  <div onClick={handleToCart} className={classnames({ [styles.iconBox]: true, [styles.shoppingCart]: true })} >
+                    <Icon type="shopping-cart" />
+                    <span className={styles.count}>{count}</span>
+                  </div>
+                  <div onClick={download} className={styles.iconBox} >
+                    <Icon type="download" />
+                  </div>
+                </div>
+              </>) : (<div className={styles.userInfo}>
+                  <DropDownMenu userAvatar={userAvatar} updateUserInfo={updateUserInfo} isadmin={userInfo.isadmin}/>
+                </div>)
+            }
           </div>
         </div>
       </div>
@@ -152,14 +156,16 @@ const Home = (props) => {
 };
 
 
-const mapStateToProps = ({ cart }) => {
+const mapStateToProps = ({ cart, user }) => {
   return {
-    count: cart.count
+    count: cart.count,
+    userInfo: user.userInfo
   };
 };
 
-const mapDispathToProps = ({ cart }) => {
+const mapDispathToProps = ({ cart, user }) => {
   return {
+    getUserInfo: user.getUserInfo,
     getCartList: cart.getCartList
   };
 };

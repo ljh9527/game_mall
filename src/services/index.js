@@ -81,6 +81,9 @@ export default {
     getSearchGame(params) {
         return service.post('/game/name', params );
     },
+    addGame(params) {
+        return service.post("/game/add", params);
+    },
 
     // 搜索我的的游戏
     getMyGame(params) {

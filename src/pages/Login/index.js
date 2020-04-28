@@ -49,6 +49,10 @@ const LoginForm = (props) => {
         // console.log(data.data);
         setAccountSuccess(false);
         ipcRenderer.send('login');
+        if(data.data.isadmin){
+          history.push('/admin');
+          return ;
+        }
         history.push('/index');
       } else {
         setAccountSuccess(true);

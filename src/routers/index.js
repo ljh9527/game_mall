@@ -33,6 +33,9 @@ const PaySuccess = AsyncComponent(() => import('../pages/PaySuccess'));
 // 订单页
 const MyOrder = AsyncComponent(() => import('../pages/MyOrder'));
 
+// 管理员页
+const Admin = AsyncComponent(() => import('../pages/Admin'));
+
 const routerData = [
   // 首页
   { path: '/index', component: Home, belong: 0 },
@@ -50,6 +53,9 @@ const routerData = [
   { path: '/myGame/details', component: MyGameDetails, belong: 1 },
   // 我的订单页
   { path: '/myorder', component: MyOrder, belong: 1 },
+
+  // 我的订单页
+  { path: '/admin', component: Admin, belong: 1 },
 ];
 
 // belong属性用于判断该路由属于哪个大页面下，0表商城 1表我的

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import services from '../../../services';
-import { Form, Button, Input, Icon } from 'antd';
+import { Form, Button } from 'antd';
 import Game from './components/MyGame';
 import Progress from './components/Progress';
 import Evaluation from './components/Evaluation';
+import { Title } from '../../../components';
 import style from './index.module.scss';
 
 // const imgUrl = 'http://www.gravatar.com/avatar/5de1db3c896e5fdd7833c2c5d255783a?s=46&d=identicon';
@@ -81,9 +82,7 @@ const Details = (props) => {
         {
           !activeIndex ? (<div className={style.con}>
             <div className={style.gameBox}>
-              <div className={style.title_hd}>
-                <span className={style.title_h1}>我的下载</span>
-              </div>
+              <Title data="我的下载"/>
               <div className={style.game}>
                 {
                   myDowloadGameList && myDowloadGameList.map((item, index) => (
@@ -91,9 +90,7 @@ const Details = (props) => {
                   ))
                 }
               </div>
-              <div className={style.title_hd}>
-                <span className={style.title_h1}>我的购买</span>
-              </div>
+              <Title data="我的购买"/>
               <div className={style.game}>
                 {
                   myBuyGameList && myBuyGameList.map((item, index) => (

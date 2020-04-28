@@ -21,7 +21,7 @@ const Game = (props) => {
         <div className={style.totalTime}>已玩{data.playtime}小时</div>
       </div>
       {
-        status == 1 ? (<div className={style.button} onClick={() => handleToStart(data.id)}>启动游戏</div>) 
+        status == 1 ? (<div className={style.button} onClick={() => handleToDetail(data.id)}>游戏详情</div>) 
         : (<div className={style.button} onClick={() => handleToStart(data.id)}>下载游戏</div>)
       }
     </div>

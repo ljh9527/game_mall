@@ -71,11 +71,10 @@ const ResetForm = (props) => {
   const handleGetCode = async () => {
     // 获取输入邮箱
     const inputValues = getFieldsValue(['email']);
-    console.log(inputValues);
     // 发送请求
     try {
       // 发送请求
-      const { data } = await service.verificationCode(inputValues);
+      await service.verificationCode(inputValues);
       setUserEmail(inputValues);
     } catch (error) {
       console.log(error);
