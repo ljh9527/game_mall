@@ -54,6 +54,23 @@ const Details = (props) => {
       console.log(error);
     }
   }
+  const updateStatus = async (id) => {
+    const params = {
+      gameid: id,
+      email: email,
+      status: "1"
+    }
+    try {
+      // 发送请求
+      const { data } = await services.updateStatus(params);
+      if (data.code === 200) {
+        getMyGameList({ email, status: 0 });
+        getMyGameList({ email, status: 1 });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div className={style.wrap}>
       <div className={style.background}>
@@ -94,7 +111,7 @@ const Details = (props) => {
               <div className={style.game}>
                 {
                   myBuyGameList && myBuyGameList.map((item, index) => (
-                    <Game data={item} key={item + index} onstart={onstart} history={history} status={0}/>
+                    <Game data={item} key={item + index} onstart={onstart} history={history} status={0} updateStatus={(id)=>updateStatus(id)}/>
                   ))
                 }
               </div>

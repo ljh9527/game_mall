@@ -101,6 +101,10 @@ export default {
     updateOpenTime(params) {
         return service.post('/usergame/updateTime', params );
     },
+    // 更新游戏状态
+    updateStatus(params) {
+        return service.post('/usergame/updateStatus', params );
+    },
 
     // 添加到购物车 
     addGameCart(params) {

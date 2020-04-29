@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react';
 import services from '../../../services';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Icon } from 'antd';
+import { Icon, Modal, Progress } from 'antd';
 import moment from 'moment';
 import DropDownMenu from '../DropDownMenu';
 import { requestErrorHandler } from '../../../utils';
@@ -20,8 +20,9 @@ const { ipcRenderer, remote } = window.electron;
 const { BrowserWindow } = remote;
 const Home = (props) => {
 
-  const { userInfo, getUserInfo, history, routerData, count, getCartList } = props;
+  const { userInfo, getUserInfo, history, routerData, count, getCartList, percentComplete, game  } = props;
   const [selectIndex, setSelectIndex] = useState(0); // 主页商城状态控制
+  const [visible, setVisible] = useState(false); // modle的展示控制
   const userAvatar = sessionStorage.getItem("AVATAR");
   const email = localStorage.getItem("EMAIL");
   console.log(userInfo.isadmin);
@@ -87,18 +88,22 @@ const Home = (props) => {
     history.push('/game/order');
   };
   const download = () => {
-    let win = new BrowserWindow({
-      width: 400,
-      height: 400,
-      frame: false,  //是否带工具栏
-      webPreferences: {
-        nodeIntegration: true, // 是否集成 Nodejs,把之前预加载的js去了，发现也可以运行
-      }
-    })
-    win.on('closed', () => {
-      win = null
-    })
-    win.loadURL('http://localhost:9000/DownloadList');
+    // let win = new BrowserWindow({
+    //   width: 400,
+    //   height: 400,
+    //   frame: false,  //是否带工具栏
+    //   webPreferences: {
+    //     nodeIntegration: true, // 是否集成 Nodejs,把之前预加载的js去了，发现也可以运行
+    //   }
+    // })
+    // win.on('closed', () => {
+    //   win = null
+    // })
+    // win.loadURL('http://localhost:3456/DownloadList');
+    setVisible(true);
+  };
+  const handleCancel = () => {
+    setVisible(false);
   };
   return (
     <div className={styles.container}>
@@ -139,12 +144,27 @@ const Home = (props) => {
                   </div>
                 </div>
               </>) : (<div className={styles.userInfo}>
-                  <DropDownMenu userAvatar={userAvatar} updateUserInfo={updateUserInfo} isadmin={userInfo.isadmin}/>
-                </div>)
+                <DropDownMenu userAvatar={userAvatar} updateUserInfo={updateUserInfo} isadmin={userInfo.isadmin} />
+              </div>)
             }
           </div>
         </div>
       </div>
+      <Modal
+        title="应用下载"
+        visible={visible}
+        footer={null}
+        onCancel={handleCancel}
+      >
+        <div className={styles.item}>
+          <div className={styles.name}>
+            {game}
+          </div>
+          <div className={styles.progress}>
+            <Progress percent={(percentComplete * 100).toFixed("2")} />
+          </div>
+        </div>
+      </Modal>
       <div className={styles.main}>
         {/* {
           !selectIndex ? <Nav history={history} /> : ''
@@ -156,10 +176,12 @@ const Home = (props) => {
 };
 
 
-const mapStateToProps = ({ cart, user }) => {
+const mapStateToProps = ({ cart, user, dowload }) => {
   return {
     count: cart.count,
-    userInfo: user.userInfo
+    userInfo: user.userInfo,
+    percentComplete: dowload.percentComplete,
+    game: dowload.game
   };
 };
 
