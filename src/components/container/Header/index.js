@@ -20,9 +20,10 @@ const { ipcRenderer, remote } = window.electron;
 const { BrowserWindow } = remote;
 const Home = (props) => {
 
-  const { userInfo, getUserInfo, history, routerData, count, getCartList, percentComplete, game  } = props;
+  const { userInfo, getUserInfo, history, routerData, count, getCartList, percentComplete, game } = props;
   const [selectIndex, setSelectIndex] = useState(0); // 主页商城状态控制
   const [visible, setVisible] = useState(false); // modle的展示控制
+  const [fullscreen, setFullscreen] = useState(false); // modle的展示控制
   const userAvatar = sessionStorage.getItem("AVATAR");
   const email = localStorage.getItem("EMAIL");
   console.log(userInfo.isadmin);
@@ -68,6 +69,18 @@ const Home = (props) => {
   const minWindow = () => {
     ipcRenderer.send("min");
   };
+  // 切换全屏
+  const switchFullscreen = () => {
+    setFullscreen(!fullscreen);
+    console.log("fullscreen",fullscreen);
+    ipcRenderer.send("window-max");
+  };
+  ipcRenderer.on('main-window-max', (event) => {
+    setFullscreen(true);
+  });
+  ipcRenderer.on('main-window-unmax', (event) => {
+    setFullscreen(false);
+  });
   // 回退
   const handleBack = () => {
     history.goBack();
@@ -112,8 +125,17 @@ const Home = (props) => {
           <div className={styles.top}>
             <div className={styles.topLeft}>FunGame</div>
             <div className={styles.topRight}>
-              <Icon type="minus" className={styles.minus} onClick={minWindow} />
-              <Icon type="close" className={styles.close} onClick={closeWindow} />
+              <div className={styles.minus} onClick={minWindow}>
+                <Icon type="minus" />
+              </div>
+              <div className={styles.minus} onClick={switchFullscreen}>
+                {
+                  fullscreen ? (<Icon type="fullscreen-exit" />) : (<Icon type="fullscreen" />)
+                }
+              </div>
+              <div className={styles.close} onClick={closeWindow}>
+                <Icon type="close" />
+              </div>
             </div>
           </div>
           <div className={styles.headerCenter}>

@@ -30,11 +30,16 @@ function createWindow() {
     // mainWindow.loadURL(path.join('file://', __dirname, '/build/index.html'));
     //接收渲染进程的信息
     const ipc = require('electron').ipcMain;
+    //接收最大化命令
+    ipc.on('window-max', function () {
+        if (mainWindow.isMaximized()) {
+            mainWindow.restore();
+        } else {
+            mainWindow.maximize();
+        }
+    });
     ipc.on('min', function () {
         mainWindow.minimize();
-    });
-    ipc.on('max', function () {
-        mainWindow.maximize();
     });
     ipc.on("login", function () {
         mainWindow.setSize(1260, 850);
@@ -52,6 +57,13 @@ function createWindow() {
 
     mainWindow.on('closed', () => {
         mainWindow = null
+    })
+
+    mainWindow.on('maximize', function () {
+        mainWindow.webContents.send('main-window-max');
+    })
+    mainWindow.on('unmaximize', function () {
+        mainWindow.webContents.send('main-window-unmax');
     })
 }
 makeSingleInstance();
