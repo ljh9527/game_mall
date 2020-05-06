@@ -1,8 +1,9 @@
 import service from '../../../services';
 import { requestErrorHandler } from '../../../utils';
 
-const dowload = {
+const download = {
   state: {
+    downloadList: [],
     percentComplete: '',
     game: '',
   },
@@ -18,7 +19,18 @@ const dowload = {
     setGame(paylod, rootState) {
       this.setState({ game: paylod });
     },
+    setDownloadList(paylod, rootState) {
+      console.log(paylod);
+      let exect = this.state.downloadList.findIndex(item => {
+        return item.id === paylod.id
+      });
+      if (exect !== -1) {
+
+      }else{
+        this.setState({ downloadList: paylod });
+      }
+    }
   },
 };
 
-export default dowload;
+export default download;

@@ -10,7 +10,7 @@ import comment from './comment';
 import usergame from './usergame';
 import cart from "./cart";
 import pay from './pay';
-import dowload from './dowload';
+import download from './download';
 
 export default {
   common,
@@ -19,5 +19,5 @@ export default {
   usergame,
   cart,
   pay,
-  dowload
+  download
 };

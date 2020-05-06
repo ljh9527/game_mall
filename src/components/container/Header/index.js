@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react';
 import services from '../../../services';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Icon, Modal, Progress } from 'antd';
+import { Icon, Modal, Progress, Empty } from 'antd';
 import moment from 'moment';
 import DropDownMenu from '../DropDownMenu';
 import { requestErrorHandler } from '../../../utils';
@@ -16,14 +16,16 @@ import { requestErrorHandler } from '../../../utils';
 import classnames from 'classnames';
 import styles from './index.module.scss';
 
-const { ipcRenderer, remote } = window.electron;
-const { BrowserWindow } = remote;
+const { ipcRenderer } = window.electron;
+// const { BrowserWindow } = remote;
 const Home = (props) => {
 
   const { userInfo, getUserInfo, history, routerData, count, getCartList, percentComplete, game } = props;
   const [selectIndex, setSelectIndex] = useState(0); // 主页商城状态控制
   const [visible, setVisible] = useState(false); // modle的展示控制
-  const [fullscreen, setFullscreen] = useState(false); // modle的展示控制
+  const [fullscreen, setFullscreen] = useState(false); // 最大化图标控制
+  const [downloadList, setDownloadList] = useState([]); // 下载内容
+
   const userAvatar = sessionStorage.getItem("AVATAR");
   const email = localStorage.getItem("EMAIL");
   console.log(userInfo.isadmin);
@@ -72,7 +74,6 @@ const Home = (props) => {
   // 切换全屏
   const switchFullscreen = () => {
     setFullscreen(!fullscreen);
-    console.log("fullscreen",fullscreen);
     ipcRenderer.send("window-max");
   };
   ipcRenderer.on('main-window-max', (event) => {
@@ -178,14 +179,17 @@ const Home = (props) => {
         footer={null}
         onCancel={handleCancel}
       >
-        <div className={styles.item}>
-          <div className={styles.name}>
-            {game}
-          </div>
-          <div className={styles.progress}>
-            <Progress percent={(percentComplete * 100).toFixed("2")} />
-          </div>
-        </div>
+        {
+          downloadList.length > 0 ? (<div className={styles.item}>
+            <div className={styles.name}>
+              {game}
+            </div>
+            <div className={styles.progress}>
+              <Progress percent={(percentComplete * 100).toFixed("2")} />
+            </div>
+          </div>) : (<Empty/>) 
+        }
+        
       </Modal>
       <div className={styles.main}>
         {/* {
@@ -198,12 +202,12 @@ const Home = (props) => {
 };
 
 
-const mapStateToProps = ({ cart, user, dowload }) => {
+const mapStateToProps = ({ cart, user, download }) => {
   return {
     count: cart.count,
     userInfo: user.userInfo,
-    percentComplete: dowload.percentComplete,
-    game: dowload.game
+    percentComplete: download.percentComplete,
+    game: download.game
   };
 };
 

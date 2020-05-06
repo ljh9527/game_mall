@@ -3,13 +3,12 @@ import { connect } from 'react-redux';
 import style from './index.module.scss'
 
 const Game = (props) => {
-  const { data, history, onstart, status, setPercentComplete, setGame,updateStatus } = props;
+  const { data, history, onstart, status, updateStatus,setDownloadList } = props;
 
   const handleToDetail = (id) => {
     history.push(`/myGame/details?id=${id}`);
   };
   const handleToStart = (name, id) => {
-    setGame(name);
     let xhr = new XMLHttpRequest();
     const downloadUrl = 'https://gw.alipayobjects.com/os/bmw-prod/4e2a3716-d106-4819-81b8-920d61cb13fe.exe';
     xhr.open('GET', downloadUrl, true);
@@ -17,7 +16,12 @@ const Game = (props) => {
       // 响应头要有Content-Length
       if (event.lengthComputable) {
         let percentComplete = event.loaded / event.total;
-        setPercentComplete(percentComplete);
+        const item = {
+          id: id,
+          name: name,
+          percentComplete: percentComplete
+        }
+        setDownloadList(item);
         if (percentComplete === 1) {
           updateStatus(id);
         }
@@ -44,15 +48,16 @@ const Game = (props) => {
   );
 };
 
-const mapStateToProps = ({ dowload }) => {
+const mapStateToProps = ({ download }) => {
   return {
   };
 };
 
-const mapDispathToProps = ({ dowload }) => {
+const mapDispathToProps = ({ download }) => {
   return {
-    setPercentComplete: dowload.setPercentComplete,
-    setGame: dowload.setGame
+    setPercentComplete: download.setPercentComplete,
+    setGame: download.setGame,
+    setDownloadList: download.setDownloadList
   };
 };
 export default connect(mapStateToProps, mapDispathToProps)(Game);
