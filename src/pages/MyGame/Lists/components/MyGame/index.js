@@ -1,9 +1,10 @@
 import React from 'react';
+import { message } from 'antd';
 import { connect } from 'react-redux';
 import style from './index.module.scss'
 
 const Game = (props) => {
-  const { data, history, onstart, status, updateStatus,setDownloadList } = props;
+  const { data, history, onstart, status, updateStatus,setDownloadList,setPercentComplete } = props;
 
   const handleToDetail = (id) => {
     history.push(`/myGame/details?id=${id}`);
@@ -12,6 +13,7 @@ const Game = (props) => {
     let xhr = new XMLHttpRequest();
     const downloadUrl = 'https://gw.alipayobjects.com/os/bmw-prod/4e2a3716-d106-4819-81b8-920d61cb13fe.exe';
     xhr.open('GET', downloadUrl, true);
+    message.info("正在下载");
     xhr.addEventListener('progress', function (event) {
       // 响应头要有Content-Length
       if (event.lengthComputable) {
@@ -22,6 +24,7 @@ const Game = (props) => {
           percentComplete: percentComplete
         }
         setDownloadList(item);
+        setPercentComplete(percentComplete);
         if (percentComplete === 1) {
           updateStatus(id);
         }
@@ -57,7 +60,7 @@ const mapDispathToProps = ({ download }) => {
   return {
     setPercentComplete: download.setPercentComplete,
     setGame: download.setGame,
-    setDownloadList: download.setDownloadList
+    setDownloadList: download.setDownloadList,
   };
 };
 export default connect(mapStateToProps, mapDispathToProps)(Game);

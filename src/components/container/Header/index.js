@@ -20,15 +20,14 @@ const { ipcRenderer } = window.electron;
 // const { BrowserWindow } = remote;
 const Home = (props) => {
 
-  const { userInfo, getUserInfo, history, routerData, count, getCartList, percentComplete, game } = props;
+  const { userInfo, getUserInfo, history, routerData, count, getCartList, downloadList } = props;
   const [selectIndex, setSelectIndex] = useState(0); // 主页商城状态控制
   const [visible, setVisible] = useState(false); // modle的展示控制
   const [fullscreen, setFullscreen] = useState(false); // 最大化图标控制
-  const [downloadList, setDownloadList] = useState([]); // 下载内容
 
   const userAvatar = sessionStorage.getItem("AVATAR");
   const email = localStorage.getItem("EMAIL");
-  console.log(userInfo.isadmin);
+
   useEffect(() => {
     const { pathname } = window.location;
     // eslint-disable-next-line array-callback-return
@@ -180,16 +179,15 @@ const Home = (props) => {
         onCancel={handleCancel}
       >
         {
-          downloadList.length > 0 ? (<div className={styles.item}>
+          downloadList.length > 0 ? downloadList.map((item, index) => (<div className={styles.item} key={index}>
             <div className={styles.name}>
-              {game}
+              {item.name}
             </div>
             <div className={styles.progress}>
-              <Progress percent={(percentComplete * 100).toFixed("2")} />
+              <Progress percent={Math.round(item.percentComplete * 100)} />
             </div>
-          </div>) : (<Empty/>) 
+          </div>)) : (<Empty />)
         }
-        
       </Modal>
       <div className={styles.main}>
         {/* {
@@ -206,8 +204,8 @@ const mapStateToProps = ({ cart, user, download }) => {
   return {
     count: cart.count,
     userInfo: user.userInfo,
-    percentComplete: download.percentComplete,
-    game: download.game
+    downloadList: download.downloadList,
+    percentComplete: download.percentComplete
   };
 };
 

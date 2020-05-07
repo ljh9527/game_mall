@@ -1,19 +1,43 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { message } from 'antd';
 import services from '../../services';
 import classnames from 'classnames';
 import Introduce from './Introduce';
 import Info from './Info';
 import Comment from './Comment';
 import style from './index.module.scss';
-import { getUrlParam } from '../../utils';
+import { getUrlParam, requestErrorHandler } from '../../utils';
 
 const Details = (props) => {
-  const {history} = props;
+  const { history, setDownloadList, setPercentComplete } = props;
+  const email = localStorage.getItem("EMAIL");
   const [id] = useState(getUrlParam('id'));
   const [activeIndex, setActiveIndex] = useState(0);
   const [gameInfo, setGameInfo] = useState();
-  const download = (id)=>{
-    console.log(id);
+  const download = (name, id) => {
+    let xhr = new XMLHttpRequest();
+    const downloadUrl = 'https://gw.alipayobjects.com/os/bmw-prod/4e2a3716-d106-4819-81b8-920d61cb13fe.exe';
+    xhr.open('GET', downloadUrl, true);
+    xhr.responseType = 'blob';
+    message.info("正在下载");
+    xhr.addEventListener('progress', function (event) {
+      // 响应头要有Content-Length
+      if (event.lengthComputable) {
+        let percentComplete = event.loaded / event.total;
+        const item = {
+          id: id,
+          name: name,
+          percentComplete: percentComplete
+        }
+        setDownloadList(item);
+        setPercentComplete(percentComplete);
+        if (percentComplete === 1) {
+          addGame(id);
+        }
+      }
+    }, false);
+    xhr.send();
   }
   const data = [{
     name: '游戏介绍',
@@ -33,7 +57,7 @@ const Details = (props) => {
   //   e.cancelBubble = true;
   // }
 
-  useEffect(()=>{
+  useEffect(() => {
     getGameInfo(id);
   }, [id])
   const handleClick = (index) => {
@@ -43,21 +67,35 @@ const Details = (props) => {
   const goBack = () => {
 
   };
-  
+  // 添加游戏数据
+  const addGame = async (id) => {
+    // 发送请求
+    try {
+      // 发送请求
+      const { data } = await services.addMyGame({ gameid: (id).toString(), email, status: (1).toString() });
+      if (data.code === 200) {
+        message.success("下载成功");
+      } else {
+      }
+    } catch (error) {
+      requestErrorHandler(error);
+    }
+  };
+
   // 请求游戏数据
   const getGameInfo = async (id) => {
     // 发送请求
     try {
       // 发送请求
-      const { data } = await services.getGameInfo({id});
-      if(data.code === 200){
+      const { data } = await services.getGameInfo({ id });
+      if (data.code === 200) {
         setGameInfo(data.data[0]);
       }
     } catch (error) {
       console.log(error);
     }
   };
-  
+
   return (
     <div className={style.wrap}>
       <header className={style.header}>
@@ -65,7 +103,7 @@ const Details = (props) => {
           <span className={style.inner}>
             <span>
               <span className={style.center} onClick={goBack} >{'精选 >'} </span>
-              <span>{gameInfo&&gameInfo[0].gameName}</span>
+              <span>{gameInfo && gameInfo[0].gameName}</span>
             </span>
             <span className={style.border}></span>
           </span>
@@ -75,11 +113,11 @@ const Details = (props) => {
         </div>
         <div className={style.headinfo}>
           <div className={style.img}>
-            <img src={gameInfo&&gameInfo[1].imageCover} alt={gameInfo&&gameInfo[0].gameName} />
+            <img src={gameInfo && gameInfo[1].imageCover} alt={gameInfo && gameInfo[0].gameName} />
           </div>
           <div className={style.introduce}>
             <div className={style.name}>
-              <h1 title={gameInfo&&gameInfo[0].gameName}>{gameInfo&&gameInfo[0].gameName}</h1>
+              <h1 title={gameInfo && gameInfo[0].gameName}>{gameInfo && gameInfo[0].gameName}</h1>
             </div>
           </div>
         </div>
@@ -108,4 +146,16 @@ const Details = (props) => {
   );
 };
 
-export default Details;
+const mapStateToProps = ({ download }) => {
+  return {
+  };
+};
+
+const mapDispathToProps = ({ download }) => {
+  return {
+    setPercentComplete: download.setPercentComplete,
+    setGame: download.setGame,
+    setDownloadList: download.setDownloadList,
+  };
+};
+export default connect(mapStateToProps, mapDispathToProps)(Details);

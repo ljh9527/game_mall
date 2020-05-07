@@ -30,6 +30,7 @@ const Order = (props) => {
   //   const handleClick = (index) => {
   //     setActiveIndex(index);
   //   };
+  console.log(order);
   // 回到上一页
   const goBack = () => {
     history.push(`/game/details?id=${id}`);
@@ -249,6 +250,12 @@ const Order = (props) => {
           onCancel={handleCancel}
         >
           <p>
+            <span className={style.price_tip} style={{display: "block"}}>
+              <span>订单号：</span>
+              <span className={style.price}>
+                <span className={style.mint}>{order.out_trade_no}</span>
+              </span>
+            </span>
             <span className={style.price_tip}>
               <span>应付金额：</span>
               <span className={style.price}>

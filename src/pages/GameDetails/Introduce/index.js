@@ -22,7 +22,7 @@ const Introduce = (props) => {
   const id = gameInfo && gameInfo[0].id;
   const email = localStorage.getItem("EMAIL");
   const [isHasGame, setIsHasGame] = useState(false);
-  
+  console.log(gameInfo);
   useEffect(() => {
     getGameComment(id);
     havaUserGame(id);
@@ -33,8 +33,8 @@ const Introduce = (props) => {
     history.push(`/game/order?id=${id}`);
   }
 
-  const handleDownload = (id) => {
-    download(id);
+  const handleDownload = (name,id) => {
+    download(name,id);
   }
   useEffect(() => {
     new Swiper('.gallery-top', {
@@ -200,7 +200,7 @@ const Introduce = (props) => {
                             <Icon type="shopping-cart" />
                           </Button>
                         </div>) : (<div className={style.dowlod}>
-                          <Button onClick={() => handleDownload(id)}>立即下载</Button>
+                          <Button onClick={() => handleDownload(gameInfo[0].gameName,id)}>立即下载</Button>
                         </div>)
                       }
                     </>

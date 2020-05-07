@@ -5,7 +5,7 @@ const download = {
   state: {
     downloadList: [],
     percentComplete: '',
-    game: '',
+    name: '',
   },
   reducers: {
     setState(state, paylod) {
@@ -16,18 +16,23 @@ const download = {
     setPercentComplete(paylod, rootState) {
       this.setState({ percentComplete: paylod });
     },
-    setGame(paylod, rootState) {
-      this.setState({ game: paylod });
+    setName(paylod, rootState) {
+      this.setState({ name: paylod });
     },
     setDownloadList(paylod, rootState) {
-      console.log(paylod);
-      let exect = this.state.downloadList.findIndex(item => {
+      // console.log(rootState.download.downloadList);
+      let existence = rootState.download.downloadList && rootState.download.downloadList.findIndex(item => {
         return item.id === paylod.id
       });
-      if (exect !== -1) {
-
-      }else{
-        this.setState({ downloadList: paylod });
+      // console.log(existence);
+      if (existence !== -1) {
+        let array = rootState.download.downloadList;
+        array[existence].percentComplete = paylod.percentComplete;
+        this.setState({ downloadList: array });
+      } else {
+        let array = rootState.download.downloadList;
+        array.push(paylod);
+        this.setState({ downloadList: array });
       }
     }
   },
