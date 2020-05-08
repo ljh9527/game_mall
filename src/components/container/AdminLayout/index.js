@@ -3,40 +3,64 @@ import { Layout, Menu, Icon } from 'antd';
 import style from './index.module.scss';
 const { Content, Sider } = Layout;
 
-const AdminLayout = (props) => {
-  const {  } = props;
+const menus = [{
+  title: "添加游戏",
+  path: "/game/add",
+  icon: "plus"
+}, {
+  title: "编辑游戏",
+  path: "/game/edit",
+  icon: "edit"
+}];
 
+const AdminLayout = (props) => {
+  const { history } = props;
+  const menuList = menus;
+  const path = window.location.pathname.split('/')[2];
+  const activeMainMenu = menus.find((item) => (item.path === `/game/${path}`));
+
+  const handleClickMenu = (item) => {
+    history.push(item.keyPath[0]);
+  };
+  const handleSelectMenu = (item) => {
+    history.push(item.keyPath[0]);
+  }
 
   return (
     <div className={style.wrap}>
       <Layout
         style={{ height: "100%" }}
-        >
+      >
         <Sider
           theme="light"
           breakpoint="lg"
           collapsedWidth="0"
-          onBreakpoint={broken => {
-            console.log(broken);
-          }}
-          onCollapse={(collapsed, type) => {
-            console.log(collapsed, type);
-          }}
         >
           <div className="logo" />
-          <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
-            <Menu.Item key="1">
-              <Icon type="user" />
-              <span className="nav-text">添加游戏</span>
-            </Menu.Item>
-            
+          <Menu
+            theme="light"
+            mode="inline"
+            // defaultSelectedKeys={activeMainMenu}
+            selectedKeys={[activeMainMenu.path]}
+            onSelect={handleSelectMenu}
+            onClick={handleClickMenu}
+          >
+            {
+              menuList.map((item) => (
+                <Menu.Item key={item.path}>
+                  <Icon type={item.icon} />
+                  <span className="nav-text">{item.title}</span>
+                </Menu.Item>
+              ))
+            }
+
           </Menu>
         </Sider>
         <Layout>
           <Content style={{ margin: '24px 16px 16px' }}>
-              {
-                props.children
-              }
+            {
+              props.children
+            }
           </Content>
         </Layout>
       </Layout>

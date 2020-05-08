@@ -3,7 +3,7 @@
 .container {
   position: relative;
   height: 100%;
-  background-image: url('../../../assets/background.jpg');
+  background-image: url("../../../assets/background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   .headerContainer {
@@ -35,18 +35,19 @@
         // position: absolute;
         float: right;
         -webkit-app-region: no-drag;
-        .minus,.close{
+        .minus,
+        .close {
           display: inline-block;
           width: 35px;
           height: 30px;
           padding: 2.5px;
           color: rgb(184, 189, 186);
           cursor: pointer;
-          &:hover{
+          &:hover {
             background: #808080;
           }
-          i{
-            svg{
+          i {
+            svg {
               width: 25px;
               height: 25px;
             }
@@ -80,7 +81,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
         width: 160px;
-        color: rgb(166,165,166);
+        color: rgb(166, 165, 166);
         -webkit-app-region: no-drag;
         cursor: pointer;
         font-size: 15px;
@@ -103,7 +104,7 @@
         }
         .active {
           transform: translateY(-9px);
-          color: rgb(255,202,0) !important;
+          color: rgb(255, 202, 0) !important;
           i {
             width: 45px;
             height: 45px;
@@ -151,22 +152,24 @@
           cursor: pointer;
           margin-left: 16px;
           i {
+            width: 30px;
+            height: 30px;
             svg {
               width: 30px;
               height: 30px;
             }
           }
         }
-        .shoppingCart{
+        .shoppingCart {
           position: relative;
-          .count{
+          .count {
             position: absolute;
             display: inline-block;
             font-size: 12px;
-        
+
             top: -5px;
             right: -10px;
-            color: rgb(255,202,0);
+            color: rgb(255, 202, 0);
           }
         }
       }
@@ -178,29 +181,29 @@
     height: 100%;
     padding-top: 90px;
     overflow: auto;
-    .container{
+    .container {
       margin: 0 auto;
       width: 100%;
     }
   }
 }
 
-div::-webkit-scrollbar{
-  width:6px;
-  height:6px;
+div::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
   /**/
 }
-div::-webkit-scrollbar-track{
+div::-webkit-scrollbar-track {
   background: rgb(239, 239, 239);
-  border-radius:2px;
+  border-radius: 2px;
 }
-div::-webkit-scrollbar-thumb{
+div::-webkit-scrollbar-thumb {
   background: #bfbfbf;
-  border-radius:10px;
+  border-radius: 10px;
 }
-div::-webkit-scrollbar-thumb:hover{
+div::-webkit-scrollbar-thumb:hover {
   background: #333;
 }
-div::-webkit-scrollbar-corner{
+div::-webkit-scrollbar-corner {
   background: #179a16;
 }

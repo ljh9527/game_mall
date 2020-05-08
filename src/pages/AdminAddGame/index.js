@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
-// import { connect } from 'react-redux';
-import moment from 'moment';
+import React, { useState } from 'react';
 import services from '../../services';
+import { requestUrl } from '../../config';
 import { Form, Input, DatePicker, Checkbox, Radio, Row, Col, Button, Upload, Icon, message } from 'antd';
 import { AdminLayout, Title } from '../../components';
-// import { getUrlParam } from '../../utils';
 import style from './index.module.scss';
 const { TextArea } = Input;
-const Admin = (props) => {
+
+const AdminAddGame = (props) => {
   const { history, form } = props;
-  const email = localStorage.getItem("EMAIL");
   const [radioStatus, setRadioStatus] = useState('url');
   const [fileList, setFileList] = useState([]);
   const [imageCover, setImageCover] = useState();
@@ -54,7 +52,7 @@ const Admin = (props) => {
   const updataFormat = (data) => {
     const array = [];
     data.fileList.map((item, index) => {
-      array.push(`http://localhost:9000${item.response.data.filename}`);
+      array.push(`${requestUrl}${item.response.data.filename}`);
     })
     return array;
   }
@@ -105,7 +103,7 @@ const Admin = (props) => {
 
   return (
     <div className={style.wrap}>
-      <AdminLayout>
+      <AdminLayout history={history}>
         <div className={style.content}>
 
           <Title data="添加游戏" />
@@ -315,15 +313,4 @@ const Admin = (props) => {
   );
 };
 
-// const mapStateToProps = ({ user }) => {
-//   return {
-//     userInfo: user.userInfo
-//   };
-// };
-
-// const mapDispathToProps = ({ user }) => {
-//   return {
-//     getUserInfo: user.getUserInfo
-//   };
-// };
-export default Form.create({ name: 'addform' })(Admin);
+export default Form.create({ name: 'addGame' })(AdminAddGame);

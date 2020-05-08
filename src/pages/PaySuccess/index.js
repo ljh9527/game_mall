@@ -6,7 +6,7 @@ import style from './index.module.scss';
 import { getUrlParam, requestErrorHandler } from '../../utils';
 
 const PaySuccess = (props) => {
-  const { getCartList } = props;
+  const { getCartList,history } = props;
   const email = localStorage.getItem("EMAIL");
   const gameid = sessionStorage.getItem("gameid").split(",");
   const order = {
@@ -53,12 +53,15 @@ const PaySuccess = (props) => {
     try {
       // 发送请求
       const { data } = await services.deleteCart({ gameid: gameid.toString(), email });
-      if(data.code === 200){
+      if (data.code === 200) {
         getCartList({ email });
       }
     } catch (error) {
       requestErrorHandler(error);
     }
+  }
+  const handleToMyGame = () => { 
+    history.push("/myGame/index");
   }
   return (
     <div className={style.wrap}>
@@ -67,7 +70,7 @@ const PaySuccess = (props) => {
           <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" />
         </div>
         <h2 className={style.title}>支付成功</h2>
-        <div>您购买的游戏已经在主页中，请前往<a herf="/myGame/index">主页</a>查看吧</div>
+        <div>您购买的游戏已经在主页中，请前往<span className={style.alink} onClick={handleToMyGame}>主页</span>查看吧</div>
       </div>
     </div>
   );

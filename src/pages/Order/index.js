@@ -30,7 +30,6 @@ const Order = (props) => {
   //   const handleClick = (index) => {
   //     setActiveIndex(index);
   //   };
-  console.log(order);
   // 回到上一页
   const goBack = () => {
     history.push(`/game/details?id=${id}`);
@@ -217,7 +216,7 @@ const Order = (props) => {
             <span className={style.before}>购买至：</span>
             <div className={style.info}>
               <div className={style.avatar}>
-                <img src={userInfo.avatar} />
+                <img src={userInfo.avatar} alt="头像"/>
               </div>
               <div className={style.name}>
                 {userInfo.nickname}

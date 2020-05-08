@@ -8,6 +8,8 @@ import { getUrlParam } from '../../../utils';
 
 import style from './index.module.scss';
 const { TextArea } = Input;
+const { ipcRenderer } = window.electron;
+
 // const imgUrl = 'http://www.gravatar.com/avatar/5de1db3c896e5fdd7833c2c5d255783a?s=46&d=identicon';
 const Details = (props) => {
   const [id] = useState(getUrlParam('id'));
@@ -125,13 +127,12 @@ const Details = (props) => {
   };
   const handleStart = (id) => {
     console.log(id);
+    ipcRenderer.send("open-child","E:\\Microsoft VS Code\\Code.exe");
   };
   const handleRadioChange = (e) => {
-    console.log(e.target.value);
     setRadio(e.target.value);
   }
   const handleTextAreaChange = ({ target: { value } }) => {
-    console.log({ value });
     setTextarea(value);
   }
   const handleCancleComment = () => {
@@ -279,7 +280,7 @@ const Details = (props) => {
 
           </div>
         </div>
-        {/* <div className={style.userinfo}>
+        <div className={style.userinfo}>
           <Title data='与我相关' />
           <div className={style.detail}>
             <div className={style.item}>
@@ -294,7 +295,7 @@ const Details = (props) => {
           <div className={style.button}>
             <Button type='primary' size='large' onClick={() => handleStart(myGameDetail.gameid)}>启动</Button>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );

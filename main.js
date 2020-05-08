@@ -1,6 +1,10 @@
 const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
+// const os = require('os');
+
+const exec = require('child_process').execFile;
+
 let mainWindow = null;
 //判断命令行脚本的第二参数是否含--debug
 const debug = /--debug/.test(process.argv[2]);
@@ -49,6 +53,10 @@ function createWindow() {
         mainWindow.setSize(430, 600);
         mainWindow.center();
     });
+    ipc.on("open-child", function (e, appUrl) {
+        // const path = "E:\\Microsoft VS Code\\Code.exe";
+        exec(appUrl, function(err, data) { if (err) { throw err; } console.log(data.toString()); }); 
+    })
     //如果是--debug 打开开发者工具，窗口最大化，
     if (debug) {
         mainWindow.webContents.openDevTools();

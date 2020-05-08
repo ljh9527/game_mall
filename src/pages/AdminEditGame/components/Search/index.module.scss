@@ -1,0 +1,29 @@
+.formWraper {
+  display: flex;
+  flex-wrap: wrap;
+  :global {
+    .ant-form-item {
+      flex: 450px;
+      // padding-left: 20px;
+      .ant-form-item-label {
+        min-width: 66px;
+      }
+      .ant-form-item-control-wrapper {
+        width: 260px;
+      }
+    }
+    .ant-form-item:first-child {
+      margin-right: 30px;
+    }
+  }
+  .btn {
+    display: inline-block;
+    padding: 3px 0;
+    padding-right: 20px;
+    :global {
+      .ant-btn + .ant-btn {
+        margin: 0 12px;
+      }
+    }
+  }
+}

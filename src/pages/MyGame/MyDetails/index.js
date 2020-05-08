@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { requestUrl } from '../../../config';
 import service from '../../../services';
 import { Form, Icon, Input, Upload, Button, message } from 'antd';
 import style from './index.module.scss';
@@ -52,7 +53,7 @@ const Details = (props) => {
       if (response.code === 200) {
         // const data = { attachmentId: response.result.returnPath, attachmentName: file.name };
         console.log(response.data);
-        setAvater(`http://localhost:9000${response.data.filename}`);
+        setAvater(`${requestUrl}${response.data.filename}`);
       }
     } else if (info.file.status === 'error') {
       message.error(`${info.file.name}  上传失败`);
