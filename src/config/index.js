@@ -3,7 +3,7 @@
  *
  */
 
-const env = process.env.REACT_APP_ENV;
+// const env = process.env.REACT_APP_ENV;
 
 const requestUrlData = {
   development: 'http://localhost:9000',

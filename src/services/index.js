@@ -45,14 +45,21 @@ export default {
     // },
 
     // 获取首页展示数据
-    getIndexGameData(params) {
-        return service.get('/game/index', { params });
-    },
+    // getIndexGameData(params) {
+    //     return service.get('/game/index', { params });
+    // },
     // 获取游戏的信息
     getGameInfo(params) {
         return service.get('/game/info', { params });
     },
-    
+    // 获取首页展示数据列表
+    getIndexGameList(params) {
+        return service.get('/game/index/type', { params });
+    },
+    // 获取首页游戏下拉框列表
+    getAllGame(params) {
+        return service.post('/game/listall', params);
+    },
 
     // 获取游戏的评论
     getGameComment(params) {

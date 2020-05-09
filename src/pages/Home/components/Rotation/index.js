@@ -91,20 +91,20 @@ const Home = (props) => {
         <div className={style.imgContainer}>
           {
             rotationData && rotationData.map((item, index) => (
-              <img style={{ display: (index === latestCount.current) ? "block" : "none" }} src={item[1].bannerImg} alt={index} key={index} onClick={() => handleToDetail(item[0].id)} />
+              <img style={{ display: (index === latestCount.current) ? "block" : "none" }} src={item.banner_img} alt={index} key={index} onClick={() => handleToDetail(item.game_id)} />
             ))
           }
         </div>
         <div className={style.upperContainer}>
           <div className={style.upper}>
             {
-              wordData.map((item, index) => (
+              rotationData.map((item, index) => (
                 <li
                   onMouseEnter={(e) => handleMouseEnter(e, index)}
                   onMouseLeave={handleMouseLeave}
                   className={classnames({ [style.upperItem]: true, [style.cur]: curItem[index] })}
                   key={index}>
-                  <div style={{ color: (index === latestCount.current) ? '#40c4ff' : '#e0e0e0' }} className={style.title}>{item.gameName}</div>
+                  <div style={{ color: (index === latestCount.current) ? '#40c4ff' : '#e0e0e0' }} className={style.title}>{item.game_name}</div>
                   <div style={{ opacity: (index === latestCount.current) ? 1 : 0 }} className={style.sub}>{item.subtitle}</div>
                 </li>)
               )

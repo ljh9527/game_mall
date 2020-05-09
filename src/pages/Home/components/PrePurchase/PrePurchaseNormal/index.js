@@ -8,26 +8,26 @@ const PrePurchaseNormal = (props) => {
     handleToDetail,
   } = props;
   return (
-    <div className={style.wrap} onClick={() => handleToDetail(data[0].id)}>
+    <div className={style.wrap} onClick={() => handleToDetail(data.game_id)}>
       <div className={style.img}>
-        <img src={data[1].bannerImg} />
+        <img src={data.banner_img} alt="banner" />
       </div>
       <div className={style.content}>
         <div className={style.title}>
-          <p className={style.name}>{data[0].gameName}</p>
-          <p>{data[0].subtitle}</p>
+          <p className={style.name}>{data.game_name}</p>
+          <p>{data.subtitle}</p>
         </div>
         <div className={style.time}>
-          {moment(data[0].issueddate).format('YYYY-MM-DD')}
+          {moment(data.issueddate).format('YYYY-MM-DD')}
         </div>
         <div className={style.sub}>
           {
-            data[0].gamePrice === 0 ? (
+            data.game_price === 0 ? (
               <div className={style.free}>
                 <span>免费</span>
               </div>) : (
                 <div className={style.price1}>
-                ￥<span>{data[0].gamePrice}</span>
+                ￥<span>{data.game_price}</span>
               </div>)
           }
         </div>

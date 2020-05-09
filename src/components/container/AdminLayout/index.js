@@ -11,6 +11,10 @@ const menus = [{
   title: "编辑游戏",
   path: "/game/edit",
   icon: "edit"
+},{
+  title: "游戏首页",
+  path: "/game/index",
+  icon: "appstore"
 }];
 
 const AdminLayout = (props) => {

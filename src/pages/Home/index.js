@@ -26,7 +26,7 @@ const Home = (props) => {
     // 发送请求
     try {
       // 发送请求
-      const { data } = await services.getIndexGameData({ type });
+      const { data } = await services.getIndexGameList({ type });
       if (data.code === 200) {
         if (type === 1) {
           setRotationData(data.data);

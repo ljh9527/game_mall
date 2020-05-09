@@ -35,7 +35,8 @@ const MyOrder = AsyncComponent(() => import('../pages/MyOrder'));
 
 // 管理员页
 const AdminAddGame = AsyncComponent(() => import('../pages/AdminAddGame'));
-const AdminEditGame = AsyncComponent(() => import('../pages/AdminEditGame'))
+const AdminEditGame = AsyncComponent(() => import('../pages/AdminEditGame'));
+const AdminGameIndex = AsyncComponent(() => import('../pages/AdminGameIndex'))
 
 const routerData = [
   // 首页
@@ -59,6 +60,8 @@ const routerData = [
   { path: '/game/add', component: AdminAddGame, belong: 1 },
   // 管理员编辑游戏
   { path: '/game/edit', component: AdminEditGame, belong: 1 },
+   // 管理员游戏首页
+   { path: '/game/index', component: AdminGameIndex, belong: 1 },
 ];
 
 // belong属性用于判断该路由属于哪个大页面下，0表商城 1表我的

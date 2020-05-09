@@ -37,8 +37,8 @@ const Search = (props) => {
             rules: [],
           })(<Select placeholder="请选择游戏类型">
             <Option value="recommend">热门推荐</Option>
-            <Option value="sellwell">Option 2</Option>
-            <Option value="prepurchase">火爆热销</Option>
+            <Option value="sellwell">本周热销</Option>
+            <Option value="prepurchase">火爆新品</Option>
             <Option value="masterpiece">大型网游</Option>
             <Option value="single">单机</Option>
           </Select>)}
