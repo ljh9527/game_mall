@@ -93,6 +93,9 @@ export default {
     addGame(params) {
         return service.post("/game/add", params);
     },
+    updateGameIndex(params) {
+        return service.post("/game/index/update", params);
+    },
 
     // 搜索我的的游戏
     getMyGame(params) {

@@ -83,21 +83,51 @@ const AdminGameIndex = (props) => {
   // 保存
   const handleSave = (type) => {
     let value;
+    let params;
     if (type === "1") {
       value = getFieldsValue(["1", "2", "3", "4", "5", "6"]);
-      console.log(value);
+      params = {
+        type: 1,
+        value: [value[1], value[2], value[3], value[4], value[5], value[6]]
+      }
+      console.log(params);
     } else if (type === "2") {
       value = getFieldsValue(["7", "8", "9", "10"]);
-      console.log(value);
+      params = {
+        type: 2,
+        value: [value[7], value[8], value[9], value[10]]
+      }
+      console.log(params);
     } else if (type === "3") {
       value = getFieldsValue(["11", "12", "13", "14"]);
-      console.log(value);
-    } else if (type === "4") { 
+      params = {
+        type: 3,
+        value: [value[11], value[12], value[13], value[14]]
+      }
+      console.log(params);
+    } else if (type === "4") {
       value = getFieldsValue(["15", "16", "17"]);
-      console.log(value);
+      params = {
+        type: 4,
+        value: [value[15], value[16], value[17]]
+      }
+      console.log(params);
     }
-    // onSearch({ ...value });
+    updateGameIndex(params);
   };
+
+  const updateGameIndex = async (params) => {
+    // 发送请求
+    try {
+      // 发送请求
+      const { data } = await services.updateGameIndex(params);
+      if (data.code === 200) {
+        console.log("成功");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className={style.wrap}>

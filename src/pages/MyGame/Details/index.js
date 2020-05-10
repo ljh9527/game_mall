@@ -127,7 +127,7 @@ const Details = (props) => {
   };
   const handleStart = (id) => {
     console.log(id);
-    ipcRenderer.send("open-child","E:\\Microsoft VS Code\\Code.exe");
+    ipcRenderer.send("open-child","F:\\vscode\\Microsoft VS Code\\Code.exe");
   };
   const handleRadioChange = (e) => {
     setRadio(e.target.value);

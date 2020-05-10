@@ -44,7 +44,7 @@ const Game = (props) => {
     xhr.send();
   };
   const handleToStart = (id) => {
-    ipcRenderer.send("open-child", "E:\\Microsoft VS Code\\Code.exe");
+    ipcRenderer.send("open-child", "F:\\vscode\\Microsoft VS Code\\Code.exe");
   }
 
   return (
