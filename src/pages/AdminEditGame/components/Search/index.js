@@ -16,13 +16,14 @@ const Search = (props) => {
 
   const handleReset = () => {
     resetFields();
+    onReset();
   };
   // 查询
   const handleQuery = () => {
     const value = getFieldsValue();
     value.game_name = value.game_name.trim();
     console.log(value);
-    // onSearch({ ...value });
+    onSearch({ ...value });
   };
   return (
     <div className={style.formWraper}>

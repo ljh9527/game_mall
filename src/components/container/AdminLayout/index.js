@@ -4,14 +4,14 @@ import style from './index.module.scss';
 const { Content, Sider } = Layout;
 
 const menus = [{
-  title: "添加游戏",
-  path: "/game/add",
-  icon: "plus"
-}, {
-  title: "编辑游戏",
+  title: "游戏列表",
   path: "/game/edit",
   icon: "edit"
 },{
+  title: "编辑游戏",
+  path: "/game/add",
+  icon: "plus"
+}, {
   title: "游戏首页",
   path: "/game/index",
   icon: "appstore"

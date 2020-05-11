@@ -8,8 +8,10 @@ const tableComp = (props) => {
   const {
     loading = false,
     dataSource = [],
-    onSort = () => { },
+    // onSort = () => { },
     onDetails = () => { },
+    onDelete = () => {},
+    onEdit = () => {}
   } = props;
   const columns = [
     {
@@ -22,39 +24,39 @@ const tableComp = (props) => {
     },
     {
       title: '开发商',
-      dataIndex: 'operator',
+      dataIndex: 'developers',
     },
     {
       title: '运营商',
-      dataIndex: 'headline',
+      dataIndex: 'operator',
     },
     {
       title: '上线日期',
       dataIndex: 'issueddate',
       // sorter: true,
       // defaultSortOrder: 'descend',
-      // render: (text) => {
-      //   if (text) {
-      //     return moment(new Date(text).getTime()).format('YYYY-MM-DD HH:mm:ss');
-      //   }
-      // },
+      render: (text) => {
+        if (text) {
+          return moment(new Date(text).getTime()).format('YYYY-MM-DD');
+        }
+      },
     },
     {
       title: '操作',
       dataIndex: 'action',
-      width: 200,
+      width: 140,
       render: (text, record, index) => {
-        return (<>
-          <a href="javascript:;" style={{ color: '#1890ff' }} onClick={() => { onDetails(record); }}>查看</a>
-          <a href="javascript:;" style={{ color: '#1890ff' }} onClick={() => { onDetails(record); }}>编辑</a>
-          <a href="javascript:;" style={{ color: '#1890ff' }} onClick={() => { onDetails(record); }}>下架</a>
-        </>);
+        return (<span>
+          <span style={{ color: '#1890ff', cursor: "pointer", marginRight: "10px" }} onClick={() => { onDetails(record); }}>查看</span>
+          <span style={{ color: '#1890ff', cursor: "pointer", marginRight: "10px" }} onClick={() => { onEdit(record); }}>编辑</span>
+          <span style={{ color: '#1890ff', cursor: "pointer" }} onClick={() => { onDelete(record); }}>下架</span>
+        </span>);
       },
     },
   ];
-  const handleChange = (pagination, filters, sorter, extra) => {
-    onSort(sorter);
-  };
+  // const handleChange = (pagination, filters, sorter, extra) => {
+  //   onSort(sorter);
+  // };
 
   return (
     <div>
@@ -63,7 +65,7 @@ const tableComp = (props) => {
         rowKey="id"
         dataSource={dataSource}
         pagination={false}
-        onChange={handleChange}
+        // onChange={handleChange}
         columns={columns.map(item => ({ ...item, align: 'left' }))}
       />
     </div>

@@ -50,7 +50,7 @@ const LoginForm = (props) => {
         setAccountSuccess(false);
         ipcRenderer.send('login');
         if(data.data.isadmin){
-          history.push('/game/add');
+          history.push('/game/edit');
           return ;
         }
         history.push('/index');

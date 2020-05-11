@@ -96,6 +96,12 @@ export default {
     updateGameIndex(params) {
         return service.post("/game/index/update", params);
     },
+    deleteGame(params) {
+        return service.post("/game/delete", params);
+    },
+    getGameAllInfo(params) {
+        return service.get("/game/allinfo", {params});
+    },
 
     // 搜索我的的游戏
     getMyGame(params) {
