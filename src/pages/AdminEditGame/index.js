@@ -19,12 +19,12 @@ const AdminEditGame = (props) => {
 
   useEffect(() => {
     getAllGame(searchParams);
-  }, []);
+  }, [searchParams]);
 
   const getAllGame = async (searchParams) => {
     setLoading(true);
     try {
-      const { data } = await services.getAllGame(searchParams);
+      const { data } = await services.searchGame(searchParams);
       if (data.code === 200) {
         setTableList((sliceData(data.data, page, pageSize)));
         setData(data.data);

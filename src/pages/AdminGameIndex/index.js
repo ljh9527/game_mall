@@ -90,28 +90,24 @@ const AdminGameIndex = (props) => {
         type: 1,
         value: [value[1], value[2], value[3], value[4], value[5], value[6]]
       }
-      console.log(params);
     } else if (type === "2") {
       value = getFieldsValue(["7", "8", "9", "10"]);
       params = {
         type: 2,
         value: [value[7], value[8], value[9], value[10]]
       }
-      console.log(params);
     } else if (type === "3") {
       value = getFieldsValue(["11", "12", "13", "14"]);
       params = {
         type: 3,
         value: [value[11], value[12], value[13], value[14]]
       }
-      console.log(params);
     } else if (type === "4") {
       value = getFieldsValue(["15", "16", "17"]);
       params = {
         type: 4,
         value: [value[15], value[16], value[17]]
       }
-      console.log(params);
     }
     updateGameIndex(params);
   };

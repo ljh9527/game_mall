@@ -16,11 +16,11 @@ const tableComp = (props) => {
   const columns = [
     {
       title: '游戏名',
-      dataIndex: 'game_name',
+      dataIndex: 'gameName',
     },
     {
       title: '游戏价格',
-      dataIndex: 'game_price',
+      dataIndex: 'gamePrice',
     },
     {
       title: '开发商',

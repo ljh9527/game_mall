@@ -102,6 +102,9 @@ export default {
     getGameAllInfo(params) {
         return service.get("/game/allinfo", {params});
     },
+    searchGame(params) {
+        return service.post("/game/search", params);
+    },
 
     // 搜索我的的游戏
     getMyGame(params) {
