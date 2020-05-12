@@ -22,7 +22,11 @@ const Details = (props) => {
     if(name){
       getGame(name);
     }
-  }, [param]);
+    if(!param && !name){
+      setPageData();
+      setData();
+    }
+  }, [param,name]);
   // 请求列表数据
   const getGameList = async (param) => {
     // 发送请求

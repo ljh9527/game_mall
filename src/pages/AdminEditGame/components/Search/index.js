@@ -21,8 +21,8 @@ const Search = (props) => {
   // 查询
   const handleQuery = () => {
     const value = getFieldsValue();
-    value.game_name = value.game_name.trim();
-    console.log(value);
+    value.game_name = value.game_name && value.game_name.trim();
+
     onSearch({ ...value });
   };
   return (
@@ -37,6 +37,7 @@ const Search = (props) => {
           {getFieldDecorator('type', {
             rules: [],
           })(<Select placeholder="请选择游戏类型">
+            <Option value="1">全部</Option>
             <Option value="recommend">热门推荐</Option>
             <Option value="sellwell">本周热销</Option>
             <Option value="prepurchase">火爆新品</Option>

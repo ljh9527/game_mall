@@ -48,8 +48,7 @@ const Details = (props) => {
   }, {
     name: '用户评测',
     component: <Comment gameInfo={gameInfo} />
-  },
-    '应用特性'];
+  }];
   // 前往购买
   // const handleBuy = (e) => {
   //   console.log('买');
@@ -65,7 +64,7 @@ const Details = (props) => {
   };
   // 回到上一页
   const goBack = () => {
-
+    history.goBack();
   };
   // 添加游戏数据
   const addGame = async (id) => {

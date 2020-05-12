@@ -331,7 +331,7 @@ const AdminAddGame = (props) => {
                   {
                     getFieldDecorator('image1', {
                       rules: [],
-                      initialValue: fileList.length > 0 && fileList[0].url
+                      initialValue: fileList.length > 0 ? fileList[0].url : ""
                     })(<Input placeholder="请输入游戏详情图片链接" allowClear />)
                   }
                 </Form.Item>
@@ -339,7 +339,7 @@ const AdminAddGame = (props) => {
                   {
                     getFieldDecorator('image2', {
                       rules: [],
-                      initialValue: fileList.length > 0 && fileList[1].url
+                      initialValue: fileList.length > 0 ? fileList[1].url : ""
                     })(<Input placeholder="请输入游戏详情图片链接" allowClear />)
                   }
                 </Form.Item>
@@ -347,7 +347,7 @@ const AdminAddGame = (props) => {
                   {
                     getFieldDecorator('image3', {
                       rules: [],
-                      initialValue: fileList.length > 0 && fileList[2].url
+                      initialValue: fileList.length > 0 ? fileList[2].url : ""
                     })(<Input placeholder="请输入游戏详情图片链接" allowClear />)
                   }
                 </Form.Item>
@@ -355,7 +355,7 @@ const AdminAddGame = (props) => {
                   {
                     getFieldDecorator('image4', {
                       rules: [],
-                      initialValue: fileList.length > 0 && fileList[3].url
+                      initialValue: fileList.length > 0 ? fileList[3].url : ""
                     })(<Input placeholder="请输入游戏详情图片链接" allowClear />)
                   }
                 </Form.Item>
@@ -363,7 +363,7 @@ const AdminAddGame = (props) => {
                   {
                     getFieldDecorator('image5', {
                       rules: [],
-                      initialValue: fileList.length > 0 && fileList[4].url
+                      initialValue: fileList.length > 0 ? fileList[4].url : ""
                     })(<Input placeholder="请输入游戏详情图片链接" allowClear />)
                   }
                 </Form.Item>
@@ -371,7 +371,7 @@ const AdminAddGame = (props) => {
                   {
                     getFieldDecorator('image6', {
                       rules: [],
-                      initialValue: fileList.length > 0 && fileList[5].url
+                      initialValue: fileList.length > 0 ? fileList[5].url : ""
                     })(<Input placeholder="请输入游戏详情图片链接" allowClear />)
                   }
                 </Form.Item>

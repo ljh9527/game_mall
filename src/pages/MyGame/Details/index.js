@@ -14,7 +14,7 @@ const { ipcRenderer } = window.electron;
 const Details = (props) => {
   const [id] = useState(getUrlParam('id'));
   const email = localStorage.getItem("EMAIL");
-  const { userInfo, getUserInfo, myGameDetail, getMyGameDetail, history } = props;
+  const { userInfo, getUserInfo, myGameDetail, getMyGameDetail, history, setPercentComplete, setDownloadList, setGame } = props;
   const [gameInfo, setGameInfo] = useState();
   const [userComment, setUserComment] = useState();
   const [avatar, setAvater] = useState();
@@ -30,6 +30,7 @@ const Details = (props) => {
     getUserComment(email, id);
     // setAvater(userInfo.avatar);
   }, []);
+  console.log(gameInfo);
   useEffect(() => {
     setAvater(userInfo.avatar);
   }, [userInfo]);
@@ -127,7 +128,7 @@ const Details = (props) => {
   };
   const handleStart = (id) => {
     console.log(id);
-    ipcRenderer.send("open-child","F:\\vscode\\Microsoft VS Code\\Code.exe");
+    ipcRenderer.send("open-child", "F:\\vscode\\Microsoft VS Code\\Code.exe");
   };
   const handleRadioChange = (e) => {
     setRadio(e.target.value);
@@ -145,6 +146,55 @@ const Details = (props) => {
   }
   const handleCancleAddComment = () => {
     setAddStatus(false);
+  }
+  const handleToDownload = (name, id) => {
+    let xhr = new XMLHttpRequest();
+    const downloadUrl = 'https://gw.alipayobjects.com/os/bmw-prod/4e2a3716-d106-4819-81b8-920d61cb13fe.exe';
+    xhr.open('GET', downloadUrl, true);
+    xhr.responseType = "blob";
+    message.info("正在下载，右上角可查看进度！");
+    xhr.addEventListener('progress', function (event) {
+      // 响应头要有Content-Length
+      if (event.lengthComputable) {
+        let percentComplete = event.loaded / event.total;
+        const item = {
+          id: id,
+          name: name,
+          percentComplete: percentComplete
+        }
+        setDownloadList(item);
+        setPercentComplete(percentComplete);
+        if (percentComplete === 1) {
+          updateStatus(id);
+        }
+      }
+    }, false);
+    xhr.onreadystatechange = function () {  //同步的请求无需onreadystatechange      
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        var filename = "test.exe";
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(xhr.response);
+        link.download = filename;
+        link.click();
+      }
+    };
+    xhr.send();
+  };
+  const updateStatus = async (id) => {
+    const params = {
+      gameid: id,
+      email: email,
+      status: "1"
+    }
+    try {
+      // 发送请求
+      const { data } = await services.updateStatus(params);
+      if (data.code === 200) {
+        getMyGameDetail({ email, gameid: id });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
   return (
     <div className={style.wrap}>
@@ -282,7 +332,30 @@ const Details = (props) => {
         </div>
         <div className={style.userinfo}>
           <Title data='与我相关' />
-          <div className={style.detail}>
+          {
+            myGameDetail.status === 1 ? (
+              <>
+                <div className={style.detail}>
+                  {/* <div className={style.item}>
+                    <span className={style.name}>玩耍时长</span>
+                    <span className={style.value}>{myGameDetail.playtime}小时</span>
+                  </div> */}
+                  <div className={style.item}>
+                    <span className={style.name}>上次启动</span>
+                    <span className={style.value}>{myGameDetail.lastplay !== null ? moment(myGameDetail.lastplay).format('YYYY-MM-DD') : "暂未玩耍"}</span>
+                  </div>
+                </div>
+                <div className={style.button}>
+                  <Button type='primary' size='large' onClick={() => handleStart(myGameDetail.gameid)}>启动</Button>
+                </div>
+              </>
+            ) : (<>
+              <div className={style.button}>
+                <Button type='primary' size='large' onClick={() => handleToDownload(gameInfo[0].gameName, myGameDetail.gameid)}>下载</Button>
+              </div>
+            </>)
+          }
+          {/* <div className={style.detail}>
             <div className={style.item}>
               <span className={style.name}>玩耍时长</span>
               <span className={style.value}>{myGameDetail.playtime}小时</span>
@@ -294,7 +367,7 @@ const Details = (props) => {
           </div>
           <div className={style.button}>
             <Button type='primary' size='large' onClick={() => handleStart(myGameDetail.gameid)}>启动</Button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
@@ -308,10 +381,14 @@ const mapStateToProps = ({ user, usergame }) => {
   };
 };
 
-const mapDispathToProps = ({ user, usergame }) => {
+const mapDispathToProps = ({ user, usergame, download }) => {
   return {
     getUserInfo: user.getUserInfo,
-    getMyGameDetail: usergame.getMyGameDetail
+    getMyGameDetail: usergame.getMyGameDetail,
+    setPercentComplete: download.setPercentComplete,
+    setGame: download.setGame,
+    setDownloadList: download.setDownloadList
   };
 };
+
 export default connect(mapStateToProps, mapDispathToProps)(Form.create({ name: 'Info' })(Details));

@@ -45,6 +45,7 @@ const Game = (props) => {
   };
   const handleToStart = (id) => {
     ipcRenderer.send("open-child", "F:\\vscode\\Microsoft VS Code\\Code.exe");
+    onstart(id);
   }
 
   return (
@@ -52,11 +53,14 @@ const Game = (props) => {
       <div className={style.imgBox} onClick={() => handleToDetail(data.id)}>
         <img src={data.image_cover} alt={data.game_name} />
       </div>
-      <div className={style.bottom} onClick={() => handleToDetail(data.id)}>
-        <div className={style.name}>{data.game_name}</div>
-        <div className={style.lastTime}>上次登录{data.lastplay}</div>
-        <div className={style.totalTime}>已玩{data.playtime}小时</div>
-      </div>
+      {
+        status == 1 ? (<div className={style.bottom} onClick={() => handleToDetail(data.id)}>
+          <div className={style.name}>{data.game_name}</div>
+          <div className={style.lastTime}>上次登录{data.lastplay}</div>
+          {/* <div className={style.totalTime}>已玩{data.playtime}小时</div> */}
+        </div>)
+          : (<></>)
+      }
       {
         status == 1 ? (<div className={style.button} onClick={() => handleToStart(data.id)}>立即启动</div>)
           : (<div className={style.button} onClick={() => handleToDownload(data.game_name, data.id)}>下载游戏</div>)
