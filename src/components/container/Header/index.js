@@ -17,6 +17,7 @@ import classnames from 'classnames';
 import styles from './index.module.scss';
 
 const { ipcRenderer } = window.electron;
+const { location } = window;
 // const { BrowserWindow } = remote;
 const Home = (props) => {
 
@@ -67,6 +68,7 @@ const Home = (props) => {
       requestErrorHandler(error);
     }
   };
+  // 最小化
   const minWindow = () => {
     ipcRenderer.send("min");
   };
@@ -87,7 +89,7 @@ const Home = (props) => {
   };
   // 刷新
   const handleReload = () => {
-    history.go(0);
+    location.reload();
   };
   const handleToShopping = () => {
     setSelectIndex(0);

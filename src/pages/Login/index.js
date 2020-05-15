@@ -87,7 +87,10 @@ const LoginForm = (props) => {
           <Form onSubmit={handleSubmit} className={style.loginForm}>
             <Form.Item>
               {getFieldDecorator('email', {
-                rules: [{ required: true, message: '请输入邮箱!' }],
+                rules: [{ required: true, message: '请输入邮箱!' }, {
+                  type: 'email',
+                  message: '请输入你的邮箱账号！',
+                },],
                 initialValue: defaultEmail
               })(
                 <Input

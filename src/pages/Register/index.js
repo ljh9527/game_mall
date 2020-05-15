@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import md5 from 'md5';
 import service from '../../services';
-import { Form, Icon, Input, Button, Modal, Tooltip } from 'antd';
+import { Form, Icon, Input, Button, Modal, Tooltip, message } from 'antd';
 import LoginHeader from '../../components/container/loginHeader';
 import style from './index.module.scss';
 
@@ -105,13 +105,17 @@ const RegisterForm = (props) => {
       // 获取输入邮箱
       const inputValues = getFieldsValue(['email']);
       console.log(inputValues);
+      if(inputValues.email){
+        await service.verificationCode(inputValues);
+        setUserEmail(inputValues);
+        setIsSendCode(true);
+      }else{
+        message.info("请先输入邮箱");
+      }
       // 发送请求
-      const { data } = await service.verificationCode(inputValues);
-      setUserEmail(inputValues);
     } catch (error) {
       console.log(error);
     }
-    setIsSendCode(true);
   };
   // 密码确认
   const pwdCheck = (rule, value, callback) => {

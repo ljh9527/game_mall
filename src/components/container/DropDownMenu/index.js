@@ -47,7 +47,7 @@ const DropDownMenu = (props) => {
           </Menu.Item>) : (<></>)
         }
         <Menu.Item key="5" onClick={handleLoginOut}>
-          退出当前账号
+          退出登录
         </Menu.Item>
       </Menu>
     );

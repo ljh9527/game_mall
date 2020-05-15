@@ -36,7 +36,7 @@ const LoginHeader = (props) => {
               </div>)
           }
           <span className={styles.title}>
-            游戏商城
+            FunGame
           </span>
         </div>
       </div>
