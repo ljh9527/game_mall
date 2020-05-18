@@ -2,7 +2,7 @@ const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 // const os = require('os');
-
+console.log('path', path);
 const exec = require('child_process').execFile;
 
 let mainWindow = null;

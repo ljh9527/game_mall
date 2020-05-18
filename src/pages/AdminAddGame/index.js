@@ -210,7 +210,7 @@ const AdminAddGame = (props) => {
       <AdminLayout history={history}>
         <div className={style.content}>
           {
-            type === "detail" ? (<Title data="游戏信息" />) : type === "edit" ? (<Title data="更改游戏" />) : (<Title data="添加游戏" />)
+            type === "detail" ? (<Title data="游戏信息" />) : type === "edit" ? (<Title data="编辑游戏" />) : (<Title data="添加游戏" />)
           }
 
           <Form layout="inline" className={style.form}>
