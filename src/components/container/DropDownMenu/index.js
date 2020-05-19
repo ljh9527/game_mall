@@ -25,7 +25,7 @@ const DropDownMenu = (props) => {
   };
 
   const handleToMyOrder = () => {
-    history.push('myorder');
+    history.push('/myorder');
   };
 
   const handleToMyGame = () => {
