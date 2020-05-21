@@ -147,9 +147,9 @@ const Details = (props) => {
   const handleCancleAddComment = () => {
     setAddStatus(false);
   }
-  const handleToDownload = (name, id) => {
+  const handleToDownload = (name, download ,id) => {
     let xhr = new XMLHttpRequest();
-    const downloadUrl = 'https://gw.alipayobjects.com/os/bmw-prod/4e2a3716-d106-4819-81b8-920d61cb13fe.exe';
+    const downloadUrl = download;
     xhr.open('GET', downloadUrl, true);
     xhr.responseType = "blob";
     message.info("正在下载，右上角可查看进度！");
@@ -171,7 +171,7 @@ const Details = (props) => {
     }, false);
     xhr.onreadystatechange = function () {  //同步的请求无需onreadystatechange      
       if (xhr.readyState === 4 && xhr.status === 200) {
-        var filename = "test.exe";
+        var filename = `${name}.exe`;
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(xhr.response);
         link.download = filename;
@@ -351,7 +351,7 @@ const Details = (props) => {
               </>
             ) : (<>
               <div className={style.button}>
-                <Button type='primary' size='large' onClick={() => handleToDownload(gameInfo[0].gameName, myGameDetail.gameid)}>下载</Button>
+                <Button type='primary' size='large' onClick={() => handleToDownload(gameInfo[0].gameName, gameInfo[0].download,myGameDetail.gameid)}>下载</Button>
               </div>
             </>)
           }

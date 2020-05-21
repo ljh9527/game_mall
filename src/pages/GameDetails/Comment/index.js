@@ -12,7 +12,7 @@ const Comment = (props) => {
     commentRecommend = [],
     commentUnRecommend = [],
     recommendRate = '',
-    getGameComment = () => {}
+    getGameComment = () => { }
   } = props;
   // const id = gameInfo[0].id;
 
@@ -30,12 +30,13 @@ const Comment = (props) => {
     setActiveIndex(index);
     if (index === 1) {
       setData(commentRecommend);
-    } else if(index === 2) {
+    } else if (index === 2) {
       setData(commentUnRecommend);
     } else {
       setData(comment);
     }
   };
+  console.log("comment", comment);
 
   return (
     <div className={style.wrap}>
@@ -46,7 +47,7 @@ const Comment = (props) => {
           </div>
           <div className={style.discuss_val}>
             <div className={style.discuss_score}>
-              <strong>{comment.length>0 ? parseFloat(recommendRate).toFixed("1") : '100'}<span>%</span></strong>
+              <strong>{comment.length > 0 ? parseFloat(recommendRate).toFixed("1") : '100'}<span>%</span></strong>
               <span className={style.discuss_count}>
                 （<span>共{comment.length}</span>条评测）
               </span>
@@ -98,6 +99,12 @@ const Comment = (props) => {
                 </div>
                 <div className={style.time}>{item.commentdate}</div>
                 <div className={style.con}>{item.content}</div>
+                {
+                  item.appendcontent && (<>
+                    <div className={style.appTime}>{item.appenddate}</div>
+                    <div className={style.appCon}>{item.appendcontent}</div>
+                  </>)
+                }
               </div>
             </div>
           )) : (<div className={style.empty}> 暂无评测</div>)
@@ -123,4 +130,4 @@ const mapDispathToProps = ({ comment }) => {
   };
 };
 
-export default connect(mapStateToProps,mapDispathToProps)(Comment);
+export default connect(mapStateToProps, mapDispathToProps)(Comment);

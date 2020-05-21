@@ -10,9 +10,9 @@ const Game = (props) => {
   const handleToDetail = (id) => {
     history.push(`/myGame/details?id=${id}`);
   };
-  const handleToDownload = (name, id) => {
+  const handleToDownload = (name, download , id) => {
     let xhr = new XMLHttpRequest();
-    const downloadUrl = 'https://gw.alipayobjects.com/os/bmw-prod/4e2a3716-d106-4819-81b8-920d61cb13fe.exe';
+    const downloadUrl = download;
     xhr.open('GET', downloadUrl, true);
     xhr.responseType = "blob";
     message.info("正在下载，右上角可查看进度！");
@@ -34,7 +34,7 @@ const Game = (props) => {
     }, false);
     xhr.onreadystatechange = function () {  //同步的请求无需onreadystatechange      
       if (xhr.readyState === 4 && xhr.status === 200) {
-        var filename = "test.exe";
+        var filename = `${name}.exe`;
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(xhr.response);
         link.download = filename;

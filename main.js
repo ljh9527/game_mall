@@ -28,9 +28,19 @@ function createWindow() {
             nodeIntegration: true, // 是否集成 Nodejs,把之前预加载的js去了，发现也可以运行
         }
     };
-    const urlLocation = isDev ? 'http://localhost:3456/' : 'dummyurl';
+    // const urlLocation = isDev ? 'http://localhost:3456/' : 'dummyurl';
     mainWindow = new BrowserWindow(windowOptions);
-    mainWindow.loadURL(urlLocation);
+    // mainWindow.loadURL(urlLocation.format({
+    //     pathname: path.join(__dirname, './build/index.html'),
+    //     protocol: 'file:',
+    //     slashes: true
+    // }))
+    if (isDev) {
+        const urlLocation = 'http://localhost:3456/';
+        mainWindow.loadURL(urlLocation);
+    } else { 
+        mainWindow.loadURL(`file://${__dirname}/build/index.html`);
+    };
     // mainWindow.loadURL(path.join('file://', __dirname, '/build/index.html'));
     //接收渲染进程的信息
     const ipc = require('electron').ipcMain;
@@ -55,7 +65,7 @@ function createWindow() {
     });
     ipc.on("open-child", function (e, appUrl) {
         // const path = "E:\\Microsoft VS Code\\Code.exe";
-        exec(appUrl, function(err, data) { if (err) { throw err; } console.log(data.toString()); }); 
+        exec(appUrl, function (err, data) { if (err) { throw err; } console.log(data.toString()); });
     })
     //如果是--debug 打开开发者工具，窗口最大化，
     if (debug) {
