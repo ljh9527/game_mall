@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react';
+import { connect } from 'react-redux';
 import md5 from 'md5';
-import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import LoginHeader from '../../components/container/loginHeader';
 import classnames from 'classnames';
 import services from '../../services';
@@ -9,7 +10,7 @@ import { requestErrorHandler } from '../../utils';
 const { ipcRenderer } = window.electron;
 
 const LoginForm = (props) => {
-  const { form, history } = props;
+  const { form, history, setUserInfo } = props;
   const defaultEmail = localStorage.getItem("EMAIL");
   const defaultPassword = localStorage.getItem("PASSWORD");
   const defaultToken = localStorage.getItem("TOKEN");
@@ -17,7 +18,7 @@ const LoginForm = (props) => {
   const [accountSuccess, setAccountSuccess] = useState(false);
   const [issavepassword, setIsSavepassword] = useState(true);
   const [isLoginPage] = useState(true);
-  console.log(defaultToken);
+
   useEffect(()=>{
     setIsSavepassword(defaultToken !== false ? true : false)
   },[defaultToken])
@@ -44,9 +45,8 @@ const LoginForm = (props) => {
           localStorage.setItem("PASSWORD", "");
           localStorage.setItem("TOKEN", false);
         }
-        sessionStorage.setItem("AVATAR", data.data.avatar);
+        setUserInfo(data.data);
         sessionStorage.setItem("OPENTIME", new Date().getTime());
-        // console.log(data.data);
         setAccountSuccess(false);
         ipcRenderer.send('login');
         if(data.data.isadmin){
@@ -140,4 +140,15 @@ const LoginForm = (props) => {
   );
 }
 
-export default Form.create({ name: 'normal_login' })(LoginForm);
+const mapStateToProps = ({ user }) => {
+  return {
+  };
+};
+
+const mapDispathToProps = ({ user }) => {
+  return {
+    setUserInfo: user.setUserInfo
+  };
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(Form.create({ name: 'normal_login' })(LoginForm));

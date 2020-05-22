@@ -17,6 +17,9 @@ const user = {
     setState(state, paylod) {
       return { ...state, ...paylod };
     },
+    setUserInfo(state, paylod) {
+      return { ...state, userInfo: paylod };
+    },
   },
   effects: {
     async getUserInfo(paylod, rootState) {

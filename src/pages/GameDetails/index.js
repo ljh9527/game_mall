@@ -15,12 +15,15 @@ const Details = (props) => {
   const [id] = useState(getUrlParam('id'));
   const [activeIndex, setActiveIndex] = useState(0);
   const [gameInfo, setGameInfo] = useState();
-  const download = (name, id) => {
+  
+  const download = (name, url, id) => {
+    console.log('id', id);
+    console.log('id', url);
     let xhr = new XMLHttpRequest();
-    const downloadUrl = 'https://gw.alipayobjects.com/os/bmw-prod/4e2a3716-d106-4819-81b8-920d61cb13fe.exe';
+    const downloadUrl = url;
     xhr.open('GET', downloadUrl, true);
     xhr.responseType = 'blob';
-    message.info("正在下载");
+    message.info("正在下载，右上角可查看进度！");
     xhr.addEventListener('progress', function (event) {
       // 响应头要有Content-Length
       if (event.lengthComputable) {
@@ -32,11 +35,21 @@ const Details = (props) => {
         }
         setDownloadList(item);
         setPercentComplete(percentComplete);
-        if (percentComplete === 1) {
-          addGame(id);
-        }
+        // if (percentComplete === 1) {
+        //   addGame(id);
+        // }
       }
     }, false);
+    xhr.onreadystatechange = function () {  //同步的请求无需onreadystatechange      
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        var filename = `${name}.exe`;
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(xhr.response);
+        link.download = filename;
+        link.click();
+        addGame(id);
+      }
+    };
     xhr.send();
   }
   const data = [{
@@ -49,12 +62,6 @@ const Details = (props) => {
     name: '用户评测',
     component: <Comment gameInfo={gameInfo} />
   }];
-  // 前往购买
-  // const handleBuy = (e) => {
-  //   console.log('买');
-  //   e.stopPropagation();
-  //   e.cancelBubble = true;
-  // }
 
   useEffect(() => {
     getGameInfo(id);
@@ -68,10 +75,16 @@ const Details = (props) => {
   };
   // 添加游戏数据
   const addGame = async (id) => {
+    const param = {
+      gameid: (id).toString(),
+      email: email,
+      status: '1',
+      address: "E:\\Microsoft VS Code\\Code.exe",
+    };
     // 发送请求
     try {
       // 发送请求
-      const { data } = await services.addMyGame({ gameid: (id).toString(), email, status: (1).toString() });
+      const { data } = await services.addMyGame(param);
       if (data.code === 200) {
         message.success("下载成功");
       } else {

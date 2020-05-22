@@ -48,12 +48,6 @@ const Home = (props) => {
     console.log('详情');
     history.push(`/game/details?id=${id}`);
   };
-  // 前往购买
-  // const handleBuy = (e) => {
-  //   console.log('买');
-  //   e.stopPropagation();
-  //   e.cancelBubble = true;
-  // };
   // 前往列表
   const handleToMore = (searchTag) => {
     history.push(`/game/list?searchTag=${searchTag}`);

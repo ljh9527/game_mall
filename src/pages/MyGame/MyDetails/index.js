@@ -4,6 +4,7 @@ import { requestUrl } from '../../../config';
 import service from '../../../services';
 import { Form, Icon, Input, Upload, Button, message } from 'antd';
 import style from './index.module.scss';
+import { requestErrorHandler } from '../../../utils';
 const { remote } = window.electron;
 const { BrowserWindow } = remote;
 
@@ -45,8 +46,6 @@ const Details = (props) => {
     return true;
   };
   const handleChangeAvatar = (info) => {
-    console.log('file', info);
-    // setAvater(file.file.thumbUrl);
     if (info.file.status === 'done') {
       const file = info.file;
       const response = file.response;
@@ -59,9 +58,7 @@ const Details = (props) => {
       message.error(`${info.file.name}  上传失败`);
     }
   };
-  // const handlePreview = (file)=>{
-  //   console.log('file',file);
-  // }
+
   const handleCancel = () => {
     resetFields();
   };
@@ -81,7 +78,7 @@ const Details = (props) => {
         message.error("更改失败");
       };
     } catch (error) {
-      console.log(error);
+      requestErrorHandler(error);
     }
     getUserInfo({ email: localStorage.getItem("EMAIL") });
   };
@@ -133,12 +130,6 @@ const Details = (props) => {
                 <Input.TextArea allowClear={true} placeholder="用一句话来形容你自己~" />,
               )}
             </Item>
-            {/* <Item label="性 别" colon={false}>
-              <Radio.Group>
-                <Radio value="man">男</Radio>
-                <Radio value="female">女</Radio>
-              </Radio.Group>
-            </Item> */}
             <Item label="更改密码" colon={false} >
               <Button onClick={handleChangePassword}>前往更改密码</Button>
             </Item>

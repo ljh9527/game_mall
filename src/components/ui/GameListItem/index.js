@@ -31,7 +31,7 @@ const Item = (props) => {
   return (
     <div className={classnames({ [style.gameItem]: true, [style.selected]: selected })} onClick={() => handleToDetail(data.id)}>
       <div className={style.figure}>
-        <img src={data.bannerImg} />
+        <img src={data.bannerImg} alt='游戏封面'/>
       </div>
       <div className={style.info}>
         <div className={style.table_row}>

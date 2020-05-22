@@ -1,7 +1,7 @@
 import React from 'react';
 import { message } from 'antd';
 import { connect } from 'react-redux';
-import style from './index.module.scss'
+import style from './index.module.scss';
 
 const { ipcRenderer } = window.electron;
 const Game = (props) => {
@@ -10,7 +10,7 @@ const Game = (props) => {
   const handleToDetail = (id) => {
     history.push(`/myGame/details?id=${id}`);
   };
-  const handleToDownload = (name, download , id) => {
+  const handleToDownload = (name, download, id) => {
     let xhr = new XMLHttpRequest();
     const downloadUrl = download;
     xhr.open('GET', downloadUrl, true);
@@ -27,9 +27,6 @@ const Game = (props) => {
         }
         setDownloadList(item);
         setPercentComplete(percentComplete);
-        if (percentComplete === 1) {
-          updateStatus(id);
-        }
       }
     }, false);
     xhr.onreadystatechange = function () {  //同步的请求无需onreadystatechange      
@@ -39,12 +36,13 @@ const Game = (props) => {
         link.href = window.URL.createObjectURL(xhr.response);
         link.download = filename;
         link.click();
+        updateStatus(id);
       }
     };
     xhr.send();
   };
-  const handleToStart = (id) => {
-    ipcRenderer.send("open-child", "F:\\vscode\\Microsoft VS Code\\Code.exe");
+  const handleToStart = (id, address) => {
+    ipcRenderer.send("open-child", address);
     onstart(id);
   }
 
@@ -54,7 +52,7 @@ const Game = (props) => {
         <img src={data.image_cover} alt={data.game_name} />
       </div>
       {
-        status == 1 ? (<div className={style.bottom} onClick={() => handleToDetail(data.id)}>
+        status === 1 ? (<div className={style.bottom} onClick={() => handleToDetail(data.id)}>
           <div className={style.name}>{data.game_name}</div>
           <div className={style.lastTime}>上次登录{data.lastplay}</div>
           {/* <div className={style.totalTime}>已玩{data.playtime}小时</div> */}
@@ -62,8 +60,8 @@ const Game = (props) => {
           : (<></>)
       }
       {
-        status == 1 ? (<div className={style.button} onClick={() => handleToStart(data.id)}>立即启动</div>)
-          : (<div className={style.button} onClick={() => handleToDownload(data.game_name, data.id)}>下载游戏</div>)
+        status === 1 ? (<div className={style.button} onClick={() => handleToStart(data.id, data.address)}>立即启动</div>)
+          : (<div className={style.button} onClick={() => handleToDownload(data.game_name, data.download, data.id)}>下载游戏</div>)
       }
     </div>
   );

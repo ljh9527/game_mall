@@ -33,7 +33,7 @@
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "dev": "concurrently \"wait-on http://localhost:3456 && electron .\" \"cross-env BROWSER=none npm start\"",
-    "package": "electron-packager . FunGame --win --out ../FunGame --arch=x64 --electron-version 6.1.8" 
+    "package": "electron-packager . FunGame --win --out ../FunGame --arch=x64 --overwrite --electron-version 6.1.8" 
   },
   "eslintConfig": {
     "extends": "react-app"

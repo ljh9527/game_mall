@@ -4,7 +4,7 @@ import moment from 'moment';
 import services from '../../../services';
 import { Form, Button, Icon, Radio, Input, message } from 'antd';
 import { Title } from '../../../components';
-import { getUrlParam } from '../../../utils';
+import { getUrlParam , requestErrorHandler } from '../../../utils';
 
 import style from './index.module.scss';
 const { TextArea } = Input;
@@ -30,7 +30,7 @@ const Details = (props) => {
     getUserComment(email, id);
     // setAvater(userInfo.avatar);
   }, []);
-  console.log(gameInfo);
+  // console.log(myGameDetail);
   useEffect(() => {
     setAvater(userInfo.avatar);
   }, [userInfo]);
@@ -44,7 +44,7 @@ const Details = (props) => {
         setGameInfo(data.data[0]);
       }
     } catch (error) {
-      console.log(error);
+      requestErrorHandler(error);
     }
   };
   // 请求游戏数据
@@ -57,7 +57,7 @@ const Details = (props) => {
         setUserComment(data.data);
       }
     } catch (error) {
-      console.log(error);
+      requestErrorHandler(error);
     }
   };
   const handleDelete = async (id) => {
@@ -69,7 +69,7 @@ const Details = (props) => {
         setUserComment();
       }
     } catch (error) {
-      console.log(error);
+      requestErrorHandler(error);
     }
 
   }
@@ -89,7 +89,7 @@ const Details = (props) => {
           handleCancleComment();
         }
       } catch (error) {
-        console.log(error);
+        requestErrorHandler(error);
       }
     } else {
       message.error("请先添加评测")
@@ -110,7 +110,7 @@ const Details = (props) => {
           handleCancleComment();
         }
       } catch (error) {
-        console.log(error);
+        requestErrorHandler(error);
       }
     } else {
       message.error("请先添加评测")
@@ -126,9 +126,9 @@ const Details = (props) => {
   const handleBack = () => {
     history.push('/myGame/index');
   };
-  const handleStart = (id) => {
-    console.log(id);
-    ipcRenderer.send("open-child", "F:\\vscode\\Microsoft VS Code\\Code.exe");
+  const handleStart = (id, address) => {
+    onstart(id);
+    ipcRenderer.send("open-child", address);
   };
   const handleRadioChange = (e) => {
     setRadio(e.target.value);
@@ -147,8 +147,9 @@ const Details = (props) => {
   const handleCancleAddComment = () => {
     setAddStatus(false);
   }
-  const handleToDownload = (name, download ,id) => {
+  const handleToDownload = (name, download, id) => {
     let xhr = new XMLHttpRequest();
+    console.log("download",download);
     const downloadUrl = download;
     xhr.open('GET', downloadUrl, true);
     xhr.responseType = "blob";
@@ -193,7 +194,20 @@ const Details = (props) => {
         getMyGameDetail({ email, gameid: id });
       }
     } catch (error) {
-      console.log(error);
+      requestErrorHandler(error);
+    }
+  }
+  const onstart = async (id) => {
+    console.log(id);
+    const params = {
+      email: email,
+      gameid: id,
+    }
+    try {
+      // 发送请求
+      await services.updateOpenTime(params);
+    } catch (error) {
+      requestErrorHandler(error);
     }
   }
   return (
@@ -346,12 +360,12 @@ const Details = (props) => {
                   </div>
                 </div>
                 <div className={style.button}>
-                  <Button type='primary' size='large' onClick={() => handleStart(myGameDetail.gameid)}>启动</Button>
+                  <Button type='primary' size='large' onClick={() => handleStart(myGameDetail.gameid, myGameDetail.address)}>启动</Button>
                 </div>
               </>
             ) : (<>
               <div className={style.button}>
-                <Button type='primary' size='large' onClick={() => handleToDownload(gameInfo[0].gameName, gameInfo[0].download,myGameDetail.gameid)}>下载</Button>
+                <Button type='primary' size='large' onClick={() => handleToDownload(gameInfo[0].gameName, gameInfo[0].download, myGameDetail.gameid)}>下载</Button>
               </div>
             </>)
           }

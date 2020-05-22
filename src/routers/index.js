@@ -26,8 +26,6 @@ const MyGameDetails = AsyncComponent(() => import('../pages/MyGame/Details'));
 // 主页
 const MyDetails = AsyncComponent(() => import('../pages/MyGame/MyDetails'));
 // 我的游戏 下载
-// const DownloadList = AsyncComponent(() => import('../pages/Download'));
-// 我的游戏 下载
 const Order = AsyncComponent(() => import('../pages/Order'));
 // 支付成功页面
 const PaySuccess = AsyncComponent(() => import('../pages/PaySuccess'));
@@ -73,8 +71,6 @@ const newRouter = [
   { path: '/register', component: Register },
   // 重置密码
   { path: '/resetPassword', component: ResetPassword },
-  // 下载列表 
-  // { path: '/downloadList', component: DownloadList },
 ];
 
 const RouterCom = (props) => {

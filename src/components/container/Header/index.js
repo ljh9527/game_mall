@@ -26,7 +26,6 @@ const Home = (props) => {
   const [visible, setVisible] = useState(false); // modle的展示控制
   const [fullscreen, setFullscreen] = useState(false); // 最大化图标控制
 
-  const userAvatar = sessionStorage.getItem("AVATAR");
   const email = localStorage.getItem("EMAIL");
 
   useEffect(() => {
@@ -103,18 +102,6 @@ const Home = (props) => {
     history.push('/game/order');
   };
   const download = () => {
-    // let win = new BrowserWindow({
-    //   width: 400,
-    //   height: 400,
-    //   frame: false,  //是否带工具栏
-    //   webPreferences: {
-    //     nodeIntegration: true, // 是否集成 Nodejs,把之前预加载的js去了，发现也可以运行
-    //   }
-    // })
-    // win.on('closed', () => {
-    //   win = null
-    // })
-    // win.loadURL('http://localhost:3456/DownloadList');
     setVisible(true);
   };
   const handleCancel = () => {
@@ -158,7 +145,7 @@ const Home = (props) => {
                   </div>
                 </div>
                 <div className={styles.userInfo}>
-                  <DropDownMenu userAvatar={userAvatar} updateUserInfo={updateUserInfo} />
+                  <DropDownMenu userAvatar={userInfo.avatar} updateUserInfo={updateUserInfo} />
                   <div onClick={handleToCart} className={classnames({ [styles.iconBox]: true, [styles.shoppingCart]: true })} >
                     <Icon type="shopping-cart" />
                     <span className={styles.count}>{count}</span>
@@ -168,7 +155,7 @@ const Home = (props) => {
                   </div>
                 </div>
               </>) : (<div className={styles.userInfo}>
-                <DropDownMenu userAvatar={userAvatar} updateUserInfo={updateUserInfo} isadmin={userInfo.isadmin} />
+                <DropDownMenu userAvatar={userInfo.avatar} updateUserInfo={updateUserInfo} isadmin={userInfo.isadmin} />
               </div>)
             }
           </div>
@@ -192,9 +179,6 @@ const Home = (props) => {
         }
       </Modal>
       <div className={styles.main}>
-        {/* {
-          !selectIndex ? <Nav history={history} /> : ''
-        } */}
         <div className={styles.container}>{props.children}</div>
       </div>
     </div >

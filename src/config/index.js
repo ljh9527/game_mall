@@ -9,5 +9,5 @@ const requestUrlData = {
   development: 'http://localhost:9000',
 };
 
-
-export const requestUrl = requestUrlData[process.env.REACT_APP_ENV];
+export const requestUrl = requestUrlData.development;
+// export const requestUrl = requestUrlData[process.env.REACT_APP_ENV];

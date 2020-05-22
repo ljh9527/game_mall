@@ -4,15 +4,14 @@ import services from '../../../services';
 import { Form, Button } from 'antd';
 import Game from './components/MyGame';
 import Progress from './components/Progress';
-import Evaluation from './components/Evaluation';
+// import Evaluation from './components/Evaluation';
 import { Title } from '../../../components';
 import style from './index.module.scss';
+import { requestErrorHandler } from '../../../utils';
 
-// const imgUrl = 'http://www.gravatar.com/avatar/5de1db3c896e5fdd7833c2c5d255783a?s=46&d=identicon';
 const Details = (props) => {
   const { userInfo, getUserInfo, history, myBuyGameList, myDowloadGameList, getMyGameList } = props;
   const email = localStorage.getItem("EMAIL");
-  const [activeIndex, setActiveIndex] = useState(false);
   const [avatar, setAvater] = useState();
   // const [gameList, setGameList] = useState();
 
@@ -29,16 +28,8 @@ const Details = (props) => {
   const handleEdit = () => {
     history.push('/myGame/edit');
   };
-  // const handleEvaluation = () => {
-  //   setActiveIndex(!activeIndex);
-  // };
-  // const handleBack = () => {
-  //   setActiveIndex(!activeIndex);
-  // };
+
   const onstart = async (id) => {
-    // let time = new Date().getTime();
-    console.log(id);
-    // console.log(time);
     const params = {
       email: email,
       gameid: id,
@@ -46,12 +37,12 @@ const Details = (props) => {
     }
     try {
       // 发送请求
-      const { data } = await services.updateOpenTime(params);
-      if (data.code === 200) {
-        getMyGameList({ email });
-      }
+      await services.updateOpenTime(params);
+      // if (data.code === 200) {
+      //   getMyGameList({ email });
+      // }
     } catch (error) {
-      console.log(error);
+      requestErrorHandler(error);
     }
   }
   const updateStatus = async (id) => {
@@ -68,7 +59,7 @@ const Details = (props) => {
         getMyGameList({ email, status: 1 });
       }
     } catch (error) {
-      console.log(error);
+      requestErrorHandler(error);
     }
   }
   return (
@@ -88,39 +79,33 @@ const Details = (props) => {
           </div>
           <div className={style.buttonBox}>
             <Button type="ghost" shape='round' size='small' onClick={handleEdit}>编辑资料</Button>
-            {/* {
-              !activeIndex ? (<Button type="ghost" shape='round' size='small' onClick={handleEvaluation}>查看评测</Button>) 
-              : (<Button type="ghost" shape='round' size='small' onClick={handleBack} en>返回主页</Button>)
-            } */}
           </div>
         </div>
       </div>
       <div className={style.content}>
-        {
-          !activeIndex ? (<div className={style.con}>
-            <div className={style.gameBox}>
-              <Title data="我的下载"/>
-              <div className={style.game}>
-                {
-                  myDowloadGameList && myDowloadGameList.map((item, index) => (
-                    <Game data={item} key={item + index} onstart={onstart} history={history} status={1}/>
-                  ))
-                }
-              </div>
-              <Title data="我的购买"/>
-              <div className={style.game}>
-                {
-                  myBuyGameList && myBuyGameList.map((item, index) => (
-                    <Game data={item} key={item + index} onstart={onstart} history={history} status={0} updateStatus={(id)=>updateStatus(id)}/>
-                  ))
-                }
-              </div>
+        <div className={style.con}>
+          <div className={style.gameBox}>
+            <Title data="我的下载" />
+            <div className={style.game}>
+              {
+                myDowloadGameList && myDowloadGameList.map((item, index) => (
+                  <Game data={item} key={item + index} onstart={onstart} history={history} status={1} />
+                ))
+              }
             </div>
-            <div className={style.progress}>
-              <Progress userInfo={userInfo} />
+            <Title data="我的购买" />
+            <div className={style.game}>
+              {
+                myBuyGameList && myBuyGameList.map((item, index) => (
+                  <Game data={item} key={item + index} onstart={onstart} history={history} status={0} updateStatus={(id) => updateStatus(id)} />
+                ))
+              }
             </div>
-          </div>) : (<Evaluation />)
-        }
+          </div>
+          <div className={style.progress}>
+            <Progress userInfo={userInfo} />
+          </div>
+        </div>
       </div>
     </div>
   );

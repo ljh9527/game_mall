@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import classnames from 'classnames';
+// import classnames from 'classnames';
 import { connect } from 'react-redux';
 import services from '../../../services';
 import moment from 'moment';
@@ -16,13 +16,14 @@ const Introduce = (props) => {
     comment = [],
     getGameComment = () => { },
     download = () => { },
-    getCartList=()=>{}
+    getCartList = () => { }
   } = props;
 
   const id = gameInfo && gameInfo[0].id;
   const email = localStorage.getItem("EMAIL");
   const [isHasGame, setIsHasGame] = useState(false);
   console.log(gameInfo);
+  // console.log(id);
   useEffect(() => {
     getGameComment(id);
     havaUserGame(id);
@@ -33,8 +34,8 @@ const Introduce = (props) => {
     history.push(`/game/order?id=${id}`);
   }
 
-  const handleDownload = (name,id) => {
-    download(name,id);
+  const handleDownload = (name, url, id) => {
+    download(name, url, id);
   }
   useEffect(() => {
     new Swiper('.gallery-top', {
@@ -78,7 +79,7 @@ const Introduce = (props) => {
       // 发送请求
       const { data } = await services.addGameCart({ email, gameid: id.toString() });
       if (data.code === 200) {
-        getCartList({email});
+        getCartList({ email });
         message.success(data.message);
       } else {
         message.error(data.message);
@@ -200,7 +201,7 @@ const Introduce = (props) => {
                             <Icon type="shopping-cart" />
                           </Button>
                         </div>) : (<div className={style.dowlod}>
-                          <Button onClick={() => handleDownload(gameInfo[0].gameName,id)}>立即下载</Button>
+                          <Button onClick={() => handleDownload(gameInfo[0].gameName, gameInfo[0].download, id)}>立即下载</Button>
                         </div>)
                       }
                     </>
@@ -221,7 +222,7 @@ const mapStateToProps = ({ comment }) => {
   };
 };
 
-const mapDispathToProps = ({ comment,cart }) => {
+const mapDispathToProps = ({ comment, cart }) => {
   return {
     getGameComment: comment.getGameComment,
     getCartList: cart.getCartList

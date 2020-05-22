@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
+const url = require('url');
 // const os = require('os');
 console.log('path', path);
 const exec = require('child_process').execFile;
@@ -28,20 +29,18 @@ function createWindow() {
             nodeIntegration: true, // 是否集成 Nodejs,把之前预加载的js去了，发现也可以运行
         }
     };
-    // const urlLocation = isDev ? 'http://localhost:3456/' : 'dummyurl';
     mainWindow = new BrowserWindow(windowOptions);
-    // mainWindow.loadURL(urlLocation.format({
-    //     pathname: path.join(__dirname, './build/index.html'),
-    //     protocol: 'file:',
-    //     slashes: true
-    // }))
+
     if (isDev) {
         const urlLocation = 'http://localhost:3456/';
         mainWindow.loadURL(urlLocation);
-    } else { 
-        mainWindow.loadURL(`file://${__dirname}/build/index.html`);
+    } else {
+        mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, './build/index.html'),
+            protocol: 'file:',
+            slashes: true
+        }))
     };
-    // mainWindow.loadURL(path.join('file://', __dirname, '/build/index.html'));
     //接收渲染进程的信息
     const ipc = require('electron').ipcMain;
     //接收最大化命令
