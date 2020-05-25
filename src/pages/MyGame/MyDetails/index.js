@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import md5 from 'md5';
 import { requestUrl } from '../../../config';
 import service from '../../../services';
-import { Form, Icon, Input, Upload, Button, message } from 'antd';
+import { Form, Icon, Input, Upload, Button, message, Modal } from 'antd';
 import style from './index.module.scss';
 import { requestErrorHandler } from '../../../utils';
+// import ResetPassword from '../../ResetPassword';
 const { remote } = window.electron;
 const { BrowserWindow } = remote;
 
 // const imgUrl = 'http://www.gravatar.com/avatar/5de1db3c896e5fdd7833c2c5d255783a?s=46&d=identicon';
 const Details = (props) => {
-  const { userInfo, getUserInfo, form } = props;
-  const { getFieldDecorator, getFieldsValue, resetFields } = form;
+  const { userInfo, getUserInfo, form, history } = props;
+  const { getFieldDecorator, getFieldsValue, resetFields, getFieldValue,validateFields } = form;
   const [avatar, setAvater] = useState();
+  const [visible, setVisible] = useState(false);
+  const [pwdCheckStatus, setPwdCheckStatus] = useState(""); // 验证状态
   const { Item } = Form;
+  const email = localStorage.getItem("EMAIL");
 
   useEffect(() => {
-    const email = localStorage.getItem("EMAIL");
     getUserInfo({ email });
     setAvater(userInfo.avatar);
   }, []);
@@ -24,19 +28,64 @@ const Details = (props) => {
     setAvater(userInfo.avatar);
   }, [userInfo]);
   const handleChangePassword = () => {
-    let win = new BrowserWindow({
-      width: 430,
-      height: 600,
-      frame: false,
-      movable: true,//可否移动
-      webPreferences: {
-        nodeIntegration: true, // 是否集成 Nodejs,把之前预加载的js去了，发现也可以运行
-      }
-    })
-    win.on('closed', () => {
-      win = null
-    })
-    win.loadURL('http://localhost:3456/resetPassword');
+    setVisible(true);
+    // let win = new BrowserWindow({
+    //   width: 430,
+    //   height: 600,
+    //   frame: false,
+    //   movable: true,//可否移动
+    //   webPreferences: {
+    //     nodeIntegration: true, // 是否集成 Nodejs,把之前预加载的js去了，发现也可以运行
+    //   }
+    // })
+    // win.on('closed', () => {
+    //   win = null
+    // })
+    // win.loadURL('http://localhost:3456/resetPassword');
+  };
+  const cancelResetPassword = () => {
+    setVisible(false);
+  };
+  // 密码确认
+  const pwdCheck = (rule, value, callback) => {
+    const password = getFieldValue('password');
+    if (typeof (password) != 'undefined' && password === value) {
+      setPwdCheckStatus("success");
+      callback();
+    } else if (typeof (value) === 'undefined') {
+      setPwdCheckStatus("error");
+      callback();
+    } else {
+      setPwdCheckStatus("error");
+      callback('两次密码输入不一致！');
+    }
+  };
+  const handleResetSub = () => {
+    validateFields((err, values) => {
+      handleResetPassword(values);
+    });
+  };
+  // 提交重置密码表单
+  const handleResetPassword = async (values) => {
+    values.password = md5(values.password);
+    const params = {
+      email: email,
+      password: values.password,
+    }
+    console.log(params);
+    try {
+      const { data } = await service.resetPassword(params);
+      if (data.code === 200) {
+        setVisible(false);
+        message.success('密码修改成功');
+      } else {
+        Modal.error({
+          content: '重置密码失败！',
+        });
+      };
+    } catch (error) {
+      console.log(error);
+    }
   };
   const beforeUpload = (file) => {
     if (file.size / 1024 / 1024 > 10) {
@@ -67,7 +116,7 @@ const Details = (props) => {
     const params = {
       nickname: value.nickname,
       introduction: value.introduction,
-      email: localStorage.getItem("EMAIL"),
+      email: email,
       avater: avatar
     }
     try {
@@ -80,7 +129,7 @@ const Details = (props) => {
     } catch (error) {
       requestErrorHandler(error);
     }
-    getUserInfo({ email: localStorage.getItem("EMAIL") });
+    getUserInfo({ email: email });
   };
   return (
     <div className={style.wrap}>
@@ -91,7 +140,7 @@ const Details = (props) => {
             name="file"
             listType="picture-card"
             showUploadList={false}
-            onPreview={(file)=>beforeUpload(file)}
+            onPreview={(file) => beforeUpload(file)}
             onChange={(file) => handleChangeAvatar(file)}
           >
             <>
@@ -136,6 +185,47 @@ const Details = (props) => {
           </Form>
         </div>
       </div>
+      <Modal
+        title="密码修改"
+        visible={visible}
+        footer={null}
+        // onOk={handleOk}
+        onCancel={cancelResetPassword}
+      >
+        <Form.Item label="密码">
+          {getFieldDecorator('password', {
+            validateTrigger: 'onBlur',
+            rules: [
+              { required: true, message: '请输入密码!' },
+              { min: 6, message: '密码至少六位!' },
+            ],
+          })(
+            <Input
+              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              type="password"
+              placeholder="请输入密码"
+              size="large"
+            />,
+          )}
+        </Form.Item>
+        <Form.Item label="密码确认" hasFeedback validateStatus={pwdCheckStatus}>
+          {getFieldDecorator('confirm', {
+            validateTrigger: 'onBlur',
+            rules: [
+              { required: true, message: '请再次输入密码!' },
+              { validator: pwdCheck },
+            ],
+          })(
+            <Input
+              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              type="password"
+              placeholder="请再次输入密码"
+              size="large"
+            />,
+          )}
+        </Form.Item>
+        <Button className={style.resetButton} size="large" type="primary" onClick={handleResetSub}>提交</Button>
+      </Modal>
     </div>
   );
 };

@@ -3,8 +3,11 @@ const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
 // const os = require('os');
-console.log('path', path);
 const exec = require('child_process').execFile;
+
+// const httpServer = require('http-server');
+
+// httpServer.createServer({root: './resources/app'}).listen(3456);
 
 let mainWindow = null;
 //判断命令行脚本的第二参数是否含--debug
@@ -35,6 +38,8 @@ function createWindow() {
         const urlLocation = 'http://localhost:3456/';
         mainWindow.loadURL(urlLocation);
     } else {
+        // require('child_process').execSync('node ./server.js');
+        // mainWindow.loadURL("http://localhost:8080/");
         mainWindow.loadURL(url.format({
             pathname: path.join(__dirname, './build/index.html'),
             protocol: 'file:',

@@ -4,8 +4,8 @@
 
 import React from 'react';
 // import { connect } from 'react-redux';
-import { Router, Route, Switch } from 'react-router-dom';
-// import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+// import { Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import history from '../utils/history';
 
 import { AsyncComponent, Header } from '../components';

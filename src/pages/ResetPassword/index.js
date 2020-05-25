@@ -10,6 +10,7 @@ const ResetForm = (props) => {
   const {
     form,
     history,
+    show = true
   } = props;
   const { getFieldDecorator, validateFields, resetFields, getFieldsValue, getFieldValue } = form;
   const [isSendCode, setIsSendCode] = useState(false); // 是否成功发送验证码
@@ -44,7 +45,7 @@ const ResetForm = (props) => {
     });
   };
   const checkCode = async (rule, value, callback) => {
-    if(!isSendCode){
+    if (!isSendCode) {
       callback('请获取验证码！');
       return;
     }
@@ -84,7 +85,7 @@ const ResetForm = (props) => {
   const isHasUser = async (rule, value, callback) => {
     try {
       const { data } = await service.isHasUser({ email: value });
-      if(data.code === 200){
+      if (data.code === 200) {
         callback('该邮箱未注册！')
       }
       callback()
@@ -92,8 +93,8 @@ const ResetForm = (props) => {
       console.log(error);
     }
   }
-   // 提交重置密码表单
-   const handleResetPassword = async (values) => {
+  // 提交重置密码表单
+  const handleResetPassword = async (values) => {
     console.log(userEmail);
     values.password = md5(values.password);
     const params = {
@@ -105,7 +106,7 @@ const ResetForm = (props) => {
       const { data } = await service.resetPassword(params);
       if (data.code === 200) {
         countDown();
-      } else{
+      } else {
         Modal.error({
           content: '重置密码失败！',
         });
@@ -149,16 +150,16 @@ const ResetForm = (props) => {
       handleGoLogin();
     }, secondsToGo * 1000);
   }
-
+console.log(show);
   return (
-    <LoginHeader history={history}>
+    <LoginHeader history={history} show={show}>
       <div className={style.contentWrap}>
         <div className={style.loginTitle}>
           <div>更改密码</div>
         </div>
         <div className={style.loginBox}>
           <Form className={style.loginForm}>
-          {
+            {
               step === 0 ? (
                 <>
                   <Form.Item>
