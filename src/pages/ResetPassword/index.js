@@ -10,7 +10,6 @@ const ResetForm = (props) => {
   const {
     form,
     history,
-    show = true
   } = props;
   const { getFieldDecorator, validateFields, resetFields, getFieldsValue, getFieldValue } = form;
   const [isSendCode, setIsSendCode] = useState(false); // 是否成功发送验证码
@@ -150,9 +149,9 @@ const ResetForm = (props) => {
       handleGoLogin();
     }, secondsToGo * 1000);
   }
-console.log(show);
+
   return (
-    <LoginHeader history={history} show={show}>
+    <LoginHeader history={history}>
       <div className={style.contentWrap}>
         <div className={style.loginTitle}>
           <div>更改密码</div>

@@ -6,14 +6,12 @@ import service from '../../../services';
 import { Form, Icon, Input, Upload, Button, message, Modal } from 'antd';
 import style from './index.module.scss';
 import { requestErrorHandler } from '../../../utils';
-// import ResetPassword from '../../ResetPassword';
-const { remote } = window.electron;
-const { BrowserWindow } = remote;
+// const { remote } = window.electron;
+// const { BrowserWindow } = remote;
 
-// const imgUrl = 'http://www.gravatar.com/avatar/5de1db3c896e5fdd7833c2c5d255783a?s=46&d=identicon';
 const Details = (props) => {
-  const { userInfo, getUserInfo, form, history } = props;
-  const { getFieldDecorator, getFieldsValue, resetFields, getFieldValue,validateFields } = form;
+  const { userInfo, getUserInfo, form } = props;
+  const { getFieldDecorator, getFieldsValue, resetFields, getFieldValue, validateFields } = form;
   const [avatar, setAvater] = useState();
   const [visible, setVisible] = useState(false);
   const [pwdCheckStatus, setPwdCheckStatus] = useState(""); // 验证状态
@@ -188,7 +186,7 @@ const Details = (props) => {
       <Modal
         title="密码修改"
         visible={visible}
-        footer={null}
+        footer={<Button className={style.resetButton} size="large" type="primary" onClick={handleResetSub}>提交</Button>}
         // onOk={handleOk}
         onCancel={cancelResetPassword}
       >
@@ -224,7 +222,6 @@ const Details = (props) => {
             />,
           )}
         </Form.Item>
-        <Button className={style.resetButton} size="large" type="primary" onClick={handleResetSub}>提交</Button>
       </Modal>
     </div>
   );

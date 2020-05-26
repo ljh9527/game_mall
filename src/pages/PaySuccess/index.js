@@ -37,7 +37,7 @@ const PaySuccess = (props) => {
     // 发送请求
     try {
       // 发送请求
-      const { data } = await services.addMyGame({ gameid: id, email, status: (0).toString() });
+      const { data } = await services.addMyGame({ gameid: id, email, status: (0).toString(), address: "E:\\Microsoft VS Code\\Code.exe" });
       if (data.code === 200) {
         deleteCart(id);
       } else {

@@ -5,7 +5,7 @@ import styles from './index.module.scss';
 const { ipcRenderer } = window.electron;
 
 const LoginHeader = (props) => {
-  const { history, isLoginPage, show } = props;
+  const { history, isLoginPage } = props;
   const handleBackLogin = () => {
     history.push('/');
   }
@@ -17,31 +17,29 @@ const LoginHeader = (props) => {
   };
   return (
     <div className={styles.wrap}>
-      {
-        show && (<div className={styles.loginHeaderBox}>
-          <div className={styles.top}>
-            <div className={styles.topRight}>
-              <div className={styles.minus} onClick={minWindow}>
-                <Icon type="minus"/>
-              </div>
-              <div className={styles.close} onClick={closeWindow}>
-                <Icon type="close"/>
-              </div>
+      <div className={styles.loginHeaderBox}>
+        <div className={styles.top}>
+          <div className={styles.topRight}>
+            <div className={styles.minus} onClick={minWindow}>
+              <Icon type="minus" />
+            </div>
+            <div className={styles.close} onClick={closeWindow}>
+              <Icon type="close" />
             </div>
           </div>
-          <div className={styles.backWarper}>
-            {
-              isLoginPage ? (<></>) : (
-                <div className={styles.back} onClick={handleBackLogin}>
-                  <Icon type="left" />
-                </div>)
-            }
-            <span className={styles.title}>
-              FunGame
+        </div>
+        <div className={styles.backWarper}>
+          {
+            isLoginPage ? (<></>) : (
+              <div className={styles.back} onClick={handleBackLogin}>
+                <Icon type="left" />
+              </div>)
+          }
+          <span className={styles.title}>
+            FunGame
             </span>
-          </div>
-        </div>)
-      }
+        </div>
+      </div>
       <div>
         {props.children}
       </div>
