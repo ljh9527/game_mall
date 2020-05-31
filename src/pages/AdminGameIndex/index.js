@@ -4,6 +4,7 @@ import services from '../../services';
 import { Form, message, Input, Select, Button } from 'antd';
 import { AdminLayout, Title } from '../../components';
 import style from './index.module.scss';
+import { requestErrorHandler } from '../../utils';
 
 const { Option } = Select;
 
@@ -46,7 +47,7 @@ const AdminGameIndex = (props) => {
         // handleReset();
       }
     } catch (error) {
-      console.log(error);
+      requestErrorHandler(error);
     }
   };
   const getAllGame = async () => {
@@ -56,7 +57,7 @@ const AdminGameIndex = (props) => {
         setAllGame(data.data);
       }
     } catch (error) {
-      console.log(error);
+      requestErrorHandler(error);
     }
   }
   const getGameList = async (param) => {
@@ -74,7 +75,7 @@ const AdminGameIndex = (props) => {
         }
       }
     } catch (error) {
-      console.log(error);
+      requestErrorHandler(error);
     }
   };
   const handleReset = () => {
@@ -118,10 +119,12 @@ const AdminGameIndex = (props) => {
       // 发送请求
       const { data } = await services.updateGameIndex(params);
       if (data.code === 200) {
-        console.log("成功");
+        message.success("修改成功");
+      } else {
+        message.error("修改失败");
       }
     } catch (error) {
-      console.log(error);
+      requestErrorHandler(error);
     }
   }
 

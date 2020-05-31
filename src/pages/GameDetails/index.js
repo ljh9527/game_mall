@@ -79,7 +79,7 @@ const Details = (props) => {
       gameid: (id).toString(),
       email: email,
       status: '1',
-      address: "E:\\Microsoft VS Code\\Code.exe",
+      address: "F:\\vscode\\Microsoft VS Code\\Code.exe",
     };
     // 发送请求
     try {

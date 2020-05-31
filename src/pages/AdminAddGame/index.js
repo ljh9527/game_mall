@@ -252,6 +252,12 @@ const AdminAddGame = (props) => {
                 initialValue: defaultData.issueddate ? moment(defaultData.issueddate, 'YYYY/MM/DD') : null
               })(<DatePicker />)}
             </Form.Item>
+            <Form.Item label="下载地址">
+              {getFieldDecorator('download', {
+                rules: [{ required: true, message: '请输入游戏下载地址!' }],
+                initialValue: defaultData.download
+              })(<Input placeholder="请输入游戏下载地址" allowClear />)}
+            </Form.Item>
             <Form.Item label="游戏介绍" style={{ width: "415px" }}>
               {getFieldDecorator('game_introduction', {
                 rules: [],
