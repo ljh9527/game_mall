@@ -54,7 +54,7 @@
   "devDependencies": {
     "concurrently": "^5.0.2",
     "cross-env": "^6.0.3",
-    "electron": "6.1.8",
+    "electron": "11.5.0",
     "electron-packager": "^14.2.1",
     "node-sass": "^4.13.0",
     "react-router-dom": "^5.1.2",
